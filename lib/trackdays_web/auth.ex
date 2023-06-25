@@ -7,7 +7,8 @@ defmodule TrackdaysWeb.Auth do
 
   def log_in_to_admin(conn, user) do
     if user.is_admin do
-      token = Phoenix.Token.sign(TrackdaysWeb.Endpoint, "salt", user.id)
+      key = Application.fetch_env!(:trackdays, :token_secret_key)
+      token = Phoenix.Token.sign(TrackdaysWeb.Endpoint, key, user.id)
 
       conn
       |> put_token_in_session(token)
@@ -36,7 +37,7 @@ defmodule TrackdaysWeb.Auth do
     else
       socket =
         socket
-        |> Phoenix.LiveView.put_flash(:error, "Admin only contents")
+        |> Phoenix.LiveView.put_flash(:error, "Admin only contents!")
         |> Phoenix.LiveView.redirect(to: ~p"/")
 
       {:halt, socket}
@@ -51,8 +52,9 @@ defmodule TrackdaysWeb.Auth do
 
   def fetch_current_user(conn, _opts) do
     {user_token, conn} = ensure_user_token(conn)
+    key = Application.fetch_env!(:trackdays, :token_secret_key)
 
-    case Phoenix.Token.verify(TrackdaysWeb.Endpoint, "salt", user_token) do
+    case Phoenix.Token.verify(TrackdaysWeb.Endpoint, key, user_token) do
       {:ok, id} ->
         assign(conn, :current_user, Accounts.get_user_by_id(id))
 
@@ -71,11 +73,14 @@ defmodule TrackdaysWeb.Auth do
 
   defp mount_current_user(session, socket) do
     Phoenix.Component.assign_new(socket, :current_user, fn ->
-      case Phoenix.Token.verify(TrackdaysWeb.Endpoint, "salt", session["user_token"]) do
+      key = Application.fetch_env!(:trackdays, :token_secret_key)
+
+      case Phoenix.Token.verify(TrackdaysWeb.Endpoint, key, session["user_token"]) do
         {:ok, id} ->
           Accounts.get_user_by_id(id)
 
         _ ->
+          IO.puts("run")
           nil
       end
     end)

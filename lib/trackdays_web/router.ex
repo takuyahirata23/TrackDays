@@ -63,14 +63,4 @@ defmodule TrackdaysWeb.Router do
       live "/dashboard", Admin.DashboardLive
     end
   end
-
-  # live_session :admin,
-  # layout: {TrackersWeb.Layouts, :admin},
-  # on_mount: [
-  #   {TrackersWeb.UserAuth, :ensure_authenticated},
-  #   {TrackersWeb.UserAuth, :ensure_admin}
-  # ] do
-  # live "/admin/motorcycles", Admin.MotorcyclesLive
-  # live "/admin/tracks", Admin.TracksLive
-  # end
 end
