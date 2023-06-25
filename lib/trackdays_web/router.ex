@@ -57,6 +57,7 @@ defmodule TrackdaysWeb.Router do
     pipe_through [:browser, :require_admin_user]
 
     live_session :admin,
+      layout: {TrackdaysWeb.Layouts, :admin},
       on_mount: [
         {TrackdaysWeb.Auth, :ensure_admin}
       ] do
