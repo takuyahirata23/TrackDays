@@ -1,6 +1,8 @@
 defmodule TrackdaysWeb.Router do
   use TrackdaysWeb, :router
 
+  import TrackdaysWeb.Auth
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -8,6 +10,7 @@ defmodule TrackdaysWeb.Router do
     plug :put_root_layout, html: {TrackdaysWeb.Layouts, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug :fetch_current_user
   end
 
   pipeline :api do
@@ -43,8 +46,31 @@ defmodule TrackdaysWeb.Router do
   end
 
   scope "/admin", TrackdaysWeb do
-    pipe_through :browser
+    pipe_through [:browser]
 
-    live "/", Admin.DashboardLive
+    live "/log_in", Admin.LoginLive
+
+    post "/log_in", AdminSessionController, :create
   end
+
+  scope "/admin", TrackdaysWeb do
+    pipe_through [:browser, :require_admin_user]
+
+    live_session :admin,
+      on_mount: [
+        {TrackdaysWeb.Auth, :ensure_admin}
+      ] do
+      live "/dashboard", Admin.DashboardLive
+    end
+  end
+
+  # live_session :admin,
+  # layout: {TrackersWeb.Layouts, :admin},
+  # on_mount: [
+  #   {TrackersWeb.UserAuth, :ensure_authenticated},
+  #   {TrackersWeb.UserAuth, :ensure_admin}
+  # ] do
+  # live "/admin/motorcycles", Admin.MotorcyclesLive
+  # live "/admin/tracks", Admin.TracksLive
+  # end
 end
