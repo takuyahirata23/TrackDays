@@ -10,11 +10,16 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: "#FFFFFF",
-        secondary: "#AAABBB",
-        tertiary: "#2E9CCA",
-        "bg-primary": "#25274D",
-        "bg-secondary": "#464866",
+        primary: "#ffffff",
+        secondary: "#94a3b8",
+        tertiary: "#deff26",
+        "bg-primary": "#0f172a",
+        "bg-secondary": "#1e293b",
+        "btn-primary": "#0ea5e9",
+        "btn-secondary": "#334155",
+      },
+      fontFamily: {
+        body: ["Inter", "sans-serif"],
       },
     },
   },
