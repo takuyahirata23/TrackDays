@@ -23,7 +23,10 @@ defmodule TrackdaysWeb.Headers do
           id="mobile-navigation"
           class="z-20 fixed bg-bg-secondary h-screen right-0  drop-shadow-md hidden w-2/3 p-8"
         >
-          <ul>
+          <ul class="flex flex-col gap-y-4">
+            <li>
+              <.link navigate={~p"/admin/dashboard"}>Dashbaord</.link>
+            </li>
             <li>
               <.link navigate={~p"/admin/log_in"}>Log in</.link>
             </li>

@@ -48,7 +48,10 @@ defmodule TrackdaysWeb.Router do
   scope "/admin", TrackdaysWeb do
     pipe_through [:browser]
 
-    live "/log_in", Admin.LoginLive
+    live_session :unauthorized_admin,
+      layout: {TrackdaysWeb.Layouts, :admin} do
+      live "/log_in", Admin.LoginLive
+    end
 
     post "/log_in", AdminSessionController, :create
   end
