@@ -4,6 +4,9 @@ defmodule Trackdays.Accounts.User do
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
 
+  # These fields are allowed to send it back to client as json
+  @derive {Jason.Encoder, only: [:id, :email, :name, :inserted_at, :updated_at]}
+
   schema "users" do
     field :name, :string
     field :email, :string

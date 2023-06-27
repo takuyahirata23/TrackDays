@@ -5,10 +5,14 @@ defmodule TrackdaysWeb.Auth do
   import Plug.Conn
   import Phoenix.Controller
 
+  def generate_token(id) when is_binary(id) do
+    key = Application.fetch_env!(:trackdays, :token_secret_key)
+    Phoenix.Token.sign(TrackdaysWeb.Endpoint, key, id)
+  end
+
   def log_in_to_admin(conn, user) do
     if user.is_admin do
-      key = Application.fetch_env!(:trackdays, :token_secret_key)
-      token = Phoenix.Token.sign(TrackdaysWeb.Endpoint, key, user.id)
+      token = generate_token(user.id)
 
       conn
       |> put_token_in_session(token)
