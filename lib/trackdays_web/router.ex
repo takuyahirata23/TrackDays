@@ -17,6 +17,10 @@ defmodule TrackdaysWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :set_user_id do
+    plug TrackdaysWeb.Plugs.SetUserId
+  end
+
   scope "/", TrackdaysWeb do
     pipe_through :browser
 
@@ -43,6 +47,11 @@ defmodule TrackdaysWeb.Router do
       live_dashboard "/dashboard", metrics: TrackdaysWeb.Telemetry
       forward "/mailbox", Plug.Swoosh.MailboxPreview
     end
+  end
+
+  scope "/" do
+    pipe_through [:api, :set_user_id]
+    forward "/graphiql", Absinthe.Plug.GraphiQL, schema: TrackdaysWeb.Schema.Schema
   end
 
   scope "/auth", TrackdaysWeb do

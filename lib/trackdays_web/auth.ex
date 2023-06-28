@@ -10,6 +10,11 @@ defmodule TrackdaysWeb.Auth do
     Phoenix.Token.sign(TrackdaysWeb.Endpoint, key, id)
   end
 
+  def verify_token(token) do
+    key = Application.fetch_env!(:trackdays, :token_secret_key)
+    Phoenix.Token.verify(TrackdaysWeb.Endpoint, key, token)
+  end
+
   def log_in_to_admin(conn, user) do
     if user.is_admin do
       token = generate_token(user.id)
@@ -56,9 +61,8 @@ defmodule TrackdaysWeb.Auth do
 
   def fetch_current_user(conn, _opts) do
     {user_token, conn} = ensure_user_token(conn)
-    key = Application.fetch_env!(:trackdays, :token_secret_key)
 
-    case Phoenix.Token.verify(TrackdaysWeb.Endpoint, key, user_token) do
+    case verify_token(user_token) do
       {:ok, id} ->
         assign(conn, :current_user, Accounts.get_user_by_id(id))
 
