@@ -9,3 +9,11 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
+#
+alias Trackdays.Accounts
+
+Trackdays.Accounts.register_user(%{
+  "name" => "Takuya H",
+  "password" => "Pass1234!",
+  "email" => "admin@test.com"
+})

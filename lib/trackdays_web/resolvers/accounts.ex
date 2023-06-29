@@ -1,7 +1,7 @@
 defmodule TrackdaysWeb.Resolvers.Accounts do
-  alias Trackdays.Accounts
+  # alias Trackdays.Accounts
 
-  def get_user(_, _, %{context: %{user_id: user_id}}) do
-    {:ok, Accounts.get_user_by_id(user_id)}
+  def get_user(_, _, %{context: %{current_user: current_user}}) do
+    {:ok, current_user}
   end
 end

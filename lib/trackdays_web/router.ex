@@ -17,8 +17,12 @@ defmodule TrackdaysWeb.Router do
     plug :accepts, ["json"]
   end
 
-  pipeline :set_user_id do
-    plug TrackdaysWeb.Plugs.SetUserId
+  pipeline :set_user do
+    plug TrackdaysWeb.Plugs.SetUser
+  end
+
+  pipeline :require_user do
+    plug TrackdaysWeb.Plugs.RequireUser
   end
 
   scope "/", TrackdaysWeb do
@@ -49,9 +53,11 @@ defmodule TrackdaysWeb.Router do
     end
   end
 
-  scope "/" do
-    pipe_through [:api, :set_user_id]
-    forward "/graphiql", Absinthe.Plug.GraphiQL, schema: TrackdaysWeb.Schema.Schema
+  if Mix.env() in [:dev] do
+    scope "/" do
+      pipe_through [:api, :set_user]
+      forward "/graphiql", Absinthe.Plug.GraphiQL, schema: TrackdaysWeb.Schema.Schema
+    end
   end
 
   scope "/auth", TrackdaysWeb do

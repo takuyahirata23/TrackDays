@@ -4,6 +4,7 @@ defmodule Trackdays.Accounts do
   alias Trackdays.Repo
 
   alias Trackdays.Accounts.User
+  alias TrackdaysWeb.Auth
 
   def register_user(attrs) do
     %User{}
@@ -13,6 +14,15 @@ defmodule Trackdays.Accounts do
 
   def get_user_by_id(id) when is_binary(id) do
     Repo.get_by(User, id: id)
+  end
+
+  def get_user_by_token(token) when is_binary(token) do
+    with {:ok, id} <- Auth.verify_token(token),
+         %User{} = user <- get_user_by_id(id) do
+      {:ok, user}
+    else
+      _ -> {:error, nil}
+    end
   end
 
   def get_user_by_email_and_password(email, password)

@@ -1,7 +1,7 @@
-defmodule TrackdaysWeb.Plugs.SetUserId do
+defmodule TrackdaysWeb.Plugs.SetUser do
   import Plug.Conn
 
-  alias TrackdaysWeb.Auth
+  alias Trackdays.Accounts
 
   def init(opts), do: opts
 
@@ -12,11 +12,11 @@ defmodule TrackdaysWeb.Plugs.SetUserId do
 
   defp build_context(conn) do
     with ["Bearer " <> token] <- get_req_header(conn, "authorization"),
-         {:ok, id} <- Auth.verify_token(token) do
-      %{user_id: id}
+         {:ok, user} <- Accounts.get_user_by_token(token) do
+      %{current_user: user}
     else
       _ ->
-        conn |> send_resp(401, "Please sign in") |> halt
+        %{current_user: nil}
     end
   end
 end
