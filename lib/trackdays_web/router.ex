@@ -60,6 +60,11 @@ defmodule TrackdaysWeb.Router do
     end
   end
 
+  scope "/" do
+    pipe_through [:api, :set_user, :require_user]
+    forward "/api/graphql", Absinthe.Plug, schema: TrackdaysWeb.Schema.Schema
+  end
+
   scope "/auth", TrackdaysWeb do
     pipe_through [:api]
 
