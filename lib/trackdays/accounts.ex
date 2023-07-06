@@ -21,7 +21,8 @@ defmodule Trackdays.Accounts do
          %User{} = user <- get_user_by_id(id) do
       {:ok, user}
     else
-      _ -> {:error, nil}
+      _ ->
+        {:error, nil}
     end
   end
 

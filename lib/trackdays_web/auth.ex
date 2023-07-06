@@ -12,7 +12,7 @@ defmodule TrackdaysWeb.Auth do
 
   def verify_token(token) do
     key = Application.fetch_env!(:trackdays, :token_secret_key)
-    Phoenix.Token.verify(TrackdaysWeb.Endpoint, key, token)
+    Phoenix.Token.verify(TrackdaysWeb.Endpoint, key, token, max_age: 86400 * 30)
   end
 
   def log_in_to_admin(conn, user) do
