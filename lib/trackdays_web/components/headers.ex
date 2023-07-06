@@ -28,6 +28,9 @@ defmodule TrackdaysWeb.Headers do
               <.link navigate={~p"/admin/dashboard"}>Dashbaord</.link>
             </li>
             <li>
+              <.link navigate={~p"/admin/motorcycles"}>Motorcycles</.link>
+            </li>
+            <li>
               <.link navigate={~p"/admin/log_in"}>Log in</.link>
             </li>
           </ul>
