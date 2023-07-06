@@ -4,7 +4,7 @@ defmodule TrackdaysWeb.Schema.AccountsTypes do
   alias TrackdaysWeb.Resolvers.Accounts
 
   object :user do
-    # field :id, non_null(:id)
+    field :id, non_null(:id)
     field :name, non_null(:string)
     field :email, non_null(:string)
   end
