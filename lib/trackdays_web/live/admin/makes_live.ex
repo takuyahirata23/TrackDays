@@ -1,4 +1,4 @@
-defmodule TrackdaysWeb.Admin.MakeLive do
+defmodule TrackdaysWeb.Admin.MakesLive do
   use TrackdaysWeb, :live_view
 
   alias Trackdays.Vehicle
@@ -22,9 +22,9 @@ defmodule TrackdaysWeb.Admin.MakeLive do
         <.card margin_bottom={false}>
           <ul class="flex flex-col gap-y-4">
             <li :for={make <- @makes}>
-              <span>
+              <.link navigate={~p"/admin/vehicle/makes/#{make.id}"}>
                 <%= make.name %>
-              </span>
+              </.link>
             </li>
           </ul>
         </.card>
@@ -49,6 +49,8 @@ defmodule TrackdaysWeb.Admin.MakeLive do
 
       {:ok, make} ->
         make_form = Make.changeset(%Make{}) |> to_form()
+
+        # TODO: use append to show new makes
         makes = List.insert_at(socket.assigns.makes, length(socket.assigns.makes), make)
 
         {:noreply,

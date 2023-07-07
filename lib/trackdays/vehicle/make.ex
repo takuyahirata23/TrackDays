@@ -2,11 +2,15 @@ defmodule Trackdays.Vehicle.Make do
   use Ecto.Schema
   import Ecto.Changeset
 
+  alias Trackdays.Vehicle.Model
+
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
 
   schema "makes" do
     field :name, :string
+
+    has_many :models, Model
 
     timestamps()
   end

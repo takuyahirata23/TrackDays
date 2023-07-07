@@ -91,7 +91,8 @@ defmodule TrackdaysWeb.Router do
         {TrackdaysWeb.Auth, :ensure_admin}
       ] do
       live "/dashboard", Admin.DashboardLive
-      live "/vehicle/makes", Admin.MakeLive
+      live "/vehicle/makes", Admin.MakesLive
+      live "/vehicle/makes/:id", Admin.MakeDetailLive
     end
   end
 end
