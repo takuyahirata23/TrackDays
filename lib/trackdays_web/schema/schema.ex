@@ -7,7 +7,7 @@ defmodule TrackdaysWeb.Schema.Schema do
   import_types(Schema.VehicleTypes)
 
   query do
-    import_fields(:user_queries)
+    import_fields(:accounts_queries)
     import_fields(:vehicle_queries)
   end
 end

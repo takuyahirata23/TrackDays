@@ -9,7 +9,7 @@ defmodule TrackdaysWeb.Schema.AccountsTypes do
     field :email, non_null(:string)
   end
 
-  object :user_queries do
+  object :accounts_queries do
     @desc "Get current user"
     field :user, non_null(:user) do
       resolve(&Accounts.get_user/3)
