@@ -20,6 +20,8 @@ defmodule TrackdaysWeb.Schema.VehicleTypes do
   object :motorcycle do
     field :id, non_null(:id)
     field :year, non_null(:integer)
+    field :make, non_null(:string)
+    field :model, non_null(:string)
   end
 
   input_object :register_motorcycle_input do
@@ -37,6 +39,11 @@ defmodule TrackdaysWeb.Schema.VehicleTypes do
     field :models, list_of(non_null(:model)) do
       arg(:make_id, non_null(:id))
       resolve(&Resolvers.Vehicle.get_models/3)
+    end
+
+    @desc "Get all motorcycles"
+    field :motorcycles, list_of(non_null(:motorcycle)) do
+      resolve(&Resolvers.Vehicle.get_motorcycles/3)
     end
   end
 

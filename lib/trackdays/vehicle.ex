@@ -38,4 +38,38 @@ defmodule Trackdays.Vehicle do
     |> Motorcycle.chagneset(attrs)
     |> Repo.insert()
   end
+
+  def get_motorcycle(motorcycle_id, user_id) when is_binary(user_id) do
+    Repo.one(
+      from motorcycle in Motorcycle,
+        where: motorcycle.user_id == ^user_id and motorcycle.id == ^motorcycle_id,
+        join: model in Model,
+        on: model.id == motorcycle.model_id,
+        join: make in Make,
+        on: make.id == model.make_id,
+        select: %{
+          id: motorcycle.id,
+          year: motorcycle.year,
+          model: model.name,
+          make: make.name
+        }
+    )
+  end
+
+  def get_motorcycles(user_id) when is_binary(user_id) do
+    Repo.all(
+      from motorcycle in Motorcycle,
+        where: motorcycle.user_id == ^user_id,
+        join: model in Model,
+        on: model.id == motorcycle.model_id,
+        join: make in Make,
+        on: make.id == model.make_id,
+        select: %{
+          id: motorcycle.id,
+          year: motorcycle.year,
+          model: model.name,
+          make: make.name
+        }
+    )
+  end
 end

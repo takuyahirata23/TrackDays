@@ -16,7 +16,7 @@ defmodule TrackdaysWeb.Resolvers.Vehicle do
 
     case Vehicle.register_motorcycle(attrs) do
       {:ok, motorcycle} ->
-        {:ok, motorcycle}
+        {:ok, Vehicle.get_motorcycle(motorcycle.id, current_user.id)}
 
       {:error, changeset} ->
         {:error,
@@ -27,5 +27,9 @@ defmodule TrackdaysWeb.Resolvers.Vehicle do
              &TrackdaysWeb.CoreComponents.translate_error/1
            )}
     end
+  end
+
+  def get_motorcycles(_, _, %{context: %{current_user: current_user}}) do
+    {:ok, Vehicle.get_motorcycles(current_user.id)}
   end
 end
