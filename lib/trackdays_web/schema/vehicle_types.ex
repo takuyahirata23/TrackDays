@@ -3,7 +3,7 @@ defmodule TrackdaysWeb.Schema.VehicleTypes do
 
   # import Absinthe.Resolution.Helpers, only: [dataloader: 1]
 
-  alias Trackdays.Vehicle
+  #alias Trackdays.Vehicle
   alias TrackdaysWeb.Resolvers
 
   object :make do

@@ -17,3 +17,34 @@ Trackdays.Accounts.register_user(%{
   "password" => "Pass1234!",
   "email" => "admin@test.com"
 })
+
+{:ok, yamaha} = Trackdays.Vehicle.save_make(%{"name" => "YAMAHA"})
+{:ok, honda} = Trackdays.Vehicle.save_make(%{"name" => "HONDA"})
+
+Trackdays.Vehicle.save_model(
+  %{
+    "name" => "YZF-R1"
+  },
+  yamaha
+)
+
+Trackdays.Vehicle.save_model(
+  %{
+    "name" => "YZF-R6"
+  },
+  yamaha
+)
+
+Trackdays.Vehicle.save_model(
+  %{
+    "name" => "YZF-R7"
+  },
+  yamaha
+)
+
+Trackdays.Vehicle.save_model(
+  %{
+    "name" => "CBR1000RR-R Fireblade SP"
+  },
+  honda
+)
