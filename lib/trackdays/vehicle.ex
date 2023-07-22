@@ -28,4 +28,8 @@ defmodule Trackdays.Vehicle do
     |> Ecto.Changeset.put_assoc(:make, make)
     |> Repo.insert()
   end
+
+  def get_models_by_make_id(make_id) when is_binary(make_id) do
+    Repo.all(from m in Model, where: m.make_id == ^make_id)
+  end
 end
