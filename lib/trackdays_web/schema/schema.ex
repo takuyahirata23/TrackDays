@@ -13,6 +13,10 @@ defmodule TrackdaysWeb.Schema.Schema do
     import_fields(:vehicle_queries)
   end
 
+  mutation do
+    import_fields(:vehicle_mutations)
+  end
+
   def context(ctx) do
     source = Dataloader.Ecto.new(Trackdays.Repo)
 

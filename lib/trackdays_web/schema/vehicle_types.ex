@@ -3,7 +3,7 @@ defmodule TrackdaysWeb.Schema.VehicleTypes do
 
   # import Absinthe.Resolution.Helpers, only: [dataloader: 1]
 
-  #alias Trackdays.Vehicle
+  # alias Trackdays.Vehicle
   alias TrackdaysWeb.Resolvers
 
   object :make do
@@ -17,6 +17,16 @@ defmodule TrackdaysWeb.Schema.VehicleTypes do
     field :name, non_null(:string)
   end
 
+  object :motorcycle do
+    field :id, non_null(:id)
+    field :year, non_null(:integer)
+  end
+
+  input_object :register_motorcycle_input do
+    field :model_id, non_null(:id)
+    field :year, non_null(:integer)
+  end
+
   object :vehicle_queries do
     @desc "Get makes"
     field :makes, list_of(non_null(:make)) do
@@ -27,6 +37,14 @@ defmodule TrackdaysWeb.Schema.VehicleTypes do
     field :models, list_of(non_null(:model)) do
       arg(:make_id, non_null(:id))
       resolve(&Resolvers.Vehicle.get_models/3)
+    end
+  end
+
+  object :vehicle_mutations do
+    @desc "Register motorcycle"
+    field :register_motorcycle, non_null(:motorcycle) do
+      arg(:register_motorcycle_input, non_null(:register_motorcycle_input))
+      resolve(&Resolvers.Vehicle.register_motorcycle/3)
     end
   end
 end

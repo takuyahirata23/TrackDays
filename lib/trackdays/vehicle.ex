@@ -2,7 +2,7 @@ defmodule Trackdays.Vehicle do
   import Ecto.Query, warn: false
 
   alias Trackdays.Repo
-  alias Trackdays.Vehicle.{Make, Model}
+  alias Trackdays.Vehicle.{Make, Model, Motorcycle}
 
   def save_make(attrs) do
     %Make{}
@@ -31,5 +31,11 @@ defmodule Trackdays.Vehicle do
 
   def get_models_by_make_id(make_id) when is_binary(make_id) do
     Repo.all(from m in Model, where: m.make_id == ^make_id)
+  end
+
+  def register_motorcycle(attrs) do
+    %Motorcycle{}
+    |> Motorcycle.chagneset(attrs)
+    |> Repo.insert()
   end
 end
