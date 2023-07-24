@@ -17,7 +17,7 @@ defmodule Trackdays.Vehicle.Motorcycle do
     |> cast(attrs, [:year, :model_id, :user_id])
     |> validate_required([:year, :model_id, :user_id])
     |> validate_number(:year,
-      greater_than: 1960,
+      greater_than: 1800,
       less_than_or_equal_to: DateTime.utc_now() |> Map.fetch!(:year)
     )
     |> unique_constraint([:user_id, :model_id, :year],
