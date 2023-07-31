@@ -13,4 +13,12 @@ defmodule Trackdays.Facility do
   def get_tracks do
     Repo.all(Track)
   end
+
+  def get_track(id) when is_binary(id) do
+    Repo.one(
+      from t in Track,
+        where: t.id == ^id,
+        preload: [:layouts]
+    )
+  end
 end

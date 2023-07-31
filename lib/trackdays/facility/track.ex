@@ -16,7 +16,7 @@ defmodule Trackdays.Facility.Track do
 
   def changeset(track, attrs \\ %{}) do
     track
-    |> cast(attrs, [:name])
+    |> cast(attrs, [:name, :description])
     |> validate_required([:name])
     |> validate_length(:name, min: 2, max: 50)
     |> validate_length(:description, min: 2, max: 200, message: "Descripton must be less than 200")

@@ -26,7 +26,9 @@ defmodule TrackdaysWeb.Admin.TracksLive do
         <.card margin_bottom={false}>
           <ul class="flex flex-col gap-y-4">
             <li :for={track <- @tracks}>
-              <%= track.name %>
+              <.link navigate={~p"/admin/facility/tracks/#{track.id}"}>
+                <%= track.name %>
+              </.link>
             </li>
           </ul>
         </.card>
