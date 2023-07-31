@@ -16,11 +16,10 @@ defmodule Trackdays.Facility.Layout do
 
   def changeset(layout, attrs \\ %{}) do
     layout
-    |> cast(attrs, [:name, :description, :lenght, :track_id])
-    |> validate_required([:name, :description])
+    |> cast(attrs, [:name, :length])
+    |> validate_required([:name])
     |> validate_length(:name, min: 2, max: 50)
-    |> validate_length(:description, max: 200)
     |> validate_number(:length, greater_than: 1)
-    |> unique_constraint([:name, :track_id])
+    |> unique_constraint([:track_id, :name], message: "Nope")
   end
 end

@@ -2,7 +2,7 @@ defmodule Trackdays.Facility do
   import Ecto.Query, warn: false
 
   alias Trackdays.Repo
-  alias Trackdays.Facility.Track
+  alias Trackdays.Facility.{Track, Layout}
 
   def save_track(attrs) do
     %Track{}
@@ -20,5 +20,12 @@ defmodule Trackdays.Facility do
         where: t.id == ^id,
         preload: [:layouts]
     )
+  end
+
+  def save_layout(attrs, track) do
+    %Layout{}
+    |> Layout.changeset(attrs)
+    |> Ecto.Changeset.put_assoc(:track, track)
+    |> Repo.insert()
   end
 end
