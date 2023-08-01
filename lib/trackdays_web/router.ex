@@ -93,6 +93,8 @@ defmodule TrackdaysWeb.Router do
       live "/dashboard", Admin.DashboardLive
       live "/vehicle/makes", Admin.MakesLive
       live "/vehicle/makes/:id", Admin.MakeDetailLive
+      live "/park/facilities", Admin.FacilitiesLive
+      live "/park/facilities/:id", Admin.FacilityDetailLive
     end
   end
 end

@@ -38,8 +38,6 @@ defmodule TrackdaysWeb.Admin.MakeDetailLive do
   def handle_event("add-model", %{"model" => attrs}, socket) do
     case Vehicle.save_model(attrs, socket.assigns.make) do
       {:error, %Ecto.Changeset{} = changeset} ->
-        IO.inspect(changeset)
-
         {:noreply,
          socket
          |> put_flash(:error, "Problem adding model")
