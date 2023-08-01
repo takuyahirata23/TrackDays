@@ -7,7 +7,7 @@ I recommend [`asdf`](https://asdf-vm.com/)
 
 To start your Phoenix server:
 
-- Create up `.envrc` with:
+- Create `.envrc` with:
   | name | value |
   |-----------------|--------------------------------|
   |TOKEN_SECRET_KEY | random string for token secret |
@@ -21,7 +21,7 @@ Now you can visit [`localhost:4000`](http://localhost:4000) from your browser or
 
 To run GraphQL queries and mutations:
 
-- Authenticate using REST API to fetch a token (all routes are in `router.ex`)
+- Authenticate using REST API endpoints to register and sign in (all routes are in `router.ex`)
 - Use the token in the header
 
 To visit the admin pages:
