@@ -1,18 +1,23 @@
 # Trackdays
 
+This is a web page for `Trackdays`, an app for administrators to manage data such, and a GraphQL server for `Trackdays` mobile application.
+
+To install Elixir and Erlang:
+I recommend [`asdf`](https://asdf-vm.com/)
+
 To start your Phoenix server:
 
-  * Run `mix setup` to install and setup dependencies
-  * Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
+- Run `docker compose -d` to create a container for PostgreSQL (only first time to run the app)
+- Run `mix setup` to install and setup dependencies
+- Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+To run GraphQL queries and mutations:
 
-## Learn more
+- Authenticate using REST API to fetch a token (all routes are in `router.ex`)
+- Use the token in the header
 
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+To visit the pages:
+
+- Flip `is_admin` flag on a user (There is no endpoints and functionality to do that meaning you need to do this manualy. I use `tablePlus`)
