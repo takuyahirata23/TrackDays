@@ -31,7 +31,7 @@ defmodule TrackdaysWeb.Headers do
               <.link navigate={~p"/admin/vehicle/makes"}>Makes</.link>
             </li>
             <li>
-              <.link navigate={~p"/admin/facility/tracks"}>Tracks</.link>
+              <.link navigate={~p"/admin/park/facilities"}>Facilities</.link>
             </li>
             <li>
               <.link navigate={~p"/admin/log_in"}>Log in</.link>

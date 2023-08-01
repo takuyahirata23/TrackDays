@@ -1,21 +1,21 @@
-defmodule Trackdays.Facility.Track do
+defmodule Trackdays.Park.Facility do
   use Ecto.Schema
   import Ecto.Changeset
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
 
-  schema "tracks" do
+  schema "facilities" do
     field :name, :string
     field :description, :string
 
-    has_many :layouts, Trackdays.Facility.Layout
+    has_many :tracks, Trackdays.Park.Track
 
     timestamps()
   end
 
-  def changeset(track, attrs \\ %{}) do
-    track
+  def changeset(facility, attrs \\ %{}) do
+    facility
     |> cast(attrs, [:name, :description])
     |> validate_required([:name])
     |> validate_length(:name, min: 2, max: 50)
