@@ -8,7 +8,8 @@ I recommend [`asdf`](https://asdf-vm.com/)
 To start your Phoenix server:
 
 - Create up `.envrc` with:
-  |---|---|---|---|---|
+  | name | value |
+  |-----------------|--------------------------------|
   |TOKEN_SECRET_KEY | random string for token secret |
   |DOMAIN_URL | your ip address |
 
