@@ -14,11 +14,18 @@ defmodule Trackdays.Park do
     Repo.all(Facility)
   end
 
-  def get_facility(id) when is_binary(id) do
+  def get_facility_and_tracks(id) when is_binary(id) do
     Repo.one(
       from t in Facility,
         where: t.id == ^id,
         preload: [:tracks]
+    )
+  end
+
+  def get_facility(id) when is_binary(id) do
+    Repo.one(
+      from t in Facility,
+        where: t.id == ^id
     )
   end
 
