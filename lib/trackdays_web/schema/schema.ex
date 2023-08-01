@@ -7,10 +7,12 @@ defmodule TrackdaysWeb.Schema.Schema do
 
   import_types(Schema.AccountsTypes)
   import_types(Schema.VehicleTypes)
+  import_types(Schema.ParkTypes)
 
   query do
     import_fields(:accounts_queries)
     import_fields(:vehicle_queries)
+    import_fields(:park_queries)
   end
 
   mutation do

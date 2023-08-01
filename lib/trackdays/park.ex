@@ -23,9 +23,6 @@ defmodule Trackdays.Park do
   end
 
   def save_track(attrs, facility) do
-    IO.inspect(attrs)
-    IO.inspect(facility)
-
     %Track{}
     |> Track.changeset(attrs)
     |> Ecto.Changeset.put_assoc(:facility, facility)
