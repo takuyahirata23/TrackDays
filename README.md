@@ -1,6 +1,6 @@
 # Trackdays
 
-This is a web page for `Trackdays`, an app for administrators to manage data such, and a GraphQL server for `Trackdays` mobile application.
+This is a web page for `Trackdays`, an app for administrators to manage data, and a GraphQL server for `Trackdays` mobile application.
 
 To install Elixir and Erlang:
 I recommend [`asdf`](https://asdf-vm.com/)
