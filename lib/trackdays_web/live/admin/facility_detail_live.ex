@@ -40,7 +40,7 @@ defmodule TrackdaysWeb.Admin.FacilityDetailLive do
   end
 
   def mount(%{"id" => facility_id}, _, socket) do
-    facility = Park.get_facility(facility_id)
+    facility = Park.get_facility_and_tracks(facility_id)
     track_form = Track.changeset(%Track{}) |> to_form()
 
     {:ok, assign(socket, facility: facility, track_form: track_form)}
