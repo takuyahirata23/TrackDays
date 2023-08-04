@@ -8,15 +8,18 @@ defmodule TrackdaysWeb.Schema.Schema do
   import_types(Schema.AccountsTypes)
   import_types(Schema.VehicleTypes)
   import_types(Schema.ParkTypes)
+  import_types(Schema.EventTypes)
 
   query do
     import_fields(:accounts_queries)
     import_fields(:vehicle_queries)
     import_fields(:park_queries)
+    import_fields(:event_queries)
   end
 
   mutation do
     import_fields(:vehicle_mutations)
+    import_fields(:event_mutations)
   end
 
   def context(ctx) do
@@ -24,7 +27,7 @@ defmodule TrackdaysWeb.Schema.Schema do
 
     loader =
       Dataloader.new()
-      |> Dataloader.add_source(Vehicle, source)
+      |> Dataloader.add_source(Vehicle, Vehicle.datasource())
       |> Dataloader.add_source(Park, source)
 
     Map.put(ctx, :loader, loader)

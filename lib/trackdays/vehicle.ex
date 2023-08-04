@@ -58,18 +58,33 @@ defmodule Trackdays.Vehicle do
 
   def get_motorcycles(user_id) when is_binary(user_id) do
     Repo.all(
-      from motorcycle in Motorcycle,
-        where: motorcycle.user_id == ^user_id,
-        join: model in Model,
-        on: model.id == motorcycle.model_id,
-        join: make in Make,
-        on: make.id == model.make_id,
-        select: %{
-          id: motorcycle.id,
-          year: motorcycle.year,
-          model: model.name,
-          make: make.name
-        }
+      from m in Motorcycle,
+        where: m.user_id == ^user_id
     )
+  end
+
+  # def get_motorcycles(user_id) when is_binary(user_id) do
+  #   Repo.all(
+  #     from motorcycle in Motorcycle,
+  #       where: motorcycle.user_id == ^user_id,
+  #       join: model in Model,
+  #       on: model.id == motorcycle.model_id,
+  #       join: make in Make,
+  #       on: make.id == model.make_id,
+  #       select: %{
+  #         id: motorcycle.id,
+  #         year: motorcycle.year,
+  #         model: model.name,
+  #         make: make.name
+  #       }
+  #   )
+  # end
+
+  def datasource do
+    Dataloader.Ecto.new(Repo, query: &query/2)
+  end
+
+  def query(queryable, _) do
+    queryable
   end
 end

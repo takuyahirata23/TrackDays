@@ -1,6 +1,9 @@
 defmodule Trackdays.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
+
+  alias Trackdays.Event.Trackday
+
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
 
@@ -14,6 +17,8 @@ defmodule Trackdays.Accounts.User do
     field :hashed_password, :string, redact: true
     field :is_admin, :boolean, default: false
     field :confirmed_at, :naive_datetime
+
+    has_many :trackdays, Trackday
 
     timestamps()
   end

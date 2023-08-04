@@ -10,6 +10,7 @@ defmodule Trackdays.Park.Track do
     field :length, :float
 
     belongs_to :facility, Trackdays.Park.Facility
+    has_many :trackdays, Trackdays.Event.Trackday
 
     timestamps()
   end

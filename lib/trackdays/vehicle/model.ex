@@ -11,6 +11,7 @@ defmodule Trackdays.Vehicle.Model do
     field :name, :string
 
     belongs_to :make, Make
+    has_many :motorcycle, Trackdays.Vehicle.Motorcycle
 
     timestamps()
   end

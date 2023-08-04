@@ -1,10 +1,11 @@
 defmodule TrackdaysWeb.Schema.VehicleTypes do
   use Absinthe.Schema.Notation
 
-  # import Absinthe.Resolution.Helpers, only: [dataloader: 1]
+  import Absinthe.Resolution.Helpers, only: [dataloader: 1]
 
   # alias Trackdays.Vehicle
   alias TrackdaysWeb.Resolvers
+  alias Trackdays.Vehicle
 
   object :make do
     field :id, non_null(:id)
@@ -15,13 +16,14 @@ defmodule TrackdaysWeb.Schema.VehicleTypes do
   object :model do
     field :id, non_null(:id)
     field :name, non_null(:string)
+    field :make, non_null(:make), resolve: dataloader(Vehicle)
   end
 
   object :motorcycle do
     field :id, non_null(:id)
     field :year, non_null(:integer)
-    field :make, non_null(:string)
-    field :model, non_null(:string)
+    #    field :make, non_null(:string)
+    field :model, non_null(:model), resolve: dataloader(Vehicle)
   end
 
   input_object :register_motorcycle_input do

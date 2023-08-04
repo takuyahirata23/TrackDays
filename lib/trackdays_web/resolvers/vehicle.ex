@@ -32,4 +32,8 @@ defmodule TrackdaysWeb.Resolvers.Vehicle do
   def get_motorcycles(_, _, %{context: %{current_user: current_user}}) do
     {:ok, Vehicle.get_motorcycles(current_user.id)}
   end
+
+  def get_motorcycle(parent, _, %{context: %{current_user: current_user}}) do
+    {:ok, Vehicle.get_motorcycle(parent.motorcycle_id, current_user.id)}
+  end
 end
