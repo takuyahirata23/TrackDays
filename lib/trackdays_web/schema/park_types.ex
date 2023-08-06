@@ -17,6 +17,7 @@ defmodule TrackdaysWeb.Schema.ParkTypes do
     field :id, non_null(:id)
     field :name, non_null(:id)
     field :length, non_null(:float)
+    field :facility, non_null(:facility), resolve: dataloader(Park)
   end
 
   object :park_queries do
