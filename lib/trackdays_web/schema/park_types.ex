@@ -31,5 +31,11 @@ defmodule TrackdaysWeb.Schema.ParkTypes do
       arg(:id, non_null(:id))
       resolve(&Resolvers.Park.get_facility/3)
     end
+
+    @desc "Get tracks"
+    field :tracks, list_of(non_null(:track)) do
+      arg(:facility_id, non_null(:id))
+      resolve(&Resolvers.Park.get_tracks/3)
+    end
   end
 end

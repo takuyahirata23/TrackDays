@@ -22,7 +22,6 @@ defmodule TrackdaysWeb.Schema.VehicleTypes do
   object :motorcycle do
     field :id, non_null(:id)
     field :year, non_null(:integer)
-    #    field :make, non_null(:string)
     field :model, non_null(:model), resolve: dataloader(Vehicle)
   end
 

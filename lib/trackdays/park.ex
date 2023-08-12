@@ -35,4 +35,11 @@ defmodule Trackdays.Park do
     |> Ecto.Changeset.put_assoc(:facility, facility)
     |> Repo.insert()
   end
+
+  def get_tracks_by_facility_id(id) when is_binary(id) do
+    Repo.all(
+      from t in Track,
+        where: t.facility_id == ^id
+    )
+  end
 end
