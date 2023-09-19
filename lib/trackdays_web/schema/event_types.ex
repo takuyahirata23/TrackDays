@@ -10,8 +10,14 @@ defmodule TrackdaysWeb.Schema.EventTypes do
     field :id, non_null(:id)
     field :lap_time, :integer
     field :date, non_null(:string)
+    field :note, :string
     field :track, non_null(:track), resolve: dataloader(Park)
     field :motorcycle, non_null(:motorcycle), resolve: dataloader(Vehicle)
+  end
+
+  input_object :get_trackdays_by_month_input do
+    field :month, non_null(:integer)
+    field :year, non_null(:integer)
   end
 
   input_object :save_trackday_input do
@@ -19,12 +25,19 @@ defmodule TrackdaysWeb.Schema.EventTypes do
     field :date, non_null(:string)
     field :track_id, non_null(:id)
     field :motorcycle_id, non_null(:id)
+    field :note, non_null(:string)
   end
 
   object :event_queries do
     @desc "Get trackdays"
     field :trackdays, list_of(non_null(:trackday)) do
       resolve(&Resolvers.Event.get_trackdays/3)
+    end
+
+    @desc "Get trackdays by month"
+    field :trackdays_by_month, list_of(non_null(:trackday)) do
+      arg(:get_trackdays_by_month_input, non_null(:get_trackdays_by_month_input))
+      resolve(&Resolvers.Event.get_trackday_by_month/3)
     end
 
     @desc "Get trackday by trackday id"
