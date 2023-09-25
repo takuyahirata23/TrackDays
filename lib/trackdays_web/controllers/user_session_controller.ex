@@ -17,4 +17,19 @@ defmodule TrackdaysWeb.UserSessionController do
         |> render(:login, user: user, token: Auth.generate_token(user.id))
     end
   end
+
+  # attrs => %{"email" => email, "password" => password, name => name}
+  def register(conn, attrs) do
+    case Accounts.register_user(attrs) do
+      {:error, changeset} ->
+        conn
+        |> put_status(400)
+        |> render(:user_registration_error, changeset: changeset)
+
+      {:ok, user} ->
+        conn
+        |> put_status(201)
+        |> render(:register, user: user, token: Auth.generate_token(user.id))
+    end
+  end
 end

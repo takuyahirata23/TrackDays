@@ -69,6 +69,7 @@ defmodule TrackdaysWeb.Router do
     pipe_through [:api]
 
     post "/login", UserSessionController, :login
+    post "/register", UserSessionController, :register
   end
 
   scope "/admin", TrackdaysWeb do
