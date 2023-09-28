@@ -15,7 +15,7 @@ defmodule Trackdays.Accounts do
   end
 
   def get_user_by_id(id) when is_binary(id) do
-    Repo.get_by(User, id: id)
+    Repo.one(from u in User, where: u.id == ^id and not is_nil(u.confirmed_at))
   end
 
   def get_unverified_user_by_id(id) when is_binary(id) do
