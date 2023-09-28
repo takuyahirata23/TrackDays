@@ -5,6 +5,7 @@ defmodule TrackdaysWeb.UserSessionController do
   alias TrackdaysWeb.Auth
   alias Trackdays.Mailer
   alias Trackdays.Emails.UserEmail
+  alias Trackdays.Accounts.User
 
   def login(conn, %{"email" => email, "password" => password}) do
     case Accounts.get_user_by_email_and_password(email, password) do
@@ -13,7 +14,12 @@ defmodule TrackdaysWeb.UserSessionController do
         |> put_status(404)
         |> render(:user_not_found)
 
-      user ->
+      %User{confirmed_at: nil} ->
+        conn
+        |> put_status(401)
+        |> render(:user_not_verified)
+
+      %User{} = user ->
         conn
         |> put_status(200)
         |> render(:login, user: user, token: Auth.generate_token(user.id))
@@ -29,12 +35,9 @@ defmodule TrackdaysWeb.UserSessionController do
         |> render(:user_registration_error, changeset: changeset)
 
       {:ok, user} ->
-        res =
           user
           |> UserEmail.welcome("http://localhost:4000/auth/verify/#{user.id}")
           |> Mailer.deliver()
-
-        IO.inspect(res)
 
         conn
         |> put_status(201)
