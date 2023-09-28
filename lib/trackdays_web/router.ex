@@ -70,6 +70,13 @@ defmodule TrackdaysWeb.Router do
 
     post "/login", UserSessionController, :login
     post "/register", UserSessionController, :register
+    post "/verify/:id", UserSessionController, :verify
+  end
+
+  scope("/accounts", TrackdaysWeb) do
+    pipe_through [:browser]
+    get "/verification_success", AccountController, :verification_success
+    get "/verification_fail", AccountController, :verification_fail
   end
 
   scope "/admin", TrackdaysWeb do
