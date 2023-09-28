@@ -5,6 +5,10 @@ defmodule TrackdaysWeb.UserSessionJSON do
     %{error: true, message: "Not found"}
   end
 
+  def user_not_verified(_) do
+    %{error: true, message: "Please verify your email"}
+  end
+
   def login(%{user: user, token: token}) do
     %{error: false, message: "User found", user: user, token: token}
   end
