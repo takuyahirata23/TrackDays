@@ -28,7 +28,7 @@ defmodule Trackdays.Event do
     Repo.one(from t in Trackday, where: t.id == ^id)
   end
 
-  def get_best_lap_time_for_tracks(id) when is_binary(id) do
+  def get_best_lap_for_each_track(id) when is_binary(id) do
     Repo.all(
       from t in Trackday,
         where: t.user_id == ^id,
