@@ -30,7 +30,7 @@ defmodule TrackdaysWeb.Resolvers.Event do
   def get_trackday_by_trackday_id(_, %{id: id}, _) do
     {:ok, Event.get_trackday_by_trackday_id(id)}
   end
-  def get_best_lap_time_for_tracks(_, _, %{context: %{current_user: user}}) do
-    {:ok,Event.get_best_lap_time_for_tracks(user.id)}
+  def get_best_lap_for_each_track(_, _, %{context: %{current_user: user}}) do
+    {:ok,Event.get_best_lap_for_each_track(user.id)}
   end
 end
