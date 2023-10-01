@@ -3,6 +3,7 @@ defmodule Trackdays.Event do
 
   alias Trackdays.Repo
   alias Trackdays.Event.Trackday
+  alias Trackdays.Park.Track
 
   use Timex
 
@@ -25,5 +26,14 @@ defmodule Trackdays.Event do
 
   def get_trackday_by_trackday_id(id) when is_binary(id) do
     Repo.one(from t in Trackday, where: t.id == ^id)
+  end
+
+  def get_best_lap_time_for_tracks(id) when is_binary(id) do
+    Repo.all(
+      from t in Trackday,
+        where: t.user_id == ^id,
+        distinct: t.track_id,
+        order_by: t.lap_time
+    )
   end
 end

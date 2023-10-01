@@ -24,11 +24,13 @@ defmodule TrackdaysWeb.Resolvers.Event do
   def get_trackday_by_month(_, %{get_trackdays_by_month_input: arg}, %{
         context: %{current_user: user}
       }) do
-    IO.inspect(user)
     {:ok, Event.get_trackday_by_month(user.id, arg)}
   end
 
   def get_trackday_by_trackday_id(_, %{id: id}, _) do
     {:ok, Event.get_trackday_by_trackday_id(id)}
+  end
+  def get_best_lap_time_for_tracks(_, _, %{context: %{current_user: user}}) do
+    {:ok,Event.get_best_lap_time_for_tracks(user.id)}
   end
 end
