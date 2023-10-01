@@ -45,6 +45,11 @@ defmodule TrackdaysWeb.Schema.EventTypes do
       arg(:id, non_null(:id))
       resolve(&Resolvers.Event.get_trackday_by_trackday_id/3)
     end
+
+    @des "Get best laps for tracks"
+    field :best_lap_for_tracks, list_of(:trackday) do
+      resolve(&Resolvers.Event.get_best_lap_time_for_tracks/3)
+    end
   end
 
   object :event_mutations do
