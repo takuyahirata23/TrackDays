@@ -16,4 +16,12 @@ defmodule TrackdaysWeb.Schema.AccountsTypes do
       resolve(&Accounts.get_user/3)
     end
   end
+
+  object :accounts_mutations do
+    @desc "Save profile image"
+    field :user, non_null(:user) do
+      arg(:image_url, non_null(:id))
+      resolve(&Accounts.save_profile_image/3)
+    end
+  end
 end
