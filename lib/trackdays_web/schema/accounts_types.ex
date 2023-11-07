@@ -7,6 +7,7 @@ defmodule TrackdaysWeb.Schema.AccountsTypes do
     field :id, non_null(:id)
     field :name, non_null(:string)
     field :email, non_null(:string)
+    field :image_url, (:string)
   end
 
   object :accounts_queries do

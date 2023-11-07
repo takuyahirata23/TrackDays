@@ -8,7 +8,7 @@ defmodule Trackdays.Accounts.User do
   @foreign_key_type :binary_id
 
   # These fields are allowed to send it back to client as json
-  @derive {Jason.Encoder, only: [:id, :email, :name, :inserted_at, :updated_at]}
+  @derive {Jason.Encoder, only: [:id, :email, :name, :inserted_at, :updated_at, :image_url]}
 
   schema "users" do
     field :name, :string
@@ -17,6 +17,7 @@ defmodule Trackdays.Accounts.User do
     field :hashed_password, :string, redact: true
     field :is_admin, :boolean, default: false
     field :confirmed_at, :naive_datetime
+    field :image_url, :string
 
     has_many :trackdays, Trackday
 
@@ -25,7 +26,7 @@ defmodule Trackdays.Accounts.User do
 
   def changeset(user, attrs \\ %{}) do
     user
-    |> cast(attrs, [:name, :email, :password])
+    |> cast(attrs, [:name, :email, :password, :image_url])
     |> validate_name()
     |> validate_email()
     |> validate_password()
