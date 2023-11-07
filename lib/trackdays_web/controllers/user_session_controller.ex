@@ -56,4 +56,5 @@ defmodule TrackdaysWeb.UserSessionController do
         |> redirect(to: "/accounts/verification_success")
     end
   end
+
 end

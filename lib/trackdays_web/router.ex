@@ -25,6 +25,10 @@ defmodule TrackdaysWeb.Router do
     plug TrackdaysWeb.Plugs.RequireUser
   end
 
+  pipeline :require_user_for_image_upload do
+    plug TrackdaysWeb.Plugs.RequireUserForImageUpload
+  end
+
   scope "/", TrackdaysWeb do
     pipe_through :browser
 
@@ -65,12 +69,22 @@ defmodule TrackdaysWeb.Router do
     forward "/api/graphql", Absinthe.Plug, schema: TrackdaysWeb.Schema.Schema
   end
 
+  scope "/api", TrackdaysWeb do
+    pipe_through [:api]
+  end
+
   scope "/auth", TrackdaysWeb do
     pipe_through [:api]
 
     post "/login", UserSessionController, :login
     post "/register", UserSessionController, :register
     post "/verify/:id", UserSessionController, :verify
+  end
+
+  scope "/images", TrackdaysWeb do
+    pipe_through [:api, :require_user_for_image_upload]
+
+    post "/profile", ImageController, :profile 
   end
 
   scope("/accounts", TrackdaysWeb) do
