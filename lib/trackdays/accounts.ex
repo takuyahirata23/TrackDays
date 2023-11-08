@@ -55,4 +55,9 @@ defmodule Trackdays.Accounts do
         end
     end
   end
+
+  def upsert_profile_image_url(url, user) when is_binary(url) do
+    user = Ecto.Changeset.change(user, image_url: url)
+    Repo.update(user)
+  end
 end
