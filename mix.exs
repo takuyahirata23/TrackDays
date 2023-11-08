@@ -55,7 +55,12 @@ defmodule Trackdays.MixProject do
       {:absinthe_plug, "~> 1.5"},
       {:bcrypt_elixir, "~> 3.0"},
       {:dataloader, "~> 1.0"},
-      {:timex, "~> 3.7"}
+      {:timex, "~> 3.7"},
+      {:ex_aws, "~> 2.1"},
+      {:ex_aws_s3, "~> 2.0"},
+      {:hackney, "~> 1.9"},
+      {:sweet_xml, "~> 0.6"},
+      {:elixir_uuid, "~> 1.2"}
     ]
   end
 
