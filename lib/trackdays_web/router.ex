@@ -25,8 +25,8 @@ defmodule TrackdaysWeb.Router do
     plug TrackdaysWeb.Plugs.RequireUser
   end
 
-  pipeline :require_user_for_image_upload do
-    plug TrackdaysWeb.Plugs.RequireUserForImageUpload
+  pipeline :require_user_for_user_actions do
+    plug TrackdaysWeb.Plugs.RequireUserActions
   end
 
   scope "/", TrackdaysWeb do
@@ -79,10 +79,13 @@ defmodule TrackdaysWeb.Router do
     post "/login", UserSessionController, :login
     post "/register", UserSessionController, :register
     post "/verify/:id", UserSessionController, :verify
+
+    pipe_through [:require_user_for_user_actions]
+    post "/delete-account", UserSessionController, :delete_account
   end
 
   scope "/images", TrackdaysWeb do
-    pipe_through [:api, :require_user_for_image_upload]
+    pipe_through [:api, :require_user_for_user_actions]
 
     post "/profile", ImageController, :profile 
   end

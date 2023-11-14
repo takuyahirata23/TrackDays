@@ -20,4 +20,16 @@ defmodule TrackdaysWeb.UserSessionJSON do
   def register(%{user: user, token: token}) do
     %{error: false, message: "User registered", user: user, token: token}
   end
+
+  def (%{user: user, token: token}) do
+    %{error: false, message: "User registered", user: user, token: token}
+  end
+
+  def user_account_deleted(_) do
+    %{error: false, message: "User deleted"}
+  end
+
+  def user_account_not_deleted(_) do
+    %{error: true, message: "User not deleted. Please try it later."}
+  end
 end
