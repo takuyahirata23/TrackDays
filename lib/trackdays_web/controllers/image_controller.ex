@@ -5,7 +5,7 @@ defmodule TrackdaysWeb.ImageController do
 
   def profile(conn, %{"image" => image}) do
     bucket_name = "trackdays-proto"
-    filename = "#{conn.current_user.id}-profile.jpg"
+    filename = "#{conn.assigns.current_user.id}-profile.jpg"
     image = 
       image.path
       |> ExAws.S3.Upload.stream_file()
