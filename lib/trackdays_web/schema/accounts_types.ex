@@ -20,11 +20,4 @@ defmodule TrackdaysWeb.Schema.AccountsTypes do
       resolve(&Accounts.get_user/3)
     end
   end
-
-  object :accounts_mutations do
-    @desc "Delete user account"
-    field :delete_user_account, non_null(:user) do
-      resolve(&Accounts.delete_user_account/3)
-    end
-  end
 end

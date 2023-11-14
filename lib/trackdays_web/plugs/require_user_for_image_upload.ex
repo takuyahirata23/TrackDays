@@ -1,4 +1,4 @@
-defmodule TrackdaysWeb.Plugs.RequireUserForImageUpload do
+defmodule TrackdaysWeb.Plugs.RequireUserActions do
   import Plug.Conn
 
   alias Trackdays.Accounts

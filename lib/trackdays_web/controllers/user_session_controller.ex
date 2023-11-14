@@ -35,9 +35,9 @@ defmodule TrackdaysWeb.UserSessionController do
         |> render(:user_registration_error, changeset: changeset)
 
       {:ok, user} ->
-          user
-          |> UserEmail.welcome("http://localhost:4000/auth/verify/#{user.id}")
-          |> Mailer.deliver()
+        user
+        |> UserEmail.welcome("http://localhost:4000/auth/verify/#{user.id}")
+        |> Mailer.deliver()
 
         conn
         |> put_status(201)
@@ -57,4 +57,16 @@ defmodule TrackdaysWeb.UserSessionController do
     end
   end
 
+  def delete_account(conn, _) do
+    case Accounts.delete_user_account(conn.assigns.current_user) do
+      {:ok, _} ->
+        conn
+        |> put_status(200)
+        |> render(:user_account_deleted)
+      _ -> 
+        conn
+        |> put_status(500)
+        |> render(:user_account_not_deleted)
+    end
+  end
 end
