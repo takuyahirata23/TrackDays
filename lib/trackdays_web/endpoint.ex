@@ -41,7 +41,8 @@ defmodule TrackdaysWeb.Endpoint do
 
   plug Plug.Parsers,
     parsers: [:urlencoded, :multipart, :json],
-    length: 20_000_000_000,
+    # default to 5MB
+    length: 5_000_000,
     pass: ["*/*"],
     json_decoder: Phoenix.json_library()
 
