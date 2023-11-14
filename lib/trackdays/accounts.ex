@@ -60,4 +60,17 @@ defmodule Trackdays.Accounts do
     user = Ecto.Changeset.change(user, image_url: url)
     Repo.update(user)
   end
+
+  def delete_user_account(user) do
+    bucket_name = "trackdays-proto"
+    filename = "#{user.id}-profile.jpg"
+
+    case ExAws.S3.delete_object(bucket_name, filename) |> ExAws.request() do
+      {:ok, _} ->
+        Repo.delete(user)
+
+      _ ->
+        {:error, %{message: "Failed. Please try it later."}}
+    end
+  end
 end

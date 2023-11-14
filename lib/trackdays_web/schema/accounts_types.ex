@@ -10,6 +10,10 @@ defmodule TrackdaysWeb.Schema.AccountsTypes do
     field :image_url, (:string)
   end
 
+  object :deletion do
+    field :message, non_null(:string)
+  end
+
   object :accounts_queries do
     @desc "Get current user"
     field :user, non_null(:user) do
@@ -18,10 +22,9 @@ defmodule TrackdaysWeb.Schema.AccountsTypes do
   end
 
   object :accounts_mutations do
-    @desc "Save profile image"
-    field :user, non_null(:user) do
-      arg(:image_url, non_null(:id))
-      resolve(&Accounts.save_profile_image/3)
+    @desc "Delete user account"
+    field :delete_user_account, non_null(:user) do
+      resolve(&Accounts.delete_user_account/3)
     end
   end
 end
