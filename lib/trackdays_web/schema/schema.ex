@@ -18,6 +18,7 @@ defmodule TrackdaysWeb.Schema.Schema do
   end
 
   mutation do
+    import_fields(:accounts_mutations)
     import_fields(:vehicle_mutations)
     import_fields(:event_mutations)
   end

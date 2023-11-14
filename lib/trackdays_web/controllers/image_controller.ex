@@ -5,13 +5,14 @@ defmodule TrackdaysWeb.ImageController do
 
   def profile(conn, %{"image" => image}) do
     bucket_name = "trackdays-proto"
+    filename = "#{conn.current_user.id}-profile.jpg"
     image = 
       image.path
       |> ExAws.S3.Upload.stream_file()
-      |> ExAws.S3.upload(bucket_name, image.filename)
+      |> ExAws.S3.upload(bucket_name, filename)
       |> ExAws.request()
 
-    with  {:ok, res} <- image ,
+    with  {:ok, res} <- image,
          {:ok, _user} <- Accounts.upsert_profile_image_url(res.body.location, conn.assigns.current_user) do
       conn
       |> put_status(201)
