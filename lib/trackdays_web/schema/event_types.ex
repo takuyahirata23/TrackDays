@@ -58,5 +58,11 @@ defmodule TrackdaysWeb.Schema.EventTypes do
       arg(:save_trackday_input, non_null(:save_trackday_input))
       resolve(&Resolvers.Event.save_trackday/3)
     end
+
+    @desc "Delete trackday"
+    field :delete_trackday, non_null(:trackday) do
+      arg(:trackday_id, non_null(:id))
+      resolve(&Resolvers.Event.delete_trackday/3)
+    end
   end
 end
