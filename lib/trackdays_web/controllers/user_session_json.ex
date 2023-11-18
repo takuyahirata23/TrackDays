@@ -38,6 +38,6 @@ defmodule TrackdaysWeb.UserSessionJSON do
   end
 
   def update_email_error(%{changeset: changeset}) do
-    %{error: true, message: "Send new email verification email", errors: Helpers.format_errors(changeset)}
+    %{error: true, message: "Email has alredy been taken", errors: Helpers.format_errors(changeset)}
   end
 end
