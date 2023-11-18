@@ -57,6 +57,14 @@ defmodule TrackdaysWeb.UserSessionController do
     end
   end
 
+  def update_email(conn, %{"email" => email}) do
+    Accounts.update_email(email, conn.assigns.current_user) 
+  end
+
+  def verify_new_email(_conn, %{"id" => id}) do
+    Accounts.verify_new_email(id) 
+  end
+
   def delete_account(conn, _) do
     case Accounts.delete_user_account(conn.assigns.current_user) do
       {:ok, _} ->
