@@ -61,6 +61,14 @@ defmodule Trackdays.Accounts do
     Repo.update(user)
   end
 
+  def update_email(email, user) when is_binary(email) do
+    user
+  end
+
+  def verify_new_email(id) when is_binary(id) do
+    id
+  end
+
   def delete_user_account(user) do
     bucket_name = "trackdays-proto"
     filename = "#{user.id}-profile.jpg"
