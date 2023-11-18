@@ -57,12 +57,30 @@ defmodule TrackdaysWeb.UserSessionController do
     end
   end
 
-  def update_email(conn, %{"email" => email}) do
-    Accounts.update_email(email, conn.assigns.current_user) 
+  # attrs = %{"email" => email}
+  def update_email(conn, attrs) do
+    user = conn.assigns.current_user
+    case Accounts.create_new_email_verification(attrs, user)  do
+      {:ok, new_email_verification} -> 
+        
+        res = UserEmail.new_email_verification(user.name, new_email_verification.email, "http://localhost:4000/auth/verify-new-email/#{new_email_verification.id}") 
+        |> Mailer.deliver()
+
+        conn
+        |> put_status(200)
+        |> render(:update_email)
+
+      {:error, changeset} -> 
+        conn
+        |> put_status(400)
+        |> render(:update_email_error, changeset: changeset)
+    end
   end
 
-  def verify_new_email(_conn, %{"id" => id}) do
+  def verify_new_email(conn, %{"id" => id}) do
     Accounts.verify_new_email(id) 
+    conn
+    |> redirect(to: "/accounts/verification_success")
   end
 
   def delete_account(conn, _) do
