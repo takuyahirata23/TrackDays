@@ -30,7 +30,12 @@ defmodule TrackdaysWeb.Resolvers.Event do
   def get_trackday_by_trackday_id(_, %{id: id}, _) do
     {:ok, Event.get_trackday_by_trackday_id(id)}
   end
+
   def get_best_lap_for_each_track(_, _, %{context: %{current_user: user}}) do
     {:ok,Event.get_best_lap_for_each_track(user.id)}
+  end
+
+  def delete_trackday(_, %{trackday_id: trackday_id}, %{context: %{current_user: user}}) do
+    Event.delete_trackday(trackday_id, user.id)
   end
 end

@@ -3,7 +3,6 @@ defmodule Trackdays.Event do
 
   alias Trackdays.Repo
   alias Trackdays.Event.Trackday
-  alias Trackdays.Park.Track
 
   use Timex
 
@@ -35,5 +34,13 @@ defmodule Trackdays.Event do
         distinct: t.track_id,
         order_by: t.lap_time
     )
+  end
+
+  def delete_trackday(trackday_id, user_id) when is_binary(trackday_id) and is_binary(user_id) do
+    case Repo.one(from t in Trackday, where: t.id == ^trackday_id and t.user_id == ^user_id) do
+      %Trackday{} = trackday -> 
+       Repo.delete(trackday)
+      _ -> {:error, %{message: "Trackday not found"}} 
+    end
   end
 end
