@@ -2,6 +2,7 @@ defmodule Trackdays.Accounts do
   import Ecto.Query, warn: false
 
   alias Ecto.Repo
+  alias Ecto.Multi
   alias Trackdays.Accounts.NewEmailVerification
   alias Trackdays.Repo
 
@@ -68,15 +69,17 @@ defmodule Trackdays.Accounts do
     |> NewEmailVerification.changeset(attrs)
     |> Repo.insert()
   end
-
+  
   def verify_new_email(id) when is_binary(id) do
     email_verification = Repo.one(from e in NewEmailVerification, where: e.id == ^id) 
     user = Repo.one(from u in User, where: u.id == ^email_verification.user_id)
 
     user = Ecto.Changeset.change(user, email: email_verification.email)
 
-    Repo.delete(email_verification)
-    Repo.update(user)
+    Multi.new()
+    |> Multi.update(:email_update, user)
+    |> Multi.delete(:delete_email_verification, email_verification)
+    |> Repo.transaction()
   end
 
   def delete_user_account(user) do

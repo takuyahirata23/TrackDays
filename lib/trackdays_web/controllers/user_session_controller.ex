@@ -62,9 +62,9 @@ defmodule TrackdaysWeb.UserSessionController do
     user = conn.assigns.current_user
     case Accounts.create_new_email_verification(attrs, user)  do
       {:ok, new_email_verification} -> 
-        
+
         res = UserEmail.new_email_verification(user.name, new_email_verification.email, "http://localhost:4000/auth/verify-new-email/#{new_email_verification.id}") 
-        |> Mailer.deliver()
+              |> Mailer.deliver()
 
         conn
         |> put_status(200)
@@ -78,21 +78,27 @@ defmodule TrackdaysWeb.UserSessionController do
   end
 
   def verify_new_email(conn, %{"id" => id}) do
-    Accounts.verify_new_email(id) 
-    conn
-    |> redirect(to: "/accounts/verification_success")
-  end
-
-  def delete_account(conn, _) do
-    case Accounts.delete_user_account(conn.assigns.current_user) do
+    case Accounts.verify_new_email(id)  do
       {:ok, _} ->
         conn
-        |> put_status(200)
-        |> render(:user_account_deleted)
-      _ -> 
+        |> redirect(to: "/accounts/verification_success")
+
+      {:error, _} ->
         conn
-        |> put_status(500)
-        |> render(:user_account_not_deleted)
+        |> redirect(to: "/accounts/verification_fail")
     end
   end
-end
+
+    def delete_account(conn, _) do
+      case Accounts.delete_user_account(conn.assigns.current_user) do
+        {:ok, _} ->
+          conn
+          |> put_status(200)
+          |> render(:user_account_deleted)
+        _ -> 
+          conn
+          |> put_status(500)
+          |> render(:user_account_not_deleted)
+      end
+    end
+  end
