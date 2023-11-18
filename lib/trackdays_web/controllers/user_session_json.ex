@@ -32,4 +32,12 @@ defmodule TrackdaysWeb.UserSessionJSON do
   def user_account_not_deleted(_) do
     %{error: true, message: "User not deleted. Please try it later."}
   end
+
+  def update_email(_) do
+    %{error: false, message: "Send new email verification email"}
+  end
+
+  def update_email_error(%{changeset: changeset}) do
+    %{error: true, message: "Send new email verification email", errors: Helpers.format_errors(changeset)}
+  end
 end

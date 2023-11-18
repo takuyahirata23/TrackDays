@@ -2,7 +2,7 @@ defmodule Trackdays.Accounts do
   import Ecto.Query, warn: false
 
   alias Ecto.Repo
-  alias Trackdays.Accounts
+  alias Trackdays.Accounts.NewEmailVerification
   alias Trackdays.Repo
 
   alias Trackdays.Accounts.User
@@ -39,7 +39,7 @@ defmodule Trackdays.Accounts do
   end
 
   def verify_user(id) do
-    case Accounts.get_unverified_user_by_id(id) do
+    case get_unverified_user_by_id(id) do
       nil ->
         :error
 
@@ -61,12 +61,22 @@ defmodule Trackdays.Accounts do
     Repo.update(user)
   end
 
-  def update_email(email, user) when is_binary(email) do
-    user
+  def create_new_email_verification(email, user)  do
+    attrs = Map.put(email, "user_id", user.id)
+
+    %NewEmailVerification{}
+    |> NewEmailVerification.changeset(attrs)
+    |> Repo.insert()
   end
 
   def verify_new_email(id) when is_binary(id) do
-    id
+    email_verification = Repo.one(from e in NewEmailVerification, where: e.id == ^id) 
+    user = Repo.one(from u in User, where: u.id == ^email_verification.user_id)
+
+    user = Ecto.Changeset.change(user, email: email_verification.email)
+
+    Repo.delete(email_verification)
+    Repo.update(user)
   end
 
   def delete_user_account(user) do

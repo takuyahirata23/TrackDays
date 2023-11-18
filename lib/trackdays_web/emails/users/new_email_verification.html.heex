@@ -1,0 +1,6 @@
+<h1 class="text-red-600">Hi <%= @name %>! Thanks for using Trackdays!</h1>
+<p>Please click the button below to verify your new email.</p>
+
+<form action={@verify_link} method="post">
+  <button type="submit">Verify</button>
+</form>
