@@ -2,19 +2,18 @@ defmodule Trackdays.Vehicle.Motorcycle do
   use Ecto.Schema
   import Ecto.Changeset
 
-  alias Trackdays.Event.Trackday
+  alias Trackdays.Event.TrackdayNote
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
 
   schema "motorcycles" do
     field :year, :integer
-    field :user_id, :binary_id
-    # field :model_id, :binary_id
 
-    has_many :trackdays, Trackday
+    has_many :trackday_notes, TrackdayNote
 
     belongs_to :model, Trackdays.Vehicle.Model
+    belongs_to :user, Trackdays.Accounts.User
 
     timestamps()
   end

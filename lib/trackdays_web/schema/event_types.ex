@@ -6,7 +6,7 @@ defmodule TrackdaysWeb.Schema.EventTypes do
 
   alias TrackdaysWeb.Resolvers
 
-  object :trackday do
+  object :trackday_note do
     field :id, non_null(:id)
     field :lap_time, :integer
     field :date, non_null(:string)
@@ -15,17 +15,17 @@ defmodule TrackdaysWeb.Schema.EventTypes do
     field :motorcycle, non_null(:motorcycle), resolve: dataloader(Vehicle)
   end
 
-  input_object :get_trackdays_by_month_input do
+  input_object :get_trackday_notes_by_month_input do
     field :month, non_null(:integer)
     field :year, non_null(:integer)
   end
 
-  input_object :save_trackday_input do
-    field :lap_time, non_null(:integer)
+  input_object :save_trackday_note_input do
+    field :lap_time, :integer
     field :date, non_null(:string)
     field :track_id, non_null(:id)
     field :motorcycle_id, non_null(:id)
-    field :note, non_null(:string)
+    field :note, :string
   end
 
   input_object :update_trackday_note_input do
@@ -38,44 +38,44 @@ defmodule TrackdaysWeb.Schema.EventTypes do
 
 
   object :event_queries do
-    @desc "Get trackdays"
-    field :trackdays, list_of(non_null(:trackday)) do
-      resolve(&Resolvers.Event.get_trackdays/3)
+    @desc "Get trackday notes"
+    field :trackday_notes, list_of(non_null(:trackday_note)) do
+      resolve(&Resolvers.Event.get_trackday_notes/3)
     end
 
-    @desc "Get trackdays by month"
-    field :trackdays_by_month, list_of(non_null(:trackday)) do
-      arg(:get_trackdays_by_month_input, non_null(:get_trackdays_by_month_input))
-      resolve(&Resolvers.Event.get_trackday_by_month/3)
+    @desc "Get trackday notes by month"
+    field :trackday_notes_by_month, list_of(non_null(:trackday_note)) do
+      arg(:get_trackday_notes_by_month_input, non_null(:get_trackday_notes_by_month_input))
+      resolve(&Resolvers.Event.get_trackday_notes_by_month/3)
     end
 
-    @desc "Get trackday by trackday id"
-    field :trackday, non_null(:trackday) do
+    @desc "Get trackday note by trackday id"
+    field :trackday_note, non_null(:trackday_note) do
       arg(:id, non_null(:id))
-      resolve(&Resolvers.Event.get_trackday_by_trackday_id/3)
+      resolve(&Resolvers.Event.get_trackday_note_by_id/3)
     end
 
-    @des "Get best laps for each track"
-    field :best_lap_for_each_track, list_of(:trackday) do
+    @desc "Get best laps for each track"
+    field :best_lap_for_each_track, list_of(:trackday_note) do
       resolve(&Resolvers.Event.get_best_lap_for_each_track/3)
     end
   end
 
   object :event_mutations do
     @desc "Save trackday note"
-    field :save_trackday, non_null(:trackday) do
-      arg(:save_trackday_input, non_null(:save_trackday_input))
-      resolve(&Resolvers.Event.save_trackday/3)
+    field :save_trackday_note, non_null(:trackday_note) do
+      arg(:save_trackday_note_input, non_null(:save_trackday_note_input))
+      resolve(&Resolvers.Event.save_trackday_note/3)
     end
 
-    @desc "Delete trackday"
-    field :delete_trackday, non_null(:trackday) do
-      arg(:trackday_id, non_null(:id))
-      resolve(&Resolvers.Event.delete_trackday/3)
+    @desc "Delete trackday note"
+    field :delete_trackday_note, non_null(:trackday_note) do
+      arg(:id, non_null(:id))
+      resolve(&Resolvers.Event.delete_trackday_note/3)
     end
 
     @desc "Update trackday note"
-    field :update_trackday_note, non_null(:trackday) do
+    field :update_trackday_note, non_null(:trackday_note) do
       arg(:update_trackday_note_input, non_null(:update_trackday_note_input))
       resolve(&Resolvers.Event.update_trackday_note/3)
     end
