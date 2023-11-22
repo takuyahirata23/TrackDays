@@ -28,6 +28,15 @@ defmodule TrackdaysWeb.Schema.EventTypes do
     field :note, non_null(:string)
   end
 
+  input_object :update_trackday_note_input do
+    field :id, non_null(:id)
+    field :lap_time, :integer
+    field :track_id, :id
+    field :motorcycle_id, :id
+    field :note, :string
+  end
+
+
   object :event_queries do
     @desc "Get trackdays"
     field :trackdays, list_of(non_null(:trackday)) do
@@ -53,7 +62,7 @@ defmodule TrackdaysWeb.Schema.EventTypes do
   end
 
   object :event_mutations do
-    @desc "Save trackday"
+    @desc "Save trackday note"
     field :save_trackday, non_null(:trackday) do
       arg(:save_trackday_input, non_null(:save_trackday_input))
       resolve(&Resolvers.Event.save_trackday/3)
@@ -63,6 +72,12 @@ defmodule TrackdaysWeb.Schema.EventTypes do
     field :delete_trackday, non_null(:trackday) do
       arg(:trackday_id, non_null(:id))
       resolve(&Resolvers.Event.delete_trackday/3)
+    end
+
+    @desc "Update trackday note"
+    field :update_trackday_note, non_null(:trackday) do
+      arg(:update_trackday_note_input, non_null(:update_trackday_note_input))
+      resolve(&Resolvers.Event.update_trackday_note/3)
     end
   end
 end

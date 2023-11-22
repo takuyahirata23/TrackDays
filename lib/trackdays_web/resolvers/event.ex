@@ -35,6 +35,17 @@ defmodule TrackdaysWeb.Resolvers.Event do
     {:ok,Event.get_best_lap_for_each_track(user.id)}
   end
 
+  def update_trackday_note(_, %{update_trackday_note_input: attrs}, _) do
+    case Event.update_trackday_note(attrs) do
+      {:ok, trackday} -> 
+        {:ok, trackday}
+
+      {_, %Ecto.Changeset{} = changeset} ->
+        {:error, message: "Updating trackday note failed", errors: Ecto.Changeset.traverse_errors(changeset, &TrackdaysWeb.CoreComponents.translate_error/1)} 
+      _ -> {:error, message: "Trackday note not found"}
+    end
+  end
+
   def delete_trackday(_, %{trackday_id: trackday_id}, %{context: %{current_user: user}}) do
     Event.delete_trackday(trackday_id, user.id)
   end
