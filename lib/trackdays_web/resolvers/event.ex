@@ -1,8 +1,8 @@
 defmodule TrackdaysWeb.Resolvers.Event do
   alias Trackdays.Event
 
-  def save_trackday(_, %{save_trackday_input: attrs}, %{context: %{current_user: user}}) do
-    case Event.save_trackday(attrs, user) do
+  def save_trackday_note(_, %{save_trackday_note_input: attrs}, %{context: %{current_user: user}}) do
+    case Event.save_trackday_note(attrs, user) do
       {:error, changeset} ->
         {:error,
          message: "Saving trackday failed",
@@ -13,22 +13,22 @@ defmodule TrackdaysWeb.Resolvers.Event do
            )}
 
       {:ok, trackday} ->
-        {:ok, Event.get_trackday_by_trackday_id(trackday.id)}
+        {:ok, Event.get_trackday_note_by_id(trackday.id)}
     end
   end
 
-  def get_trackdays(_, _, %{context: %{current_user: user}}) do
-    {:ok, Event.get_trackdays_by_user_id(user.id)}
+  def get_trackday_notes(_, _, %{context: %{current_user: user}}) do
+    {:ok, Event.get_trackday_notes_by_user_id(user.id)}
   end
 
-  def get_trackday_by_month(_, %{get_trackdays_by_month_input: arg}, %{
+  def get_trackday_notes_by_month(_, %{get_trackdays_by_month_input: arg}, %{
         context: %{current_user: user}
       }) do
-    {:ok, Event.get_trackday_by_month(user.id, arg)}
+    {:ok, Event.get_trackday_notes_by_month(user.id, arg)}
   end
 
-  def get_trackday_by_trackday_id(_, %{id: id}, _) do
-    {:ok, Event.get_trackday_by_trackday_id(id)}
+  def get_trackday_note_by_id(_, %{id: id}, _) do
+    {:ok, Event.get_trackday_note_by_id(id)}
   end
 
   def get_best_lap_for_each_track(_, _, %{context: %{current_user: user}}) do
@@ -46,7 +46,7 @@ defmodule TrackdaysWeb.Resolvers.Event do
     end
   end
 
-  def delete_trackday(_, %{trackday_id: trackday_id}, %{context: %{current_user: user}}) do
-    Event.delete_trackday(trackday_id, user.id)
+  def delete_trackday_note(_, %{id: id}, %{context: %{current_user: user}}) do
+    Event.delete_trackday_note(id, user.id)
   end
 end

@@ -2,7 +2,7 @@ defmodule Trackdays.Repo.Migrations.CreateEvents do
   use Ecto.Migration
 
   def change do
-    create table(:trackdays, primary_key: false) do
+    create table(:trackday_notes, primary_key: false) do
       add :id, :binary_id, primary_key: true
       add :lap_time, :integer
       add :date, :date, null: false
@@ -17,10 +17,10 @@ defmodule Trackdays.Repo.Migrations.CreateEvents do
       timestamps()
     end
 
-    create(index(:trackdays, [:user_id]))
+    create(index(:trackday_notes, [:user_id]))
 
     create(
-      unique_index(:trackdays, [:user_id, :motorcycle_id, :date], name: :trackday_constraint)
+      unique_index(:trackday_notes, [:user_id, :motorcycle_id, :date], name: :trackday_note_constraint)
     )
   end
 end
