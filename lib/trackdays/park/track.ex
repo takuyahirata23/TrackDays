@@ -11,6 +11,7 @@ defmodule Trackdays.Park.Track do
 
     belongs_to :facility, Trackdays.Park.Facility
     has_many :trackday_notes, Trackdays.Event.TrackdayNote
+    has_many :trackdays, Trackdays.Event.Trackday
 
     timestamps()
   end
