@@ -21,7 +21,7 @@ defmodule TrackdaysWeb.Resolvers.Event do
     {:ok, Event.get_trackday_notes_by_user_id(user.id)}
   end
 
-  def get_trackday_notes_by_month(_, %{get_trackday_notes_by_month_input: arg}, %{
+  def get_trackday_notes_by_month(_, %{get_events_by_month_input: arg}, %{
         context: %{current_user: user}
       }) do
     {:ok, Event.get_trackday_notes_by_month(user.id, arg)}
@@ -48,5 +48,9 @@ defmodule TrackdaysWeb.Resolvers.Event do
 
   def delete_trackday_note(_, %{id: id}, %{context: %{current_user: user}}) do
     Event.delete_trackday_note(id, user.id)
+  end
+
+  def get_trackdays_by_month(_, %{get_events_by_month_input: arg}, _) do
+    {:ok, Event.get_trackdays_by_month(arg)}
   end
 end

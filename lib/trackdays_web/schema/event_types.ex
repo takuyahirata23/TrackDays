@@ -2,7 +2,7 @@ defmodule TrackdaysWeb.Schema.EventTypes do
   use Absinthe.Schema.Notation
   import Absinthe.Resolution.Helpers, only: [dataloader: 1]
 
-  alias Trackdays.{Park, Vehicle}
+  alias Trackdays.{Park, Vehicle, Business}
 
   alias TrackdaysWeb.Resolvers
 
@@ -15,7 +15,15 @@ defmodule TrackdaysWeb.Schema.EventTypes do
     field :motorcycle, non_null(:motorcycle), resolve: dataloader(Vehicle)
   end
 
-  input_object :get_trackday_notes_by_month_input do
+  object :trackday do
+    field :id, non_null(:id)
+    field :date, non_null(:string)
+    field :price, non_null(:integer)
+    field :track, non_null(:track), resolve: dataloader(Park)
+    field :organization, non_null(:organization), resolve: dataloader(Business)
+  end
+
+  input_object :get_events_by_month_input do
     field :month, non_null(:integer)
     field :year, non_null(:integer)
   end
@@ -45,7 +53,7 @@ defmodule TrackdaysWeb.Schema.EventTypes do
 
     @desc "Get trackday notes by month"
     field :trackday_notes_by_month, list_of(non_null(:trackday_note)) do
-      arg(:get_trackday_notes_by_month_input, non_null(:get_trackday_notes_by_month_input))
+      arg(:get_events_by_month_input, non_null(:get_events_by_month_input))
       resolve(&Resolvers.Event.get_trackday_notes_by_month/3)
     end
 
@@ -58,6 +66,13 @@ defmodule TrackdaysWeb.Schema.EventTypes do
     @desc "Get best laps for each track"
     field :best_lap_for_each_track, list_of(:trackday_note) do
       resolve(&Resolvers.Event.get_best_lap_for_each_track/3)
+    end
+
+
+    @desc "Get trackdays by month"
+    field :trackdays_by_month, non_null(list_of(:trackday)) do
+      arg(:get_events_by_month_input, non_null(:get_events_by_month_input))
+      resolve(&Resolvers.Event.get_trackdays_by_month/3)
     end
   end
 

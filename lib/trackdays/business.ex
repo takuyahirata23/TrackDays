@@ -2,6 +2,8 @@ defmodule Trackdays.Business do
   import Ecto.Query, warn: false
 
   alias Hex.API.Key.Organization
+  alias Hex.API.Key.Organization
+  alias Hex.API.Key.Organization
   alias Trackdays.Repo
   alias Trackdays.Business.Organization
   alias Trackdays.Event.Trackday
@@ -15,6 +17,10 @@ defmodule Trackdays.Business do
 
   def get_organizations do
     Repo.all(Organization)
+  end
+
+  def get_organization(id) when is_binary(id) do
+    Repo.one(from o in Organization, where: o.id == ^id)
   end
 
   def get_organization_options_for_select do

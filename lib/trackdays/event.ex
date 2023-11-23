@@ -1,6 +1,7 @@
 defmodule Trackdays.Event do
   import Ecto.Query, warn: false
 
+  alias Trackdays.Event.Trackday
   alias Trackdays.Repo
   alias Trackdays.Event.TrackdayNote
 
@@ -58,5 +59,15 @@ defmodule Trackdays.Event do
       _ ->
         {:error, %{message: "Trackday note not found"}}
     end
+  end
+
+
+  #Repo.all(from t in TrackdayNote, where: t.user_id == ^id and t.date <= ^last and t.date >= ^start)
+
+  def get_trackdays_by_month(%{year: year, month: month}) do
+    start = Timex.beginning_of_month(year, month)
+    last = Timex.end_of_month(year, month)
+
+    Repo.all(from t in Trackday, where: t.date <= ^last and t.date >= ^start)
   end
 end
