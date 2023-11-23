@@ -6,17 +6,20 @@ defmodule Trackdays.Event.Trackday do
   @foreign_key_type :binary_id
 
   schema "trackdays" do
-    field :date, :string 
-    field :trackdays_registration_url, :string 
+    field :date, :date
+    field :price, :integer
 
     belongs_to :organization, Trackdays.Business.Organization
+    belongs_to :track, Trackdays.Park.Track
 
     timestamps()
-  end 
+  end
 
   def changeset(trackday, attrs \\ %{}) do
     trackday
-    |> cast(attrs, [:date, :trackdays_registration_url, :organization_id, :track_id])
+    |> cast(attrs, [:date, :price, :organization_id, :track_id])
+    |> validate_required([:date, :price, :organization_id, :track_id])
+    |> validate_number(:price, greater_than: 10)
     |> unique_constraint([:organization_id, :date, :track_id],
       name: :trackdays_constraint,
       messeage: "Your trackday on this date already exists"
