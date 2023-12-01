@@ -10,13 +10,20 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: "#ffffff",
-        secondary: "#94a3b8",
-        tertiary: "#deff26",
-        "bg-primary": "#0f172a",
-        "bg-secondary": "#1e293b",
-        "btn-primary": "#0ea5e9",
-        "btn-secondary": "#334155",
+        brand: '#279b48',
+        accent: '#6d6e71',
+        primary: '#4d4b4a',
+        secondary: '#304fff',
+        tertiary: '#1012a3',
+        error: '#FF3333',
+        card: '#ffffff',
+        subcard: '#f9f9fb',
+        bgPrimary: '#f9f9fb',
+        bgSecondary: '#f2f2f2',
+        btnPrimary: '#1012a3',
+        btnSecondary: '#b2cfc6',
+        btnBgPrimary: '#ffd000',
+        btnBgSecondary: '#334155'
       },
       fontFamily: {
         body: ["Inter", "sans-serif"],
@@ -55,7 +62,7 @@ module.exports = {
     // Embeds Heroicons (https://heroicons.com) into your app.css bundle
     // See your `CoreComponents.icon/1` for more information.
     //
-    plugin(function ({ matchComponents, theme }) {
+    plugin(function({ matchComponents, theme }) {
       let iconsDir = path.join(__dirname, "./vendor/heroicons/optimized");
       let values = {};
       let icons = [
