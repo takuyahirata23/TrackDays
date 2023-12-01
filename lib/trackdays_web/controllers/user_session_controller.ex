@@ -60,17 +60,24 @@ defmodule TrackdaysWeb.UserSessionController do
   # attrs = %{"email" => email}
   def update_email(conn, attrs) do
     user = conn.assigns.current_user
-    case Accounts.create_new_email_verification(attrs, user)  do
-      {:ok, new_email_verification} -> 
 
-        res = UserEmail.new_email_verification(user.name, new_email_verification.email, "http://localhost:4000/auth/verify-new-email/#{new_email_verification.id}") 
-              |> Mailer.deliver()
+    case Accounts.create_new_email_verification(attrs, user) do
+      {:ok, new_email_verification} ->
+        res =
+          UserEmail.new_email_verification(
+            user.name,
+            new_email_verification.email,
+            "http://localhost:4000/auth/verify-new-email/#{new_email_verification.id}"
+          )
+          |> Mailer.deliver()
+
+        IO.inspect(res, label: "Sent email")
 
         conn
         |> put_status(200)
         |> render(:update_email)
 
-      {:error, changeset} -> 
+      {:error, changeset} ->
         conn
         |> put_status(400)
         |> render(:update_email_error, changeset: changeset)
@@ -78,7 +85,7 @@ defmodule TrackdaysWeb.UserSessionController do
   end
 
   def verify_new_email(conn, %{"id" => id}) do
-    case Accounts.verify_new_email(id)  do
+    case Accounts.verify_new_email(id) do
       {:ok, _} ->
         conn
         |> redirect(to: "/accounts/verification_success")
@@ -89,16 +96,17 @@ defmodule TrackdaysWeb.UserSessionController do
     end
   end
 
-    def delete_account(conn, _) do
-      case Accounts.delete_user_account(conn.assigns.current_user) do
-        {:ok, _} ->
-          conn
-          |> put_status(200)
-          |> render(:user_account_deleted)
-        _ -> 
-          conn
-          |> put_status(500)
-          |> render(:user_account_not_deleted)
-      end
+  def delete_account(conn, _) do
+    case Accounts.delete_user_account(conn.assigns.current_user) do
+      {:ok, _} ->
+        conn
+        |> put_status(200)
+        |> render(:user_account_deleted)
+
+      _ ->
+        conn
+        |> put_status(500)
+        |> render(:user_account_not_deleted)
     end
   end
+end

@@ -43,7 +43,7 @@ defmodule Trackdays.MixProject do
       {:phoenix_live_dashboard, "~> 0.8.0"},
       {:esbuild, "~> 0.7", runtime: Mix.env() == :dev},
       {:tailwind, "~> 0.2.0", runtime: Mix.env() == :dev},
-      {:swoosh, "~> 1.11"},
+      {:swoosh, "~> 1.14.2"},
       {:phoenix_swoosh, "~> 1.0"},
       {:finch, "~> 0.13"},
       {:telemetry_metrics, "~> 0.6"},
@@ -59,7 +59,7 @@ defmodule Trackdays.MixProject do
       {:ex_aws, "~> 2.1"},
       {:ex_aws_s3, "~> 2.0"},
       {:hackney, "~> 1.9"},
-      {:sweet_xml, "~> 0.6"},
+      {:sweet_xml, "~> 0.6"}
     ]
   end
 

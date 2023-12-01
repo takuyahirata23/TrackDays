@@ -78,8 +78,8 @@ defmodule TrackdaysWeb.Router do
 
     post "/login", UserSessionController, :login
     post "/register", UserSessionController, :register
-    post "/verify/:id", UserSessionController, :verify
-    post "/verify-new-email/:id", UserSessionController, :verify_new_email
+    get "/verify/:id", UserSessionController, :verify
+    get "/verify-new-email/:id", UserSessionController, :verify_new_email
 
     pipe_through [:require_user_for_user_actions]
     post "/delete-account", UserSessionController, :delete_account
@@ -89,7 +89,7 @@ defmodule TrackdaysWeb.Router do
   scope "/images", TrackdaysWeb do
     pipe_through [:api, :require_user_for_user_actions]
 
-    post "/profile", ImageController, :profile 
+    post "/profile", ImageController, :profile
   end
 
   scope("/accounts", TrackdaysWeb) do
