@@ -11,7 +11,7 @@ module.exports = {
     extend: {
       colors: {
         brand: '#279b48',
-        accent: '#6d6e71',
+        brandText: '#6d6e71',
         primary: '#4d4b4a',
         secondary: '#304fff',
         tertiary: '#1012a3',
@@ -26,7 +26,7 @@ module.exports = {
         btnBgSecondary: '#334155'
       },
       fontFamily: {
-        body: ["Inter", "sans-serif"],
+        body: ["Roboto", "sans-serif"]
       },
     },
   },
