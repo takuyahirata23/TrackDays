@@ -27,3 +27,8 @@ To run GraphQL queries and mutations:
 To visit the admin pages:
 
 - Flip `is_admin` flag on a user (There is no endpoints and functionality to do that meaning you need to do this manualy. I use `tablePlus`)
+
+
+Services used
+
+- Email API [`Brevo`](https://www.brevo.com/)

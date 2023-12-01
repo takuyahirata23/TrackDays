@@ -63,15 +63,12 @@ defmodule TrackdaysWeb.UserSessionController do
 
     case Accounts.create_new_email_verification(attrs, user) do
       {:ok, new_email_verification} ->
-        res =
           UserEmail.new_email_verification(
             user.name,
             new_email_verification.email,
             "http://localhost:4000/auth/verify-new-email/#{new_email_verification.id}"
           )
           |> Mailer.deliver()
-
-        IO.inspect(res, label: "Sent email")
 
         conn
         |> put_status(200)
