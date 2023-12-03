@@ -18,7 +18,8 @@ defmodule TrackdaysWeb.Schema.EventTypes do
   object :trackday do
     field :id, non_null(:id)
     field :date, non_null(:string)
-    field :price, non_null(:integer)
+    field :price, non_null(:float)
+    field :description, non_null(:string)
     field :track, non_null(:track), resolve: dataloader(Park)
     field :organization, non_null(:organization), resolve: dataloader(Business)
   end
@@ -44,7 +45,6 @@ defmodule TrackdaysWeb.Schema.EventTypes do
     field :note, :string
   end
 
-
   object :event_queries do
     @desc "Get trackday notes"
     field :trackday_notes, list_of(non_null(:trackday_note)) do
@@ -67,7 +67,6 @@ defmodule TrackdaysWeb.Schema.EventTypes do
     field :best_lap_for_each_track, list_of(:trackday_note) do
       resolve(&Resolvers.Event.get_best_lap_for_each_track/3)
     end
-
 
     @desc "Get trackdays by month"
     field :trackdays_by_month, non_null(list_of(:trackday)) do
