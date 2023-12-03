@@ -29,12 +29,8 @@ defmodule TrackdaysWeb.Admin.RegisterTrackdayLive do
               required
             />
             <.input field={@trackday_form[:date]} type="date" label="date" required />
-            <.input
-              field={@trackday_form[:price]}
-              type="text"
-              label="Price"
-              required
-            />
+            <.input field={@trackday_form[:price]} type="text" label="Price" required />
+            <.input field={@trackday_form[:description]} type="textarea" label="description" />
           </div>
           <:actions>
             <.button phx-disable-with="Registering..." class="w-full">
@@ -63,19 +59,26 @@ defmodule TrackdaysWeb.Admin.RegisterTrackdayLive do
 
   def handle_event("register-trackday", %{"trackday" => attrs}, socket) do
     case Business.register_trackday(attrs) do
-      {:error, %Ecto.Changeset{} = changeset } ->
+      {:error, %Ecto.Changeset{} = changeset} ->
         trackday_form = to_form(changeset)
 
-        {:noreply, socket |> put_flash(:error, "Error registering trackday") |> assign(trackday_form: trackday_form)}
+        {:noreply,
+         socket
+         |> put_flash(:error, "Error registering trackday")
+         |> assign(trackday_form: trackday_form)}
 
       {:ok, _} ->
-       trackday_form = Trackday.changeset(%Trackday{}) |> to_form()
-        {:noreply, socket |> put_flash(:info, "Registered new trackday") |> assign(trackday_form: trackday_form)}
+        trackday_form = Trackday.changeset(%Trackday{}) |> to_form()
+
+        {:noreply,
+         socket
+         |> put_flash(:info, "Registered new trackday")
+         |> assign(trackday_form: trackday_form)}
     end
   end
 
   defp transform_to_options(track_with_facility) do
-  track_with_facility
-  |> Enum.map(fn x -> {"#{x.track}(#{x.facility})", x.id} end)
+    track_with_facility
+    |> Enum.map(fn x -> {"#{x.track}(#{x.facility})", x.id} end)
   end
 end

@@ -7,7 +7,8 @@ defmodule Trackdays.Event.Trackday do
 
   schema "trackdays" do
     field :date, :date
-    field :price, :integer
+    field :price, :float
+    field :description, :string
 
     belongs_to :organization, Trackdays.Business.Organization
     belongs_to :track, Trackdays.Park.Track
@@ -17,7 +18,7 @@ defmodule Trackdays.Event.Trackday do
 
   def changeset(trackday, attrs \\ %{}) do
     trackday
-    |> cast(attrs, [:date, :price, :organization_id, :track_id])
+    |> cast(attrs, [:date, :price, :description, :organization_id, :track_id])
     |> validate_required([:date, :price, :organization_id, :track_id])
     |> validate_number(:price, greater_than: 10)
     |> unique_constraint([:organization_id, :date, :track_id],
