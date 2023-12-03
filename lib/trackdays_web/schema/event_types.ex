@@ -19,7 +19,7 @@ defmodule TrackdaysWeb.Schema.EventTypes do
     field :id, non_null(:id)
     field :date, non_null(:string)
     field :price, non_null(:float)
-    field :description, non_null(:string)
+    field :description, :string
     field :track, non_null(:track), resolve: dataloader(Park)
     field :organization, non_null(:organization), resolve: dataloader(Business)
   end
@@ -72,6 +72,12 @@ defmodule TrackdaysWeb.Schema.EventTypes do
     field :trackdays_by_month, non_null(list_of(:trackday)) do
       arg(:get_events_by_month_input, non_null(:get_events_by_month_input))
       resolve(&Resolvers.Event.get_trackdays_by_month/3)
+    end
+
+    @desc "Get trackday detail"
+    field :trackday, non_null(:trackday) do
+      arg(:id, non_null(:id))
+      resolve(&Resolvers.Event.get_trackday/3)
     end
   end
 

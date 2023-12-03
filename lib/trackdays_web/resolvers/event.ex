@@ -32,17 +32,25 @@ defmodule TrackdaysWeb.Resolvers.Event do
   end
 
   def get_best_lap_for_each_track(_, _, %{context: %{current_user: user}}) do
-    {:ok,Event.get_best_lap_for_each_track(user.id)}
+    {:ok, Event.get_best_lap_for_each_track(user.id)}
   end
 
   def update_trackday_note(_, %{update_trackday_note_input: attrs}, _) do
     case Event.update_trackday_note(attrs) do
-      {:ok, trackday} -> 
+      {:ok, trackday} ->
         {:ok, trackday}
 
       {_, %Ecto.Changeset{} = changeset} ->
-        {:error, message: "Updating trackday note failed", errors: Ecto.Changeset.traverse_errors(changeset, &TrackdaysWeb.CoreComponents.translate_error/1)} 
-      _ -> {:error, message: "Trackday note not found"}
+        {:error,
+         message: "Updating trackday note failed",
+         errors:
+           Ecto.Changeset.traverse_errors(
+             changeset,
+             &TrackdaysWeb.CoreComponents.translate_error/1
+           )}
+
+      _ ->
+        {:error, message: "Trackday note not found"}
     end
   end
 
@@ -52,5 +60,9 @@ defmodule TrackdaysWeb.Resolvers.Event do
 
   def get_trackdays_by_month(_, %{get_events_by_month_input: arg}, _) do
     {:ok, Event.get_trackdays_by_month(arg)}
+  end
+
+  def get_trackday(_, %{id: id}, _) do
+    {:ok, Event.get_trackday_by_id(id)}
   end
 end
