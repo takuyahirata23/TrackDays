@@ -22,4 +22,13 @@ defmodule Trackdays.Emails.UserEmail do
     |> put_provider_option(:template_id, 2)
     |> put_provider_option(:params, %{link: verify_link, name: name})
   end
+
+  # Password Update Request
+  def password_update_request(user, link) do
+    new()
+    |> from("support@motorcycle-trackdays.com")
+    |> to(user.email)
+    |> put_provider_option(:template_id, 5)
+    |> put_provider_option(:params, %{link: link, name: user.name})
+  end
 end

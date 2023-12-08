@@ -20,7 +20,7 @@ defmodule Trackdays.Accounts.User do
     field :image_url, :string
 
     has_many :trackday_notes, TrackdayNote
-    has_many :motorcycles, Trackdays.Accounts.User 
+    has_many :motorcycles, Trackdays.Accounts.User
 
     timestamps()
   end

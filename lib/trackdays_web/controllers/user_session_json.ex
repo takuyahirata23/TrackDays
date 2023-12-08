@@ -21,7 +21,7 @@ defmodule TrackdaysWeb.UserSessionJSON do
     %{error: false, message: "User registered", user: user, token: token}
   end
 
-  def (%{user: user, token: token}) do
+  def %{user: user, token: token} do
     %{error: false, message: "User registered", user: user, token: token}
   end
 
@@ -38,6 +38,18 @@ defmodule TrackdaysWeb.UserSessionJSON do
   end
 
   def update_email_error(%{changeset: changeset}) do
-    %{error: true, message: "Email has alredy been taken", errors: Helpers.format_errors(changeset)}
+    %{
+      error: true,
+      message: "Email has alredy been taken",
+      errors: Helpers.format_errors(changeset)
+    }
+  end
+
+  def password_request_accepted(_) do
+    %{error: false, message: "Password update email has been sent."}
+  end
+
+  def password_request_declined(_) do
+    %{error: true, message: "Use not found."}
   end
 end
