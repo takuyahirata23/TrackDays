@@ -2,7 +2,7 @@ defmodule Trackdays.Accounts do
   import Ecto.Query, warn: false
 
   alias Ecto.Multi
-  alias Trackdays.Accounts.NewEmailVerification
+  alias Trackdays.Accounts.{NewEmailVerification, PasswordUpdateRequest}
   alias Trackdays.Repo
 
   alias Trackdays.Accounts.User
@@ -30,6 +30,10 @@ defmodule Trackdays.Accounts do
       _ ->
         {:error, nil}
     end
+  end
+
+  def get_user_by_email(email) do
+    Repo.one(from u in User, where: u.email == ^email)
   end
 
   def get_user_by_email_and_password(email, password)
@@ -61,16 +65,16 @@ defmodule Trackdays.Accounts do
     Repo.update(user)
   end
 
-  def create_new_email_verification(email, user)  do
+  def create_new_email_verification(email, user) do
     attrs = Map.put(email, "user_id", user.id)
 
     %NewEmailVerification{}
     |> NewEmailVerification.changeset(attrs)
     |> Repo.insert()
   end
-  
+
   def verify_new_email(id) when is_binary(id) do
-    email_verification = Repo.one(from e in NewEmailVerification, where: e.id == ^id) 
+    email_verification = Repo.one(from e in NewEmailVerification, where: e.id == ^id)
     user = Repo.one(from u in User, where: u.id == ^email_verification.user_id)
 
     user = Ecto.Changeset.change(user, email: email_verification.email)
@@ -78,6 +82,34 @@ defmodule Trackdays.Accounts do
     Multi.new()
     |> Multi.update(:email_update, user)
     |> Multi.delete(:delete_email_verification, email_verification)
+    |> Repo.transaction()
+  end
+
+  def create_password_update_request(attrs) do
+    %PasswordUpdateRequest{}
+    |> PasswordUpdateRequest.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  def get_password_update_request_by_id(id) do
+    Repo.one(from p in PasswordUpdateRequest, where: p.id == ^id)
+  end
+
+  def update_password(user, password, password_update_request) do
+    password_update_request =
+      Repo.one(
+        from p in PasswordUpdateRequest,
+          where: p.id == ^password_update_request.id and p.user_id == ^user.id
+      )
+
+    user =
+      user
+      |> Ecto.Changeset.change(password: password)
+      |> User.changeset()
+
+    Multi.new()
+    |> Multi.update(:password_update, user)
+    |> Multi.delete(:delete_password_update_request, password_update_request)
     |> Repo.transaction()
   end
 

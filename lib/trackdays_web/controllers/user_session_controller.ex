@@ -1,6 +1,7 @@
 defmodule TrackdaysWeb.UserSessionController do
   use TrackdaysWeb, :controller
 
+  alias Trackdays.Accounts.PasswordUpdateRequest
   alias Trackdays.Accounts
   alias TrackdaysWeb.Auth
   alias Trackdays.Mailer
@@ -63,12 +64,12 @@ defmodule TrackdaysWeb.UserSessionController do
 
     case Accounts.create_new_email_verification(attrs, user) do
       {:ok, new_email_verification} ->
-          UserEmail.new_email_verification(
-            user.name,
-            new_email_verification.email,
-            "http://localhost:4000/auth/verify-new-email/#{new_email_verification.id}"
-          )
-          |> Mailer.deliver()
+        UserEmail.new_email_verification(
+          user.name,
+          new_email_verification.email,
+          "http://localhost:4000/auth/verify-new-email/#{new_email_verification.id}"
+        )
+        |> Mailer.deliver()
 
         conn
         |> put_status(200)
@@ -80,6 +81,41 @@ defmodule TrackdaysWeb.UserSessionController do
         |> render(:update_email_error, changeset: changeset)
     end
   end
+
+  # attrs = %{"email" => email}
+  def create_password_update_request(conn, attrs) do
+    with %User{} = user <- Accounts.get_user_by_email(attrs["email"]),
+         {:ok, password_update_request} <-
+           Accounts.create_password_update_request(%{user_id: user.id}) do
+      UserEmail.password_update_request(
+        user,
+        "http://localhost:4000/auth/forgot-password/#{password_update_request.id}"
+      )
+      |> Mailer.deliver()
+
+      conn
+      |> put_status(200)
+      |> render(:password_request_accepted)
+    else
+      _ ->
+        conn
+        |> put_status(404)
+        |> render(:password_request_declined)
+    end
+  end
+
+  # # attrs = %{"id" => password_update_request_id}
+  # def forgot_password(conn, %{"id" => password_update_request_id}) do
+  #   case Accounts.get_password_update_request_by_id(password_update_request_id) do
+  #     %PasswordUpdateRequest{} = _password_update_request ->
+  #       conn
+  #       |> put_status(200)
+  #       |> render(:password_update)
+  #   end
+  # end
+
+  # def update_password(conn, attrs) do
+  # end
 
   def verify_new_email(conn, %{"id" => id}) do
     case Accounts.verify_new_email(id) do

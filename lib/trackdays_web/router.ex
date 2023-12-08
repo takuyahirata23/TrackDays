@@ -78,6 +78,8 @@ defmodule TrackdaysWeb.Router do
 
     post "/login", UserSessionController, :login
     post "/register", UserSessionController, :register
+    post "/forgot-password", UserSessionController, :create_password_update_request
+    post "/update-password", UserSessionController, :update_password
     get "/verify/:id", UserSessionController, :verify
     get "/verify-new-email/:id", UserSessionController, :verify_new_email
 
@@ -96,6 +98,8 @@ defmodule TrackdaysWeb.Router do
     pipe_through [:browser]
     get "/verification_success", AccountController, :verification_success
     get "/verification_fail", AccountController, :verification_fail
+
+    live "/forgot-password/:id", PasswordUpdateLive
   end
 
   scope "/admin", TrackdaysWeb do
