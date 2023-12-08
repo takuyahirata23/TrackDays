@@ -89,7 +89,7 @@ defmodule TrackdaysWeb.UserSessionController do
            Accounts.create_password_update_request(%{user_id: user.id}) do
       UserEmail.password_update_request(
         user,
-        "http://localhost:4000/auth/forgot-password/#{password_update_request.id}"
+        "http://localhost:4000/accounts/forgot-password/#{password_update_request.id}"
       )
       |> Mailer.deliver()
 
