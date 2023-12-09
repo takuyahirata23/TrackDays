@@ -1,11 +1,11 @@
-<header class="max-w-6xl w-11/12 mx-auto mb-4 py-2">
+<header class="max-w-6xl w-11/12 mx-auto z-50 sticky bg-bg-primary">
   <a href="/">
-    <div class="w-48 -ml-4">
+    <div class="w-40 -ml-4">
     <img src={~p"/images/logo.svg"} />
     </div>
   </a>
 </header>
-<main>
+<main class="border-t border-t-tertiary">
   <div class="max-w-6xl w-11/12 mx-auto">
     <.flash_group flash={@flash} />
     <%= @inner_content %>

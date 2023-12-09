@@ -1,22 +1,16 @@
-<section>
-    <p class="font-medium text-3xl leading-10">
-        Improve your motorcycle experience with Trackdays
-    </p>
-    <p class="text-secondary mt-4">
-        Check trackday schedules from our partners.
-    </p>
-    <div>
-        <a href="/">App Store</a>
-        <a href="/">Google Play</a>
-    </div>
-</section>
-<div>
-    <div class="flex gap-x-4 items-center">
-        <div class="w-2/3">
-            <img src={~p"/images/trackdays-index.png"} />
+<div class="flex flex-col gap-y-16">
+    <section class="md:flex md:justify-start md:gap-x-16 items-center">
+        <div class="py-4 mt-6 md:order-last">
+            <h1 class="font-bold text-accent text-2xl">Improve Trackday Experience</h1>
+            <span class="font-medium text-lg">Powered By Trackdays</span>
         </div>
-        <p class="text-primary italic">
-            Improve your motorcycle experience with Trackdays
-        </p>
-    </div>
+        <div class="w-1/2 mx-auto mt-4 max-w-xs md:mx-0">
+            <img src={~p"/images/trackdays-index.png"} alt="schedule screenshot" class="align-left"/>
+        </div>
+    </section>
+    <section>
+        <h2 class="font-bold text-accent text-xl">What is Trackdays?</h2>
+        <p class="mt-4">Create your note for each trackday to save your improvements.</p>
+        <p class="mt-4">Check trackday schedules from our partners.</p>
+    </section>
 </div>
