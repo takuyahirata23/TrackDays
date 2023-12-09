@@ -104,19 +104,6 @@ defmodule TrackdaysWeb.UserSessionController do
     end
   end
 
-  # # attrs = %{"id" => password_update_request_id}
-  # def forgot_password(conn, %{"id" => password_update_request_id}) do
-  #   case Accounts.get_password_update_request_by_id(password_update_request_id) do
-  #     %PasswordUpdateRequest{} = _password_update_request ->
-  #       conn
-  #       |> put_status(200)
-  #       |> render(:password_update)
-  #   end
-  # end
-
-  # def update_password(conn, attrs) do
-  # end
-
   def verify_new_email(conn, %{"id" => id}) do
     case Accounts.verify_new_email(id) do
       {:ok, _} ->

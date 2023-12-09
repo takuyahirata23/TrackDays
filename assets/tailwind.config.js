@@ -18,12 +18,18 @@ module.exports = {
         error: '#FF3333',
         card: '#ffffff',
         subcard: '#f9f9fb',
-        bgPrimary: '#f9f9fb',
-        bgSecondary: '#f2f2f2',
-        btnPrimary: '#1012a3',
-        btnSecondary: '#b2cfc6',
-        btnBgPrimary: '#ffd000',
-        btnBgSecondary: '#334155'
+        bg: {
+          primary: '#f9f9fb',
+          secondary: '#f2f2f2',
+        },
+        btn: {
+          primary: '#1012a3',
+          secondary: '#b2cfc6',
+          bg: {
+            primary: '#ffd000',
+            secondary: '#334155'
+          }
+        }
       },
       fontFamily: {
         body: ["Roboto", "sans-serif"]
