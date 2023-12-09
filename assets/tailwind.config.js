@@ -11,28 +11,29 @@ module.exports = {
     extend: {
       colors: {
         brand: '#279b48',
-        brandText: '#6d6e71',
-        primary: '#4d4b4a',
-        secondary: '#304fff',
-        tertiary: '#1012a3',
-        error: '#FF3333',
+        primary: '#6d6e71',
+        secondary: '#ff8c42',
+        accent: '#279b4b',
+        error: '#f06543',
         card: '#ffffff',
-        subcard: '#f9f9fb',
         bg: {
           primary: '#f9f9fb',
-          secondary: '#f2f2f2',
+          secondary: '#383F51',
+          tertiary: '#ff8c42',
         },
         btn: {
-          primary: '#1012a3',
-          secondary: '#b2cfc6',
+          primary: '#ffffff',
           bg: {
-            primary: '#ffd000',
-            secondary: '#334155'
+            primary: '#279b4b',
           }
         }
       },
+      rotate: {
+        '35': '35deg'
+      },
       fontFamily: {
-        body: ["Roboto", "sans-serif"]
+        primary: ["Josefin Sans", "sans-serif"],
+        paragraph: ['Josefin Slab', 'serif']
       },
     },
   },
