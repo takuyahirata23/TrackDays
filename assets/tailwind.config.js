@@ -10,10 +10,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        brand: '#279b48',
+        brand: '#279B47',
         primary: '#6d6e71',
         secondary: '#ff8c42',
-        accent: '#279b4b',
+        accent: '#279B47',
         error: '#f06543',
         card: '#ffffff',
         bg: {
@@ -24,7 +24,7 @@ module.exports = {
         btn: {
           primary: '#ffffff',
           bg: {
-            primary: '#279b4b',
+            primary: '#279B47',
           }
         }
       },
