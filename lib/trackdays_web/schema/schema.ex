@@ -3,7 +3,7 @@ defmodule TrackdaysWeb.Schema.Schema do
 
   alias TrackdaysWeb.Schema
 
-  alias Trackdays.{Vehicle, Park, Business}
+  alias Trackdays.{Vehicle, Park, Business, Accounts}
 
   import_types(Schema.AccountsTypes)
   import_types(Schema.VehicleTypes)
@@ -30,6 +30,7 @@ defmodule TrackdaysWeb.Schema.Schema do
     loader =
       Dataloader.new()
       |> Dataloader.add_source(Vehicle, Vehicle.datasource())
+      |> Dataloader.add_source(Accounts, source)
       |> Dataloader.add_source(Park, source)
       |> Dataloader.add_source(Business, source)
 
