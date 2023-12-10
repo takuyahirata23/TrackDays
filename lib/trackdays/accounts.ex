@@ -2,7 +2,7 @@ defmodule Trackdays.Accounts do
   import Ecto.Query, warn: false
 
   alias Ecto.Multi
-  alias Trackdays.Accounts.{NewEmailVerification, PasswordUpdateRequest}
+  alias Trackdays.Accounts.{NewEmailVerification, PasswordUpdateRequest, Group}
   alias Trackdays.Repo
 
   alias Trackdays.Accounts.User
@@ -124,5 +124,15 @@ defmodule Trackdays.Accounts do
       _ ->
         {:error, %{message: "Failed. Please try it later."}}
     end
+  end
+
+  def create_group(attrs) do
+    %Group{}
+    |> Group.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  def get_groups do
+    Repo.all(Group)
   end
 end
