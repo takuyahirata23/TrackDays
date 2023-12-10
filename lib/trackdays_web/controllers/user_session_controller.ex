@@ -38,6 +38,7 @@ defmodule TrackdaysWeb.UserSessionController do
         user
         |> UserEmail.welcome("http://localhost:4000/auth/verify/#{user.id}")
         |> Mailer.deliver()
+        |> IO.inspect()
 
         conn
         |> put_status(201)

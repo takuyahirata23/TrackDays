@@ -12,7 +12,7 @@ config :trackdays, TrackdaysWeb.Endpoint,
   force_ssl: [rewrite_on: [:x_forwarded_proto]]
 
 # Configures Swoosh API Client
-config :swoosh, api_client: Swoosh.ApiClient.Finch, finch_name: Trackdays.Finch
+config :swoosh, :api_client, Swoosh.ApiClient.Hackney
 
 # Do not print debug messages in production
 config :logger, level: :info
