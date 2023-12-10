@@ -27,5 +27,10 @@ defmodule TrackdaysWeb.Schema.AccountsTypes do
     field :user, non_null(:user) do
       resolve(&Resolvers.Accounts.get_user/3)
     end
+
+    @desc "Get groups for signup"
+    field :groups, list_of(non_null(:group)) do
+      resolve(&Resolvers.Accounts.get_groups/3)
+    end
   end
 end

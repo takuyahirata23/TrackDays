@@ -1,7 +1,6 @@
 defmodule TrackdaysWeb.UserSessionController do
   use TrackdaysWeb, :controller
 
-  alias Trackdays.Accounts.PasswordUpdateRequest
   alias Trackdays.Accounts
   alias TrackdaysWeb.Auth
   alias Trackdays.Mailer
@@ -27,7 +26,7 @@ defmodule TrackdaysWeb.UserSessionController do
     end
   end
 
-  # attrs => %{"email" => email, "password" => password, name => name}
+  # attrs => %{"email" => email, "password" => password, name => name, "group_id" => group_id}
   def register(conn, attrs) do
     case Accounts.register_user(attrs) do
       {:error, changeset} ->
