@@ -11,7 +11,7 @@ defmodule TrackdaysWeb.Plugs.RequireUserActions do
       authorized(conn, user)
     else
       _ ->
-       reject(conn) 
+        reject(conn)
     end
   end
 

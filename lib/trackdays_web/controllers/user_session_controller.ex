@@ -36,9 +36,8 @@ defmodule TrackdaysWeb.UserSessionController do
 
       {:ok, user} ->
         user
-        |> UserEmail.welcome("http://localhost:4000/auth/verify/#{user.id}")
+        |> UserEmail.welcome("/auth/verify/#{user.id}")
         |> Mailer.deliver()
-        |> IO.inspect()
 
         conn
         |> put_status(201)
@@ -67,7 +66,7 @@ defmodule TrackdaysWeb.UserSessionController do
         UserEmail.new_email_verification(
           user.name,
           new_email_verification.email,
-          "http://localhost:4000/auth/verify-new-email/#{new_email_verification.id}"
+          "/auth/verify-new-email/#{new_email_verification.id}"
         )
         |> Mailer.deliver()
 
@@ -89,7 +88,7 @@ defmodule TrackdaysWeb.UserSessionController do
            Accounts.create_password_update_request(%{user_id: user.id}) do
       UserEmail.password_update_request(
         user,
-        "http://localhost:4000/accounts/forgot-password/#{password_update_request.id}"
+        "accounts/forgot-password/#{password_update_request.id}"
       )
       |> Mailer.deliver()
 

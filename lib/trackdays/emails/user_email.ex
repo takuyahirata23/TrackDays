@@ -1,9 +1,7 @@
 defmodule Trackdays.Emails.UserEmail do
   import Swoosh.Email
 
-  # use Phoenix.Swoosh,
-  #   template_root: "lib/trackdays_web/emails",
-  #   template_path: "users"
+  @url System.get_env("BASE_URL")
 
   # Signup Email Verification
   def welcome(user, verify_link) do
@@ -11,7 +9,7 @@ defmodule Trackdays.Emails.UserEmail do
     |> from("support@motorcycle-trackdays.com")
     |> to(user.email)
     |> put_provider_option(:template_id, 4)
-    |> put_provider_option(:params, %{link: verify_link, name: user.name})
+    |> put_provider_option(:params, %{link: "#{@url}#{verify_link}", name: user.name})
   end
 
   # Email Verification 
@@ -20,7 +18,7 @@ defmodule Trackdays.Emails.UserEmail do
     |> from("support@motorcycle-trackdays.com")
     |> to(new_email)
     |> put_provider_option(:template_id, 2)
-    |> put_provider_option(:params, %{link: verify_link, name: name})
+    |> put_provider_option(:params, %{link: "#{@url}#{verify_link}", name: name})
   end
 
   # Password Update Request
@@ -29,6 +27,6 @@ defmodule Trackdays.Emails.UserEmail do
     |> from("support@motorcycle-trackdays.com")
     |> to(user.email)
     |> put_provider_option(:template_id, 5)
-    |> put_provider_option(:params, %{link: link, name: user.name})
+    |> put_provider_option(:params, %{link: "#{@url}#{link}", name: user.name})
   end
 end
