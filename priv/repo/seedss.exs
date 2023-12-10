@@ -12,6 +12,12 @@
 #
 alias Trackdays.Accounts
 
+Trackdays.Accounts.register_user(%{
+  "name" => "Takuya H",
+  "password" => "Pass1234!",
+  "email" => "admin@test.com"
+})
+
 {:ok, yamaha} = Trackdays.Vehicle.save_make(%{"name" => "YAMAHA"})
 {:ok, honda} = Trackdays.Vehicle.save_make(%{"name" => "HONDA"})
 
@@ -42,18 +48,3 @@ Trackdays.Vehicle.save_model(
   },
   honda
 )
-
-case Trackdays.Accounts.create_group(%{"name" => "Novice"}) do
-  {:ok, group} ->
-    Trackdays.Accounts.register_user(%{
-      "name" => "Takuya H",
-      "password" => "Pass1234!",
-      "email" => "admin@test.com",
-      "group_id" => group.id
-    })
-
-    IO.inspect(group, label: "success")
-end
-
-Trackdays.Accounts.create_group(%{"name" => "Intermediate"})
-Trackdays.Accounts.create_group(%{"name" => "Expert"})
