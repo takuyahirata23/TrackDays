@@ -21,13 +21,15 @@ defmodule Trackdays.Accounts.User do
 
     has_many :trackday_notes, TrackdayNote
     has_many :motorcycles, Trackdays.Accounts.User
+    belongs_to :group, Trackdays.Accounts.Group
 
     timestamps()
   end
 
   def changeset(user, attrs \\ %{}) do
     user
-    |> cast(attrs, [:name, :email, :password, :image_url])
+    |> cast(attrs, [:name, :email, :password, :image_url, :group_id])
+    |> validate_required([:name, :email, :password, :group_id])
     |> validate_name()
     |> validate_email()
     |> validate_password()

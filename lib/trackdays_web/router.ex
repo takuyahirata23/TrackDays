@@ -128,6 +128,7 @@ defmodule TrackdaysWeb.Router do
       live "/business/organizations", Admin.OrganizationsLive
       live "/business/organizations/:id", Admin.OrganizationDetailLive
       live "/business/register-trackday", Admin.RegisterTrackdayLive
+      live "/users/groups", Admin.GroupLive
     end
   end
 end
