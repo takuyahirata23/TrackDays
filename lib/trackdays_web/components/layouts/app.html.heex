@@ -5,15 +5,20 @@
     </div>
   </a>
 </header>
-<main class="border-t border-t-tertiary">
+<main class="border-t border-t-tertiary mb-12">
   <div class="max-w-6xl w-11/12 mx-auto">
     <.flash_group flash={@flash} />
     <%= @inner_content %>
   </div>
 </main>
-<footer class="max-w-6xl w-11/12 mx-auto mb-4 py-4">
+<footer class="max-w-6xl w-11/12 mx-auto mb-4 py-4 flex flex-col gap-y-6 items-center">
   <div class="w-40 mx-auto">
     <img src={~p"/images/logo.svg"} />
   </div>
-  <p class="text-center text-sm text-primary">©2023 Trackdays. All rights reserved.</p>
+  <div>
+    <a href="https://www.instagram.com/trackdaysapp" target="_blanck">Instagram</a>
+  </div>
+  <p class="text-sm text-primary">
+    ©<%= DateTime.utc_now().year %> Trackdays. All rights reserved.
+  </p>
 </footer>
