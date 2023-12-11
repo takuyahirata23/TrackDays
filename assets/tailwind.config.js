@@ -23,8 +23,10 @@ module.exports = {
         },
         btn: {
           primary: '#ffffff',
+          secondary: '#279B47',
           bg: {
             primary: '#279B47',
+            secondary: '#fce762',
           }
         }
       },
