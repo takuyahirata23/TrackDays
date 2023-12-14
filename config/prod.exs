@@ -6,8 +6,12 @@ import Config
 # which you should run after static files are built and
 # before starting your production server.
 config :trackdays, TrackdaysWeb.Endpoint,
-  url: [host: "quick-note.gigalixirapp.com", port: 443],
-  check_origin: ["//trackdays.gigalixirapp.com", "https://trackdays.gigalixirapp.com/"],
+  url: [host: "motorcycle-trackdays.com", port: 443],
+  check_origin: [
+    "//trackdays.gigalixirapp.com",
+    "https://trackdays.gigalixirapp.com/",
+    "//motorcycle-trackdays.com"
+  ],
   cache_static_manifest: "priv/static/cache_manifest.json",
   force_ssl: [rewrite_on: [:x_forwarded_proto]]
 
