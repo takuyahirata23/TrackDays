@@ -9,6 +9,7 @@ defmodule Trackdays.Event.Trackday do
     field :date, :date
     field :price, :float
     field :description, :string
+    field :trackdays_registration_url, :string
 
     belongs_to :organization, Trackdays.Business.Organization
     belongs_to :track, Trackdays.Park.Track
@@ -18,9 +19,17 @@ defmodule Trackdays.Event.Trackday do
 
   def changeset(trackday, attrs \\ %{}) do
     trackday
-    |> cast(attrs, [:date, :price, :description, :organization_id, :track_id])
+    |> cast(attrs, [
+      :date,
+      :price,
+      :description,
+      :organization_id,
+      :track_id,
+      :trackdays_registration_url
+    ])
     |> validate_required([:date, :price, :organization_id, :track_id])
     |> validate_number(:price, greater_than: 10)
+    |> validate_length(:homepage_url, min: 2, max: 50)
     |> unique_constraint([:organization_id, :date, :track_id],
       name: :trackdays_constraint,
       messeage: "Your trackday on this date already exists"

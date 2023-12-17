@@ -20,6 +20,7 @@ defmodule TrackdaysWeb.Schema.EventTypes do
     field :date, non_null(:string)
     field :price, non_null(:float)
     field :description, :string
+    field :trackdays_registration_url, :string
     field :track, non_null(:track), resolve: dataloader(Park)
     field :organization, non_null(:organization), resolve: dataloader(Business)
   end

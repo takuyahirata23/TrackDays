@@ -3,7 +3,7 @@ defmodule TrackdaysWeb.Admin.OrganizationsLive do
 
   alias Trackdays.Business
   alias Trackdays.Business.Organization
-  
+
   def render(assigns) do
     ~H"""
     <div>
@@ -13,7 +13,17 @@ defmodule TrackdaysWeb.Admin.OrganizationsLive do
           <.simple_form for={@organization_form} phx-submit="add-organization">
             <div class="flex flex-col gap-y-4 mb-6">
               <.input field={@organization_form[:name]} type="text" label="Name" required />
-              <.input field={@organization_form[:trackdays_registration_url]} type="text" label="Trackday registration URL" />
+              <.input
+                field={@organization_form[:homepage_url]}
+                type="text"
+                label="Homepage URL"
+                required
+              />
+              <.input
+                field={@organization_form[:trackdays_registration_url]}
+                type="text"
+                label="Default Trackday registration URL"
+              />
             </div>
             <:actions>
               <.button phx-disable-with="Registering..." class="w-full">
@@ -46,16 +56,28 @@ defmodule TrackdaysWeb.Admin.OrganizationsLive do
 
   def handle_event("add-organization", %{"organization" => attrs}, socket) do
     case Business.register_organization(attrs) do
-      {:error, %Ecto.Changeset{} = changeset } ->
+      {:error, %Ecto.Changeset{} = changeset} ->
         orgnaization_form = to_form(changeset)
-        {:noreply, socket |> put_flash(:error, "Promlem registering organization") |> assign(orgnaization_form: orgnaization_form)}
+
+        {:noreply,
+         socket
+         |> put_flash(:error, "Promlem registering organization")
+         |> assign(orgnaization_form: orgnaization_form)}
 
       {:ok, organization} ->
         organization_form = Organization.changeset(%Organization{}) |> to_form()
 
         organizations =
-          List.insert_at(socket.assigns.organizations, length(socket.assigns.organizations), organization)
-        {:noreply, socket |> put_flash(:info, "Registered organization") |> assign(organization_form: organization_form, organizations: organizations)} 
+          List.insert_at(
+            socket.assigns.organizations,
+            length(socket.assigns.organizations),
+            organization
+          )
+
+        {:noreply,
+         socket
+         |> put_flash(:info, "Registered organization")
+         |> assign(organization_form: organization_form, organizations: organizations)}
     end
   end
 end

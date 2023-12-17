@@ -6,7 +6,8 @@ defmodule TrackdaysWeb.Schema.BusinessTypes do
   object :organization do
     field :id, non_null(:id)
     field :name, non_null(:string)
-    field :trackdays_registration_url, :string
+    field :trackdays_registration_url, non_null(:string)
+    field :homepage_url, :string
   end
 
   object :business_queries do
