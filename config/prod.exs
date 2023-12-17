@@ -7,11 +7,11 @@ import Config
 # before starting your production server.
 config :trackdays, TrackdaysWeb.Endpoint,
   url: [host: "motorcycle-trackdays.com", port: 443],
-  # check_origin: [
-  #   "//trackdays.gigalixirapp.com",
-  #   "https://trackdays.gigalixirapp.com/",
-  #   "//motorcycle-trackdays.com"
-  # ],
+  check_origin: [
+    "//trackdays.gigalixirapp.com",
+    "https://trackdays.gigalixirapp.com/",
+    "//motorcycle-trackdays.com"
+  ],
   cache_static_manifest: "priv/static/cache_manifest.json",
   force_ssl: [rewrite_on: [:x_forwarded_proto]]
 
