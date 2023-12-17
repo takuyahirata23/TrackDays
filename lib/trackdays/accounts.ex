@@ -1,6 +1,7 @@
 defmodule Trackdays.Accounts do
   import Ecto.Query, warn: false
 
+  alias Ecto.Repo
   alias Ecto.Multi
   alias Trackdays.Accounts.{NewEmailVerification, PasswordUpdateRequest, Group}
   alias Trackdays.Repo

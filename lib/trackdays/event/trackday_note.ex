@@ -29,7 +29,7 @@ defmodule Trackdays.Event.TrackdayNote do
     |> validate_number(:lap_time, less_than_or_equal_to: 300_000)
     |> unique_constraint([:user_id, :motorcycle_id, :date],
       name: :trackday_note_constraint,
-      messeage: "Trackday note already exists"
+      message: "Trackday note already exists"
     )
   end
 end
