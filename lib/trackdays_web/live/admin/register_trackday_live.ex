@@ -60,7 +60,6 @@ defmodule TrackdaysWeb.Admin.RegisterTrackdayLive do
   def handle_event("register-trackday", %{"trackday" => attrs}, socket) do
     case Business.register_trackday(attrs) do
       {:error, %Ecto.Changeset{} = changeset} ->
-      IO.inspect(changeset)
         trackday_form = to_form(changeset)
 
         {:noreply,
