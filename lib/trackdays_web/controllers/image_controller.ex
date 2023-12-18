@@ -3,7 +3,12 @@ defmodule TrackdaysWeb.ImageController do
 
   alias Trackdays.Accounts
 
-  def profile(conn, %{"image" => image}) do
+  def profile(conn, arg) do
+  IO.inspect(arg)
+  IO.inspect(AWS_ACCESS_KEY_ID)
+
+  %{"image" => image} = arg
+
     bucket_name = "trackdays-proto"
     filename = "#{conn.assigns.current_user.id}-profile.jpg"
     image = 
