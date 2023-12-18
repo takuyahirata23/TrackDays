@@ -21,5 +21,13 @@ config :swoosh, :api_client, Swoosh.ApiClient.Hackney
 # Do not print debug messages in production
 config :logger, level: :info
 
+# AWS
+config :ex_aws,
+  access_key_id: [{:system, "AWS_ACCESS_KEY_ID"}, :instance_role],
+  secret_access_key: [{:system, "AWS_SECRET_ACCESS_KEY"}, :instance_role],
+  scheme: "https://",
+  host: "trackdays-proto.s3.us-east-2.amazonaws.com/",
+  region: "us-east-2"
+
 # Runtime production configuration, including reading
 # of environment variables, is done on config/runtime.exs.
