@@ -69,7 +69,7 @@ defmodule TrackdaysWeb.Schema.EventTypes do
       resolve(&Resolvers.Event.get_best_lap_for_each_track/3)
     end
 
-    @desc "Get trackdays by month"
+    @desc "Get events by month"
     field :trackdays_by_month, non_null(list_of(:trackday)) do
       arg(:get_events_by_month_input, non_null(:get_events_by_month_input))
       resolve(&Resolvers.Event.get_trackdays_by_month/3)

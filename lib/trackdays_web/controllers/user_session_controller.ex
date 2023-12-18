@@ -107,7 +107,7 @@ defmodule TrackdaysWeb.UserSessionController do
     case Accounts.verify_new_email(id) do
       {:ok, _} ->
         conn
-        |> redirect(to: "/accounts/verification_success")
+        |> redirect(external: "myapp://--/sign-in")
 
       {:error, _} ->
         conn

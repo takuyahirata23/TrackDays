@@ -51,8 +51,6 @@ case Trackdays.Accounts.create_group(%{"name" => "Novice"}) do
       "email" => "admin@test.com",
       "group_id" => group.id
     })
-
-    IO.inspect(group, label: "success")
 end
 
 Trackdays.Accounts.create_group(%{"name" => "Intermediate"})
