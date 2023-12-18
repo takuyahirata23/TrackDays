@@ -49,7 +49,7 @@ defmodule TrackdaysWeb.UserSessionController do
     case Accounts.verify_user(id) do
       :error ->
         conn
-        |> redirect(to: "/accounts/verification_fail")
+        |> redirect(external: "myapp://--/sign-in")
 
       :ok ->
         conn
