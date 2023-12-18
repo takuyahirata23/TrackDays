@@ -115,8 +115,8 @@ if config_env() == :prod do
 
   # AWS
   config :ex_aws,
-    access_key_id: [{:system, System.get_env("AWS_ACCESS_KEY_ID")}, :instance_role],
-    secret_access_key: [{:system, System.get_env("AWS_SECRET_ACCESS_KEY")}, :instance_role],
+    access_key_id: [{:system, "AWS_ACCESS_KEY_ID"}, :instance_role],
+    secret_access_key: [{:system, "AWS_SECRET_ACCESS_KEY"}, :instance_role],
     scheme: "https://",
     host: "trackdays-proto.s3.us-east-2.amazonaws.com/",
     region: "us-east-2"
