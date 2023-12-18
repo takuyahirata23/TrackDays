@@ -112,4 +112,12 @@ if config_env() == :prod do
   config :swoosh, :api_client, Swoosh.ApiClient.Hackney
   #
   # See https://hexdocs.pm/swoosh/Swoosh.html#module-installation for details.
+
+  # AWS
+  config :ex_aws,
+    access_key_id: [{:system, "AWS_ACCESS_KEY_ID"}, :instance_role],
+    secret_access_key: [{:system, "AWS_SECRET_ACCESS_KEY"}, :instance_role],
+    scheme: "https://",
+    host: "trackdays-proto.s3.us-east-2.amazonaws.com/",
+    region: "us-east-2"
 end
