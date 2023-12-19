@@ -33,4 +33,12 @@ defmodule TrackdaysWeb.Schema.AccountsTypes do
       resolve(&Resolvers.Accounts.get_groups/3)
     end
   end
+
+  object :accounts_mutations do
+    @des "Update group"
+    field :update_group, non_null(:user) do
+      arg(:group_id, non_null(:id))
+      resolve(&Resolvers.Accounts.update_group/3)
+    end
+  end
 end

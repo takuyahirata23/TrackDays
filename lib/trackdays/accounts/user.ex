@@ -35,6 +35,12 @@ defmodule Trackdays.Accounts.User do
     |> validate_password()
   end
 
+  def group_update_changeset(user, attrs \\ %{}) do
+    user
+    |> cast(attrs, [:group_id])
+    |> validate_required([:group_id])
+  end
+
   defp validate_email(changeset) do
     changeset
     |> validate_required([:email])

@@ -136,4 +136,11 @@ defmodule Trackdays.Accounts do
   def get_groups do
     Repo.all(Group)
   end
+
+  def update_group(user, group_id) do
+    user
+    |> Ecto.Changeset.change(group_id: group_id)
+    |> User.group_update_changeset()
+    |> Repo.update()
+  end
 end
