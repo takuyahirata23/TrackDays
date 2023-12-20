@@ -74,6 +74,10 @@ defmodule Trackdays.Accounts do
     |> Repo.insert()
   end
 
+  def get_email_verification(email, user) do
+    Repo.one(from n in NewEmailVerification, where: n.email == ^email and n.user_id == ^user.id)
+  end
+
   def verify_new_email(id) when is_binary(id) do
     email_verification = Repo.one(from e in NewEmailVerification, where: e.id == ^id)
     user = Repo.one(from u in User, where: u.id == ^email_verification.user_id)

@@ -5,7 +5,7 @@ defmodule TrackdaysWeb.UserSessionController do
   alias TrackdaysWeb.Auth
   alias Trackdays.Mailer
   alias Trackdays.Emails.UserEmail
-  alias Trackdays.Accounts.User
+  alias Trackdays.Accounts.{User, NewEmailVerification}
 
   def login(conn, %{"email" => email, "password" => password}) do
     case Accounts.get_user_by_email_and_password(email, password) do
@@ -63,22 +63,36 @@ defmodule TrackdaysWeb.UserSessionController do
 
     case Accounts.create_new_email_verification(attrs, user) do
       {:ok, new_email_verification} ->
-        UserEmail.new_email_verification(
-          user.name,
-          new_email_verification.email,
-          "/auth/verify-new-email/#{new_email_verification.id}"
-        )
-        |> Mailer.deliver()
+        send_email_verification_email(user, new_email_verification)
 
         conn
         |> put_status(200)
         |> render(:update_email)
 
       {:error, changeset} ->
-        conn
-        |> put_status(400)
-        |> render(:update_email_error, changeset: changeset)
+        case Accounts.get_email_verification(attrs["email"], user) do
+          nil ->
+            conn
+            |> put_status(400)
+            |> render(:update_email_error, changeset: changeset)
+
+          %NewEmailVerification{} = new_email_verification ->
+            send_email_verification_email(user, new_email_verification)
+
+            conn
+            |> put_status(200)
+            |> render(:update_email)
+        end
     end
+  end
+
+  defp send_email_verification_email(user, new_email_verification) do
+    UserEmail.new_email_verification(
+      user.name,
+      new_email_verification.email,
+      "/auth/verify-new-email/#{new_email_verification.id}"
+    )
+    |> Mailer.deliver()
   end
 
   # attrs = %{"email" => email}
