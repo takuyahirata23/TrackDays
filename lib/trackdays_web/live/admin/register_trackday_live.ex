@@ -28,7 +28,7 @@ defmodule TrackdaysWeb.Admin.RegisterTrackdayLive do
               prompt="Select track"
               required
             />
-            <.input field={@trackday_form[:date]} type="date" label="date" required />
+            <.input field={@trackday_form[:date]} type="datetime-local" label="date" required />
             <.input field={@trackday_form[:price]} type="text" label="Price" required />
             <.input field={@trackday_form[:description]} type="textarea" label="description" />
           </div>

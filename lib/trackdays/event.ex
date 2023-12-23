@@ -68,8 +68,8 @@ defmodule Trackdays.Event do
   end
 
   def get_trackdays_by_month(%{year: year, month: month}) do
-    start = Timex.beginning_of_month(year, month)
-    last = Timex.end_of_month(year, month)
+    start = Timex.beginning_of_month(year, month) |> Timex.to_naive_datetime()
+    last = Timex.end_of_month(year, month) |> Timex.to_naive_datetime()
 
     Repo.all(from t in Trackday, where: t.date <= ^last and t.date >= ^start)
   end

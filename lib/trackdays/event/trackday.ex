@@ -6,7 +6,7 @@ defmodule Trackdays.Event.Trackday do
   @foreign_key_type :binary_id
 
   schema "trackdays" do
-    field :date, :date
+    field :date, :naive_datetime
     field :price, :float
     field :description, :string
     field :trackdays_registration_url, :string
