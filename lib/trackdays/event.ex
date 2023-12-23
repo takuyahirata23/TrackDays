@@ -71,7 +71,7 @@ defmodule Trackdays.Event do
     start = Timex.beginning_of_month(year, month) |> Timex.to_naive_datetime()
     last = Timex.end_of_month(year, month) |> Timex.to_naive_datetime()
 
-    Repo.all(from t in Trackday, where: t.date <= ^last and t.date >= ^start)
+    Repo.all(from t in Trackday, where: t.end_datetime <= ^last and t.start_datetime >= ^start)
   end
 
   def get_trackday_by_id(id) when is_binary(id) do

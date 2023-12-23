@@ -6,7 +6,8 @@ defmodule Trackdays.Event.Trackday do
   @foreign_key_type :binary_id
 
   schema "trackdays" do
-    field :date, :naive_datetime
+    field :start_datetime, :naive_datetime
+    field :end_datetime, :naive_datetime
     field :price, :float
     field :description, :string
     field :trackdays_registration_url, :string
@@ -20,14 +21,15 @@ defmodule Trackdays.Event.Trackday do
   def changeset(trackday, attrs \\ %{}) do
     trackday
     |> cast(attrs, [
-      :date,
+      :start_datetime,
+      :end_datetime,
       :price,
       :description,
       :organization_id,
       :track_id,
       :trackdays_registration_url
     ])
-    |> validate_required([:date, :price, :organization_id, :track_id])
+    |> validate_required([:start_datetime, :end_datetime, :price, :organization_id, :track_id])
     |> validate_number(:price, greater_than: 10)
     |> validate_length(:trackdays_registration_url, min: 2, max: 50)
     |> unique_constraint([:organization_id, :date, :track_id],

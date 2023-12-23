@@ -17,7 +17,8 @@ defmodule TrackdaysWeb.Schema.EventTypes do
 
   object :trackday do
     field :id, non_null(:id)
-    field :date, non_null(:string)
+    field :start_datetime, non_null(:string)
+    field :end_datetime, non_null(:string)
     field :price, non_null(:float)
     field :description, :string
     field :trackdays_registration_url, :string
