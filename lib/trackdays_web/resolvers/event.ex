@@ -65,4 +65,28 @@ defmodule TrackdaysWeb.Resolvers.Event do
   def get_trackday(_, %{id: id}, _) do
     {:ok, Event.get_trackday_by_id(id)}
   end
+
+  def save_user_trackday_calendar(_, %{save_user_trackday_calendar_input: args}, %{
+        context: %{current_user: user}
+      }) do
+    attrs = Map.put(args, :user_id, user.id)
+
+    case Event.save_user_trackday_calendar(attrs) do
+      {:error, %Ecto.Changeset{} = changeset} ->
+        {:error,
+         message: "Saving user trackday calendar failed",
+         errors:
+           Ecto.Changeset.traverse_errors(
+             changeset,
+             &TrackdaysWeb.CoreComponents.translate_error/1
+           )}
+
+      {:ok, user_trackday_calendar} ->
+        {:ok, user_trackday_calendar}
+    end
+  end
+
+  def get_user_trackday_calendar(_, %{trackday_id: trackday_id}, %{context: %{current_user: user}}) do
+    {:ok, Event.get_user_trackday_calendar(user.id, trackday_id)}
+  end
 end

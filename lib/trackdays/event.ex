@@ -1,9 +1,8 @@
 defmodule Trackdays.Event do
   import Ecto.Query, warn: false
 
-  alias Trackdays.Event.Trackday
   alias Trackdays.Repo
-  alias Trackdays.Event.TrackdayNote
+  alias Trackdays.Event.{TrackdayNote, Trackday, UserTrackdayCalendar}
 
   use Timex
 
@@ -76,5 +75,19 @@ defmodule Trackdays.Event do
 
   def get_trackday_by_id(id) when is_binary(id) do
     Repo.one(from t in Trackday, where: t.id == ^id)
+  end
+
+  def save_user_trackday_calendar(attrs) do
+    %UserTrackdayCalendar{}
+    |> UserTrackdayCalendar.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  def get_user_trackday_calendar(user_id, trackday_id)
+      when is_binary(user_id) and is_binary(trackday_id) do
+    Repo.one(
+      from u in UserTrackdayCalendar,
+        where: u.user_id == ^user_id and u.trackday_id == ^trackday_id
+    )
   end
 end

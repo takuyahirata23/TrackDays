@@ -2,7 +2,7 @@ defmodule TrackdaysWeb.Schema.EventTypes do
   use Absinthe.Schema.Notation
   import Absinthe.Resolution.Helpers, only: [dataloader: 1]
 
-  alias Trackdays.{Park, Vehicle, Business}
+  alias Trackdays.{Park, Vehicle, Business, Event}
 
   alias TrackdaysWeb.Resolvers
 
@@ -26,6 +26,12 @@ defmodule TrackdaysWeb.Schema.EventTypes do
     field :organization, non_null(:organization), resolve: dataloader(Business)
   end
 
+  object :user_trackday_calendar do
+    field :id, non_null(:id)
+    field :calendar_id, non_null(:id)
+    field :trackday, non_null(:trackday) , resolve: dataloader(Event)
+  end
+
   input_object :get_events_by_month_input do
     field :month, non_null(:integer)
     field :year, non_null(:integer)
@@ -45,6 +51,11 @@ defmodule TrackdaysWeb.Schema.EventTypes do
     field :track_id, :id
     field :motorcycle_id, :id
     field :note, :string
+  end
+
+  input_object :save_user_trackday_calendar_input do
+    field :calendar_id, non_null(:id)
+    field :trackday_id, :id
   end
 
   object :event_queries do
@@ -81,6 +92,12 @@ defmodule TrackdaysWeb.Schema.EventTypes do
       arg(:id, non_null(:id))
       resolve(&Resolvers.Event.get_trackday/3)
     end
+
+    @desc "Get specific user trackday calendar"
+    field :user_trackday_calendar, non_null(:user_trackday_calendar) do
+      arg(:trackday_id, non_null(:id))
+      resolve(&Resolvers.Event.get_user_trackday_calendar/3)
+    end
   end
 
   object :event_mutations do
@@ -100,6 +117,12 @@ defmodule TrackdaysWeb.Schema.EventTypes do
     field :update_trackday_note, non_null(:trackday_note) do
       arg(:update_trackday_note_input, non_null(:update_trackday_note_input))
       resolve(&Resolvers.Event.update_trackday_note/3)
+    end
+
+    @des "Save user trackday calendar history"
+    field :save_user_trackday_calendar, non_null(:user_trackday_calendar) do
+      arg(:save_user_trackday_calendar_input, non_null(:save_user_trackday_calendar_input))
+      resolve(&Resolvers.Event.save_user_trackday_calendar/3)
     end
   end
 end
