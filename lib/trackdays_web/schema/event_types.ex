@@ -94,7 +94,7 @@ defmodule TrackdaysWeb.Schema.EventTypes do
     end
 
     @desc "Get specific user trackday calendar"
-    field :user_trackday_calendar, non_null(:user_trackday_calendar) do
+    field :user_trackday_calendar, :user_trackday_calendar do
       arg(:trackday_id, non_null(:id))
       resolve(&Resolvers.Event.get_user_trackday_calendar/3)
     end
