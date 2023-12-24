@@ -95,4 +95,8 @@ defmodule TrackdaysWeb.Resolvers.Event do
       }) do
     Event.delete_user_trackday_calendar(user.id, trackday_id)
   end
+
+  def get_upcoming_trackdays(_, _, %{context: %{current_user: user}}) do
+    {:ok, Event.get_upcoming_trackdays(user.id)}
+  end
 end
