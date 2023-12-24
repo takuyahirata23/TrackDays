@@ -2,7 +2,7 @@ defmodule Trackdays.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
 
-  alias Trackdays.Event.TrackdayNote
+  alias Trackdays.Event.{TrackdayNote, UserTrackdayCalendar}
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
@@ -21,6 +21,7 @@ defmodule Trackdays.Accounts.User do
 
     has_many :trackday_notes, TrackdayNote
     has_many :motorcycles, Trackdays.Accounts.User
+    has_many :user_trackday_calendar, UserTrackdayCalendar
     belongs_to :group, Trackdays.Accounts.Group
 
     timestamps()

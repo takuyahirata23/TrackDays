@@ -102,4 +102,21 @@ defmodule Trackdays.Event do
       error -> error
     end
   end
+
+  def get_upcoming_trackdays(user_id) when is_binary(user_id) do
+    trackday_ids =
+      from utc in UserTrackdayCalendar,
+        where: utc.user_id == ^user_id,
+        select: utc.trackday_id
+
+    today = NaiveDateTime.local_now()
+
+    query =
+      from t in Trackday,
+        where: t.id in subquery(trackday_ids) and t.end_datetime >= ^today,
+        order_by: [:start_datetime],
+        limit: 2
+
+    Repo.all(query)
+  end
 end

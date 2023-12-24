@@ -100,6 +100,11 @@ defmodule TrackdaysWeb.Schema.EventTypes do
       arg(:trackday_id, non_null(:id))
       resolve(&Resolvers.Event.get_user_trackday_calendar/3)
     end
+
+    @desc "Get upcoming trackdays"
+    field :upcoming_trackdays, list_of(:trackday) do
+      resolve(&Resolvers.Event.get_upcoming_trackdays/3)
+    end
   end
 
   object :event_mutations do
