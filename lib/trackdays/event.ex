@@ -90,4 +90,16 @@ defmodule Trackdays.Event do
         where: u.user_id == ^user_id and u.trackday_id == ^trackday_id
     )
   end
+
+  def delete_user_trackday_calendar(user_id, trackday_id)
+      when is_binary(user_id) and is_binary(trackday_id) do
+    with %UserTrackdayCalendar{} = user_trackday_calendar <-
+           get_user_trackday_calendar(user_id, trackday_id),
+         res <- Repo.delete(user_trackday_calendar) do
+      res
+    else
+      nil -> {:error, error: true, message: "User trackday calendar not found"}
+      error -> error
+    end
+  end
 end
