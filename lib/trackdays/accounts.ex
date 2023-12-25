@@ -1,4 +1,5 @@
 defmodule Trackdays.Accounts do
+
   import Ecto.Query, warn: false
 
   alias Ecto.Repo
@@ -8,6 +9,8 @@ defmodule Trackdays.Accounts do
 
   alias Trackdays.Accounts.User
   alias TrackdaysWeb.Auth
+
+  @bucket_name System.get_env("BUCKET")
 
   def register_user(attrs) do
     %User{}
@@ -119,10 +122,9 @@ defmodule Trackdays.Accounts do
   end
 
   def delete_user_account(user) do
-    bucket_name = "trackdays-proto"
     filename = "#{user.id}-profile.jpg"
 
-    case ExAws.S3.delete_object(bucket_name, filename) |> ExAws.request() do
+    case ExAws.S3.delete_object(@bucket_name, filename) |> ExAws.request() do
       {:ok, _} ->
         Repo.delete(user)
 

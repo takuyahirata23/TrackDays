@@ -118,6 +118,6 @@ if config_env() == :prod do
     access_key_id: [{:system, "AWS_ACCESS_KEY_ID"}, :instance_role],
     secret_access_key: [{:system, "AWS_SECRET_ACCESS_KEY"}, :instance_role],
     scheme: "https://",
-    host: "trackdays-proto.s3.us-east-2.amazonaws.com/",
-    region: "us-east-2"
+    host: "trackdays-production.s3.us-east-1.amazonaws.com/",
+    region: "us-east-1"
 end
