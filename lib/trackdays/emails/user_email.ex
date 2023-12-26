@@ -5,7 +5,7 @@ defmodule Trackdays.Emails.UserEmail do
 
   # Signup Email Verification
   def welcome(user, verify_link) do
-    IO.inspect(@url, label: "BASE_URL")
+    IO.inspect("#{@url}#{verify_link}", label: "URL")
 
     new()
     |> from("support@motorcycle-trackdays.com")
