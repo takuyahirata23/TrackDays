@@ -63,8 +63,8 @@ defmodule TrackdaysWeb.UserSessionController do
 
     case Accounts.create_new_email_verification(attrs, user) do
       {:ok, new_email_verification} ->
-        send_email_verification_email(user, new_email_verification)
-
+        res = send_email_verification_email(user, new_email_verification)
+       IO.inspect(res, label: "success")
         conn
         |> put_status(200)
         |> render(:update_email)
@@ -77,8 +77,9 @@ defmodule TrackdaysWeb.UserSessionController do
             |> render(:update_email_error, changeset: changeset)
 
           %NewEmailVerification{} = new_email_verification ->
-            send_email_verification_email(user, new_email_verification)
+            res = send_email_verification_email(user, new_email_verification)
 
+       IO.inspect(res, label: "fail success")
             conn
             |> put_status(200)
             |> render(:update_email)
