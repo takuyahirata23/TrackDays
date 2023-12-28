@@ -59,5 +59,11 @@ defmodule TrackdaysWeb.Schema.VehicleTypes do
       arg(:register_motorcycle_input, non_null(:register_motorcycle_input))
       resolve(&Resolvers.Vehicle.register_motorcycle/3)
     end
+
+    @desc "Delete motorcycle"
+    field :delete_motorcycle, non_null(:motorcycle) do
+      arg(:id, non_null(:id))
+      resolve(&Resolvers.Vehicle.delete_motorcycle/3)
+    end
   end
 end

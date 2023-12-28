@@ -18,7 +18,7 @@ defmodule Trackdays.Vehicle.Motorcycle do
     timestamps()
   end
 
-  def chagneset(motorcycle, attrs \\ %{}) do
+  def changeset(motorcycle, attrs \\ %{}) do
     motorcycle
     |> cast(attrs, [:year, :model_id, :user_id])
     |> validate_required([:year, :model_id, :user_id])
@@ -28,7 +28,7 @@ defmodule Trackdays.Vehicle.Motorcycle do
     )
     |> unique_constraint([:user_id, :model_id, :year],
       name: :motorcycle_constraint,
-      message: "Already registerd"
+      message: "Already registered"
     )
   end
 end

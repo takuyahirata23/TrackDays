@@ -35,7 +35,7 @@ defmodule Trackdays.Vehicle do
 
   def register_motorcycle(attrs) do
     %Motorcycle{}
-    |> Motorcycle.chagneset(attrs)
+    |> Motorcycle.changeset(attrs)
     |> Repo.insert()
   end
 
@@ -51,6 +51,16 @@ defmodule Trackdays.Vehicle do
       from m in Motorcycle,
         where: m.user_id == ^user_id
     )
+  end
+
+  def delete_motorcycle(motorcycle_id, user_id) do
+    case get_motorcycle(motorcycle_id, user_id) do
+      %Motorcycle{} = motorcycle ->
+        Repo.delete(motorcycle)
+
+      _ ->
+        {:error, message: "Not found"}
+    end
   end
 
   def datasource do
