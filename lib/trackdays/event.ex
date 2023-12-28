@@ -3,6 +3,9 @@ defmodule Trackdays.Event do
 
   alias Trackdays.Repo
   alias Trackdays.Event.{TrackdayNote, Trackday, UserTrackdayCalendar}
+  alias Trackdays.Park.{Facility, Track}
+  alias Trackdays.Accounts.{User}
+  alias Trackdays.Vehicle.{Motorcycle, Model, Make}
 
   use Timex
 
@@ -118,5 +121,66 @@ defmodule Trackdays.Event do
         limit: 1
 
     Repo.all(query)
+  end
+
+  # def get_it do
+  #   trackdays = from t in TrackdayNote, distinct: t.user_id,order_by: [:lap_time], limit: 1
+
+  #   query =
+  #     from f in Facility,
+  #       join: t in Track,
+  #       on: t.facility_id == f.id,
+  #       join: r in subquery(trackdays),
+  #       on: r.track_id == t.id
+
+  #   Repo.all(query)
+  # end
+  def get_it do
+    trackday_note_query =
+      from tn in TrackdayNote,
+        select: %{id: tn.id, row_number: over(row_number(), :track_partition)},
+        windows: [track_partition: [partition_by: [:track_id, :user_id], order_by: :lap_time]]
+
+    track_query =
+      from tn in TrackdayNote,
+        join: b in subquery(trackday_note_query),
+        on: tn.id == b.id and b.row_number <= 2
+
+    Repo.all(from t in Track, preload: [trackday_notes: ^track_query])
+  end
+
+  def do_it do
+    track_id = "158ff4ee-febd-4430-9863-6f92b9724766"
+
+    query =
+      from t in TrackdayNote,
+        where: t.track_id == ^track_id and t.lap_time > 0,
+        order_by: t.lap_time,
+        distinct: t.user_id,
+        preload: [:track],
+        limit: 3
+
+    Repo.all(query)
+  end
+
+  def get_facility_leaderboard(facility_id) do
+    query =
+      from tn in TrackdayNote,
+        join: u in User,
+        on: tn.user_id == u.id,
+        join: m in Motorcycle,
+        on: m.id == tn.motorcycle_id,
+        join: model in Model,
+        on: model.id == m.model_id,
+        join: make in Make,
+        on: make.id == model.make_id,
+        group_by: [u.id, tn.lap_time, m.id, model.id, make.id, tn.track_id],
+        order_by: tn.lap_time,
+        select: %{user: u, time: min(tn.lap_time), year: m.year, model: model.name, make: make.name},
+        limit: 3
+
+    Repo.one(
+      from f in Facility, where: f.id == ^facility_id, preload: [tracks: [trackday_notes: ^query]]
+    )
   end
 end

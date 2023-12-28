@@ -30,7 +30,29 @@ defmodule TrackdaysWeb.Schema.EventTypes do
     field :id, non_null(:id)
     field :calendar_id, non_null(:id)
     field :event_id, non_null(:id)
-    field :trackday, non_null(:trackday) , resolve: dataloader(Event)
+    field :trackday, non_null(:trackday), resolve: dataloader(Event)
+  end
+
+  object :leader_board do
+    field :time, non_null(:integer)
+    field :user, non_null(:user)
+    field :year, non_null(:integer)
+    field :make, non_null(:string)
+    field :model, non_null(:string)
+  end
+
+  object :tracks_for_leaderboard do
+    field :id, non_null(:id)
+    field :name, non_null(:id)
+    field :length, non_null(:float)
+    field :trackday_notes, non_null(list_of(:leader_board))
+  end
+
+  object :facility_with_leader_board do
+    field :id, non_null(:id)
+    field :name, non_null(:string)
+    field :description, :string
+    field :tracks, non_null(list_of(:tracks_for_leaderboard))
   end
 
   input_object :get_events_by_month_input do
@@ -104,6 +126,12 @@ defmodule TrackdaysWeb.Schema.EventTypes do
     @desc "Get upcoming trackdays"
     field :upcoming_trackdays, list_of(:trackday) do
       resolve(&Resolvers.Event.get_upcoming_trackdays/3)
+    end
+
+    @desc "Get leaderboard for facility"
+    field :facility_leaderboard, :facility_with_leader_board do
+      arg(:facility_id, non_null(:id))
+      resolve(&Resolvers.Event.get_facility_leaderboard/3)
     end
   end
 
