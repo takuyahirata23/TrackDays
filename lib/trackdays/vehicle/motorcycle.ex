@@ -9,6 +9,7 @@ defmodule Trackdays.Vehicle.Motorcycle do
 
   schema "motorcycles" do
     field :year, :integer
+    field :is_archived, :boolean
 
     has_many :trackday_notes, TrackdayNote
 
@@ -20,7 +21,7 @@ defmodule Trackdays.Vehicle.Motorcycle do
 
   def changeset(motorcycle, attrs \\ %{}) do
     motorcycle
-    |> cast(attrs, [:year, :model_id, :user_id])
+    |> cast(attrs, [:year, :model_id, :user_id, :is_archived])
     |> validate_required([:year, :model_id, :user_id])
     |> validate_number(:year,
       greater_than: 1800,
