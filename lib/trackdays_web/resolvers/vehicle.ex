@@ -37,7 +37,7 @@ defmodule TrackdaysWeb.Resolvers.Vehicle do
     {:ok, Vehicle.get_motorcycle(id, current_user.id)}
   end
 
-  def delete_motorcycle(_, %{id: id}, %{context: %{current_user: current_user}}) do
-    Vehicle.delete_motorcycle(id, current_user.id)
+  def archive_motorcycle(_, %{id: id}, %{context: %{current_user: current_user}}) do
+    Vehicle.archive_motorcycle(id, current_user.id)
   end
 end

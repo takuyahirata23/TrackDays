@@ -49,14 +49,15 @@ defmodule Trackdays.Vehicle do
   def get_motorcycles(user_id) when is_binary(user_id) do
     Repo.all(
       from m in Motorcycle,
-        where: m.user_id == ^user_id
+        where: m.user_id == ^user_id and is_nil(m.is_archived)
     )
   end
 
-  def delete_motorcycle(motorcycle_id, user_id) do
+  def archive_motorcycle(motorcycle_id, user_id) do
     case get_motorcycle(motorcycle_id, user_id) do
       %Motorcycle{} = motorcycle ->
-        Repo.delete(motorcycle)
+        Ecto.Changeset.change(motorcycle, is_archived: true)
+        |> Repo.update()
 
       _ ->
         {:error, message: "Not found"}
