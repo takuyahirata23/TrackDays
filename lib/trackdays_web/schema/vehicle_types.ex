@@ -10,7 +10,6 @@ defmodule TrackdaysWeb.Schema.VehicleTypes do
   object :make do
     field :id, non_null(:id)
     field :name, non_null(:string)
-    # field :models, non_null(list_of(:model)), resolve: dataloader(Vehicle)
   end
 
   object :model do
@@ -45,6 +44,12 @@ defmodule TrackdaysWeb.Schema.VehicleTypes do
     @desc "Get all motorcycles"
     field :motorcycles, list_of(non_null(:motorcycle)) do
       resolve(&Resolvers.Vehicle.get_motorcycles/3)
+    end
+
+    @desc "Get motorcycle"
+    field :motorcycle, non_null(:motorcycle) do
+      arg(:id, non_null(:id))
+      resolve(&Resolvers.Vehicle.get_motorcycle/3)
     end
   end
 

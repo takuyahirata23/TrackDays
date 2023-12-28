@@ -115,7 +115,7 @@ defmodule Trackdays.Event do
       from t in Trackday,
         where: t.id in subquery(trackday_ids) and t.end_datetime >= ^today,
         order_by: [:start_datetime],
-        limit: 2
+        limit: 1
 
     Repo.all(query)
   end

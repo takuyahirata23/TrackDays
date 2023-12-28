@@ -16,7 +16,7 @@ defmodule TrackdaysWeb.Resolvers.Vehicle do
 
     case Vehicle.register_motorcycle(attrs) do
       {:ok, motorcycle} ->
-        {:ok, Vehicle.get_motorcycle(motorcycle.id, current_user.id)}
+        {:ok, motorcycle}
 
       {:error, changeset} ->
         {:error,
@@ -33,7 +33,7 @@ defmodule TrackdaysWeb.Resolvers.Vehicle do
     {:ok, Vehicle.get_motorcycles(current_user.id)}
   end
 
-  def get_motorcycle(parent, _, %{context: %{current_user: current_user}}) do
-    {:ok, Vehicle.get_motorcycle(parent.motorcycle_id, current_user.id)}
+  def get_motorcycle(_, %{id: id}, %{context: %{current_user: current_user}}) do
+    {:ok, Vehicle.get_motorcycle(id, current_user.id)}
   end
 end
