@@ -99,4 +99,8 @@ defmodule TrackdaysWeb.Resolvers.Event do
   def get_upcoming_trackdays(_, _, %{context: %{current_user: user}}) do
     {:ok, Event.get_upcoming_trackdays(user.id)}
   end
+
+  def get_facility_leaderboard(_, %{facility_id: facility_id}, _) do
+    {:ok, Event.get_facility_leaderboard(facility_id)}
+  end
 end
