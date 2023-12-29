@@ -1,5 +1,4 @@
 defmodule Trackdays.Accounts do
-
   import Ecto.Query, warn: false
 
   alias Ecto.Repo
@@ -147,6 +146,13 @@ defmodule Trackdays.Accounts do
     user
     |> Ecto.Changeset.change(group_id: group_id)
     |> User.group_update_changeset()
+    |> Repo.update()
+  end
+
+  def update_account_type(is_private, user)
+      when is_boolean(is_private) do
+    user
+    |> Ecto.Changeset.change(is_private: is_private)
     |> Repo.update()
   end
 end
