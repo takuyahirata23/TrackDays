@@ -18,6 +18,7 @@ defmodule Trackdays.Accounts.User do
     field :is_admin, :boolean, default: false
     field :confirmed_at, :naive_datetime
     field :image_url, :string
+    field :is_private, :boolean
 
     has_many :trackday_notes, TrackdayNote
     has_many :motorcycles, Trackdays.Accounts.User
@@ -29,7 +30,7 @@ defmodule Trackdays.Accounts.User do
 
   def changeset(user, attrs \\ %{}) do
     user
-    |> cast(attrs, [:name, :email, :password, :image_url, :group_id])
+    |> cast(attrs, [:name, :email, :password, :image_url, :group_id, :is_private])
     |> validate_required([:name, :email, :password, :group_id])
     |> validate_name()
     |> validate_email()
