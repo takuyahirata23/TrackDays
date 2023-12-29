@@ -10,6 +10,7 @@ defmodule TrackdaysWeb.Schema.AccountsTypes do
     field :name, non_null(:string)
     field :email, non_null(:string)
     field :image_url, :string
+    field :is_private, non_null(:boolean)
     field :group, non_null(:group), resolve: dataloader(Accounts)
   end
 
