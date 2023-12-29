@@ -15,4 +15,11 @@ defmodule TrackdaysWeb.Resolvers.Accounts do
       {:ok, user} -> {:ok, user}
     end
   end
+
+  def update_account_type(_, %{is_private: is_private}, %{context: %{current_user: current_user}}) do
+    case Accounts.update_account_type(is_private, current_user) do
+      {:error, _} -> {:error, message: "Updating account type failed"}
+      {:ok, user} -> {:ok, user}
+    end
+  end
 end
