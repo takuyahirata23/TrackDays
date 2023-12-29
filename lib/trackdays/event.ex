@@ -122,41 +122,43 @@ defmodule Trackdays.Event do
 
     Repo.all(query)
   end
+
   def get_facility_leaderboard(facility_id) do
-    query =
-      from tn in TrackdayNote,
-        join: u in User,
-        on: tn.user_id == u.id and u.is_private == false,
-        join: m in Motorcycle,
-        on: m.id == tn.motorcycle_id,
-        group_by: [u.id, tn.lap_time, m.id, tn.track_id],
-        order_by: tn.lap_time,
-        select: %{user: u, time: min(tn.lap_time), motorcycle: m},
-        limit: 3
+    ids =
+      Repo.all(
+        from f in Facility,
+          where: f.id == ^facility_id,
+          join: t in Track,
+          on: t.facility_id == f.id,
+          select: t.id
+      )
 
-    Repo.one(
-      from f in Facility, where: f.id == ^facility_id, preload: [tracks: [trackday_notes: ^query]]
-    )
+    track_query =
+      from t in Track,
+        where: t.id in ^ids
+
+    Repo.all(track_query)
+    |> Enum.map(fn track ->
+      res = get_leaderboard(track.id)
+      Map.put(track, :trackday_notes, res)
+    end)
   end
-  # This doesn't depend on dataloader so less query but more complex and types are not consistant
-  # def get_facility_leaderboard(facility_id) do
-  #   query =
-  #     from tn in TrackdayNote,
-  #       join: u in User,
-  #       on: tn.user_id == u.id,
-  #       join: m in Motorcycle,
-  #       on: m.id == tn.motorcycle_id,
-  #       join: model in Model,
-  #       on: model.id == m.model_id,
-  #       join: make in Make,
-  #       on: make.id == model.make_id,
-  #       group_by: [u.id, tn.lap_time, m.id, model.id, make.id, tn.track_id],
-  #       order_by: tn.lap_time,
-  #       select: %{user: u, time: min(tn.lap_time), year: m.year, model: model.name, make: make.name},
-  #       limit: 3
 
-  #   Repo.one(
-  #     from f in Facility, where: f.id == ^facility_id, preload: [tracks: [trackday_notes: ^query]]
-  #   )
-  # end
+  defp get_leaderboard(track_id) do
+      tn_query =
+        from tn in TrackdayNote,
+          where: tn.track_id == ^track_id,
+          join: u in User, on: tn.user_id == u.id and u.is_private == false,
+          distinct: tn.user_id,
+          order_by: [tn.lap_time]
+
+      query =
+        from tn in TrackdayNote,
+          join: m in subquery(tn_query),
+          on: tn.id == m.id,
+          order_by: tn.lap_time,
+          preload: [motorcycle: [model: :make]]
+
+      Repo.all(query)
+  end
 end

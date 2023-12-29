@@ -2,7 +2,7 @@ defmodule TrackdaysWeb.Schema.EventTypes do
   use Absinthe.Schema.Notation
   import Absinthe.Resolution.Helpers, only: [dataloader: 1]
 
-  alias Trackdays.{Park, Vehicle, Business, Event}
+  alias Trackdays.{Park, Vehicle, Business, Event, Accounts}
 
   alias TrackdaysWeb.Resolvers
 
@@ -13,6 +13,7 @@ defmodule TrackdaysWeb.Schema.EventTypes do
     field :note, :string
     field :track, non_null(:track), resolve: dataloader(Park)
     field :motorcycle, non_null(:motorcycle), resolve: dataloader(Vehicle)
+    field :user, non_null(:user), resolve: dataloader(Accounts)
   end
 
   object :trackday do
@@ -33,25 +34,25 @@ defmodule TrackdaysWeb.Schema.EventTypes do
     field :trackday, non_null(:trackday), resolve: dataloader(Event)
   end
 
-  object :leader_board do
-    field :time, non_null(:integer)
-    field :user, non_null(:user)
-    field :motorcycle, non_null(:motorcycle)
-  end
+  # object :leader_board do
+  #   field :time, non_null(:integer)
+  #   field :user, non_null(:user)
+  #   field :motorcycle, non_null(:motorcycle)
+  # end
 
-  object :tracks_for_leaderboard do
+  object :tracks_with_leaderboard do
     field :id, non_null(:id)
     field :name, non_null(:id)
     field :length, non_null(:float)
-    field :trackday_notes, non_null(list_of(:leader_board))
+    field :trackday_notes, non_null(list_of(:trackday_note))
   end
 
-  object :facility_with_leader_board do
-    field :id, non_null(:id)
-    field :name, non_null(:string)
-    field :description, :string
-    field :tracks, non_null(list_of(:tracks_for_leaderboard))
-  end
+  # object :facility_with_leader_board do
+  #   field :id, non_null(:id)
+  #   field :name, non_null(:string)
+  #   field :description, :string
+  #   field :tracks, non_null(list_of(:tracks_for_leaderboard))
+  # end
 
   input_object :get_events_by_month_input do
     field :month, non_null(:integer)
@@ -127,7 +128,7 @@ defmodule TrackdaysWeb.Schema.EventTypes do
     end
 
     @desc "Get leaderboard for facility"
-    field :facility_leaderboard, :facility_with_leader_board do
+    field :tracks_with_leaderboard, list_of(:tracks_with_leaderboard) do
       arg(:facility_id, non_null(:id))
       resolve(&Resolvers.Event.get_facility_leaderboard/3)
     end
