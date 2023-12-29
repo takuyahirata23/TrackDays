@@ -170,17 +170,34 @@ defmodule Trackdays.Event do
         on: tn.user_id == u.id,
         join: m in Motorcycle,
         on: m.id == tn.motorcycle_id,
-        join: model in Model,
-        on: model.id == m.model_id,
-        join: make in Make,
-        on: make.id == model.make_id,
-        group_by: [u.id, tn.lap_time, m.id, model.id, make.id, tn.track_id],
+        group_by: [u.id, tn.lap_time, m.id, tn.track_id],
         order_by: tn.lap_time,
-        select: %{user: u, time: min(tn.lap_time), year: m.year, model: model.name, make: make.name},
+        select: %{user: u, time: min(tn.lap_time), motorcycle: m},
         limit: 3
 
     Repo.one(
       from f in Facility, where: f.id == ^facility_id, preload: [tracks: [trackday_notes: ^query]]
     )
   end
+  # This doesn't depend on dataloader so less query but more complex and types are not consistant
+  # def get_facility_leaderboard(facility_id) do
+  #   query =
+  #     from tn in TrackdayNote,
+  #       join: u in User,
+  #       on: tn.user_id == u.id,
+  #       join: m in Motorcycle,
+  #       on: m.id == tn.motorcycle_id,
+  #       join: model in Model,
+  #       on: model.id == m.model_id,
+  #       join: make in Make,
+  #       on: make.id == model.make_id,
+  #       group_by: [u.id, tn.lap_time, m.id, model.id, make.id, tn.track_id],
+  #       order_by: tn.lap_time,
+  #       select: %{user: u, time: min(tn.lap_time), year: m.year, model: model.name, make: make.name},
+  #       limit: 3
+
+  #   Repo.one(
+  #     from f in Facility, where: f.id == ^facility_id, preload: [tracks: [trackday_notes: ^query]]
+  #   )
+  # end
 end

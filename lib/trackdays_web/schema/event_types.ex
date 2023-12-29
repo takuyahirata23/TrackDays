@@ -36,9 +36,7 @@ defmodule TrackdaysWeb.Schema.EventTypes do
   object :leader_board do
     field :time, non_null(:integer)
     field :user, non_null(:user)
-    field :year, non_null(:integer)
-    field :make, non_null(:string)
-    field :model, non_null(:string)
+    field :motorcycle, non_null(:motorcycle)
   end
 
   object :tracks_for_leaderboard do
