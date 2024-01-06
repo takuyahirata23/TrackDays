@@ -49,7 +49,7 @@ defmodule Trackdays.Vehicle do
   def get_motorcycles(user_id) when is_binary(user_id) do
     Repo.all(
       from m in Motorcycle,
-        where: m.user_id == ^user_id and is_nil(m.is_archived)
+        where: m.user_id == ^user_id and (is_nil(m.is_archived) or m.is_archived == false)
     )
   end
 

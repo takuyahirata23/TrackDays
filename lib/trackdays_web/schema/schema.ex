@@ -34,7 +34,7 @@ defmodule TrackdaysWeb.Schema.Schema do
       |> Dataloader.add_source(Accounts, source)
       |> Dataloader.add_source(Park, source)
       |> Dataloader.add_source(Business, source)
-      |> Dataloader.add_source(Event, source)
+      |> Dataloader.add_source(Event, Event.datasource())
 
     Map.put(ctx, :loader, loader)
   end

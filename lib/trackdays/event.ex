@@ -145,20 +145,35 @@ defmodule Trackdays.Event do
   end
 
   defp get_leaderboard(track_id) do
-      tn_query =
-        from tn in TrackdayNote,
-          where: tn.track_id == ^track_id,
-          join: u in User, on: tn.user_id == u.id and u.is_private == false,
-          distinct: tn.user_id,
-          order_by: [tn.lap_time]
+    tn_query =
+      from tn in TrackdayNote,
+        where: tn.track_id == ^track_id,
+        join: u in User,
+        on: tn.user_id == u.id and u.is_private == false,
+        distinct: tn.user_id,
+        order_by: [tn.lap_time]
 
-      query =
-        from tn in TrackdayNote,
-          join: m in subquery(tn_query),
-          on: tn.id == m.id,
-          order_by: tn.lap_time,
-          preload: [motorcycle: [model: :make]]
+    query =
+      from tn in TrackdayNote,
+        join: m in subquery(tn_query),
+        on: tn.id == m.id,
+        order_by: tn.lap_time,
+        preload: [motorcycle: [model: :make]]
 
-      Repo.all(query)
+    Repo.all(query)
+  end
+
+  def datasource do
+    Dataloader.Ecto.new(Repo, query: &query/2)
+  end
+
+  def query(TrackdayNote, %{scope: :motorcycle}) do
+    TrackdayNote
+    |> order_by([desc: :date])
+    |> limit(3)
+  end
+
+  def query(queryable, _) do
+    queryable
   end
 end

@@ -34,25 +34,12 @@ defmodule TrackdaysWeb.Schema.EventTypes do
     field :trackday, non_null(:trackday), resolve: dataloader(Event)
   end
 
-  # object :leader_board do
-  #   field :time, non_null(:integer)
-  #   field :user, non_null(:user)
-  #   field :motorcycle, non_null(:motorcycle)
-  # end
-
   object :tracks_with_leaderboard do
     field :id, non_null(:id)
     field :name, non_null(:id)
     field :length, non_null(:float)
     field :trackday_notes, non_null(list_of(:trackday_note))
   end
-
-  # object :facility_with_leader_board do
-  #   field :id, non_null(:id)
-  #   field :name, non_null(:string)
-  #   field :description, :string
-  #   field :tracks, non_null(list_of(:tracks_for_leaderboard))
-  # end
 
   input_object :get_events_by_month_input do
     field :month, non_null(:integer)
