@@ -125,7 +125,6 @@ defmodule Trackdays.Accounts do
 
     case user.image_url do
       nil ->
-      IO.inspect(user)
         Repo.delete(user)
 
       _ ->
