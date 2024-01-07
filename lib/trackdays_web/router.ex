@@ -97,6 +97,8 @@ defmodule TrackdaysWeb.Router do
     pipe_through [:browser]
     get "/verification_success", AccountController, :verification_success
     get "/verification_fail", AccountController, :verification_fail
+    get "/delete", AccountController, :delete_account_request
+    post "/delete", AccountController, :delete_account
 
     live "/forgot-password/:id", PasswordUpdateLive
   end

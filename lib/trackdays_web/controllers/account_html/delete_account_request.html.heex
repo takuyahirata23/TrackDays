@@ -1,0 +1,13 @@
+<div class="mt-16">
+  <h1 class="font-bold text-lg mb-4">Please understand that your data will be deleted permanently when you delete your account.</h1>
+  <p :if={@message} class="my-8 font-bold text-xl text-error"><%= @message %></p>
+  <.simple_form for={%{}} action={~p"/accounts/delete"}>
+    <.input name="email" label="Email" value="" required />
+    <.input name="password" type="password" label="Password" value="" required />
+        <:actions>
+          <.button phx-disable-with="Signing in..." class="mt-8 mx-auto">
+            DELETE 
+          </.button>
+        </:actions>
+  </.simple_form>
+</div>

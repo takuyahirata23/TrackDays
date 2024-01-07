@@ -123,12 +123,19 @@ defmodule Trackdays.Accounts do
   def delete_user_account(user) do
     filename = "#{user.id}-profile.jpg"
 
-    case ExAws.S3.delete_object(@bucket_name, filename) |> ExAws.request() do
-      {:ok, _} ->
+    case user.image_url do
+      nil ->
+      IO.inspect(user)
         Repo.delete(user)
 
       _ ->
-        {:error, %{message: "Failed. Please try it later."}}
+        case ExAws.S3.delete_object(@bucket_name, filename) |> ExAws.request() do
+          {:ok, _} ->
+            Repo.delete(user)
+
+          _ ->
+            {:error, %{message: "Failed. Please try it later."}}
+        end
     end
   end
 

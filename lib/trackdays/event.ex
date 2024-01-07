@@ -170,7 +170,7 @@ defmodule Trackdays.Event do
   def query(TrackdayNote, %{scope: :motorcycle}) do
     TrackdayNote
     |> order_by([desc: :date])
-    |> limit(3)
+    |> limit(2)
   end
 
   def query(queryable, _) do
