@@ -15,6 +15,7 @@ defmodule TrackdaysWeb.Admin.OrganizationDetailLive do
         <.card class="md:space-y-2">
           <div>Facility: <%= trackday.track.facility.name %></div>
           <div>Track: <%= trackday.track.name %></div>
+          <div>Date: <%= format_date(trackday.start_datetime) %> - <%= format_date(trackday.end_datetime) %></div>
           <div>Price: $<%= trackday.price %></div>
           <div>Description: <%= trackday.description %></div>
         </.card>
@@ -27,5 +28,9 @@ defmodule TrackdaysWeb.Admin.OrganizationDetailLive do
     organization = Business.get_organization_with_trackdays(id)
 
     {:ok, assign(socket, organization: organization)}
+  end
+
+  defp format_date(date) do
+    Calendar.strftime(date, "%y-%m-%d %I:%M %p")
   end
 end
