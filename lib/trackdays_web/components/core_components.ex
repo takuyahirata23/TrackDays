@@ -226,7 +226,7 @@ defmodule TrackdaysWeb.CoreComponents do
       type={@type}
       class={[
         "phx-submit-loading:opacity-75 rounded-lg bg-zinc-900 hover:bg-zinc-700 py-2 px-3",
-        "text-sm font-semibold leading-6 text-white active:text-white/80",
+        "text-sm font-semibold leading-6 text-white active:text-white/80 bg-accent",
         @class
       ]}
       {@rest}
@@ -644,7 +644,7 @@ defmodule TrackdaysWeb.CoreComponents do
   def card(assigns) do
     ~H"""
     <div class={[
-      "bg-bg-secondary rounded p-4 drop-shadow-md",
+      "bg-card rounded p-4 drop-shadow-md",
       @class
     ]}>
       <%= if @inner_block do %>

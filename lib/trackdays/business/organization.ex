@@ -10,7 +10,7 @@ defmodule Trackdays.Business.Organization do
     field :trackdays_registration_url, :string
     field :homepage_url, :string
 
-    has_many :trackdays, Trackdays.Event.Trackday, preload_order: [asc: :date]
+    has_many :trackdays, Trackdays.Event.Trackday, preload_order: [asc: :start_datetime]
 
     timestamps()
   end

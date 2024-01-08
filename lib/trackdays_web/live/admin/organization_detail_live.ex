@@ -12,12 +12,12 @@ defmodule TrackdaysWeb.Admin.OrganizationDetailLive do
     </div>
     <ul class="flex flex-col gap-y-4">
       <li :for={trackday <- @organization.trackdays}>
-        <div class="p-4 rounded bg-bg-secondary">
+        <.card class="md:space-y-2">
           <div>Facility: <%= trackday.track.facility.name %></div>
           <div>Track: <%= trackday.track.name %></div>
-          <div>Date: <%= trackday.date %></div>
           <div>Price: $<%= trackday.price %></div>
-        </div>
+          <div>Description: <%= trackday.description %></div>
+        </.card>
       </li>
     </ul>
     """

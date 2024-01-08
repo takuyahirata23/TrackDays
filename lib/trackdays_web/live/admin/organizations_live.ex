@@ -36,7 +36,10 @@ defmodule TrackdaysWeb.Admin.OrganizationsLive do
         <.card margin_bottom={false}>
           <ul class="flex flex-col gap-y-4">
             <li :for={organization <- @organizations}>
-              <.link navigate={~p"/admin/business/organizations/#{organization.id}"}>
+              <.link
+                navigate={~p"/admin/business/organizations/#{organization.id}"}
+                class="md:text-lg md:font-bold"
+              >
                 <%= organization.name %>
               </.link>
             </li>
