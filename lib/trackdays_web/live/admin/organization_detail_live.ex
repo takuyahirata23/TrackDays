@@ -6,16 +6,18 @@ defmodule TrackdaysWeb.Admin.OrganizationDetailLive do
   def render(assigns) do
     ~H"""
     <div>
-    <a href={@organization.homepage_url} target="_blank">
-      <h1 class="font-bold text-xl mb-6"><%= @organization.name %></h1>
-    </a>
+      <a href={@organization.homepage_url} target="_blank">
+        <h1 class="font-bold text-xl mb-6"><%= @organization.name %></h1>
+      </a>
     </div>
     <ul class="flex flex-col gap-y-4">
       <li :for={trackday <- @organization.trackdays}>
         <.card class="md:space-y-2">
           <div>Facility: <%= trackday.track.facility.name %></div>
           <div>Track: <%= trackday.track.name %></div>
-          <div>Date: <%= format_date(trackday.start_datetime) %> - <%= format_date(trackday.end_datetime) %></div>
+          <div>
+            Date: <%= format_date(trackday.start_datetime) %> - <%= format_date(trackday.end_datetime) %>
+          </div>
           <div>Price: $<%= trackday.price %></div>
           <div>Description: <%= trackday.description %></div>
         </.card>
