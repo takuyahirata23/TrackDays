@@ -5,7 +5,6 @@ defmodule Trackdays.Event do
   alias Trackdays.Event.{TrackdayNote, Trackday, UserTrackdayCalendar}
   alias Trackdays.Park.{Facility, Track}
   alias Trackdays.Accounts.{User}
-  alias Trackdays.Vehicle.{Motorcycle}
 
   use Timex
 
