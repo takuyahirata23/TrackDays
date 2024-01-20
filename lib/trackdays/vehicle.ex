@@ -34,15 +34,31 @@ defmodule Trackdays.Vehicle do
   end
 
   def register_motorcycle(attrs) do
-    %Motorcycle{}
-    |> Motorcycle.changeset(attrs)
-    |> Repo.insert()
+    case get_archived_motorcycle(attrs) do
+      %Motorcycle{} = motorcycle ->
+        Ecto.Changeset.change(motorcycle, is_archived: false)
+        |> Repo.update()
+
+      nil ->
+        %Motorcycle{}
+        |> Motorcycle.changeset(attrs)
+        |> Repo.insert()
+    end
   end
 
   def get_motorcycle(motorcycle_id, user_id) when is_binary(user_id) do
     Repo.one(
       from motorcycle in Motorcycle,
         where: motorcycle.user_id == ^user_id and motorcycle.id == ^motorcycle_id
+    )
+  end
+
+  def get_archived_motorcycle(%{user_id: user_id, model_id: model_id}) do
+    Repo.one(
+      from m in Motorcycle,
+        where:
+          m.user_id == ^user_id and m.model_id == ^model_id and
+            m.is_archived == true
     )
   end
 
