@@ -11,7 +11,7 @@ defmodule Trackdays.Park do
   end
 
   def get_facilities do
-    Repo.all(Facility)
+    Repo.all(from f in Facility, order_by: f.name)
   end
 
   def get_facility_and_tracks(id) when is_binary(id) do
