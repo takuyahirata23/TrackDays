@@ -33,7 +33,7 @@ defmodule TrackdaysWeb.Auth do
     else
       conn
       |> put_flash(:error, "Admin only contents")
-      |> redirect(to: ~p"/admin/log_in")
+      |> redirect(to: ~p"/admin/login")
       |> halt()
     end
   end

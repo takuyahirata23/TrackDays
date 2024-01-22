@@ -4,7 +4,7 @@ defmodule TrackdaysWeb.Admin.LoginLive do
   def render(assigns) do
     ~H"""
     <div>
-      <.simple_form for={@form} id="login_form" action={~p"/admin/log_in"} phx-update="ignore">
+      <.simple_form for={@form} id="login_form" action={~p"/admin/login"} phx-update="ignore">
         <div class="flex flex-col gap-y-6">
           <.input field={@form[:email]} type="email" label="Email" required />
           <.input field={@form[:password]} type="password" label="Password" required />

@@ -40,7 +40,7 @@ defmodule TrackdaysWeb.Headers do
               <.link navigate={~p"/admin/business/register-trackday"}>Register Trackday</.link>
             </li>
             <li>
-              <.link navigate={~p"/admin/log_in"}>Log in</.link>
+              <.link navigate={~p"/admin/login"}>Log in</.link>
             </li>
           </ul>
         </nav>

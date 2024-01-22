@@ -2,7 +2,6 @@ defmodule TrackdaysWeb.PasswordUpdateLive do
   use TrackdaysWeb, :live_view
 
   alias Trackdays.Accounts
-  alias Trackdays.Accounts.{PasswordUpdateRequest}
 
   def render(assigns) do
     ~H"""
@@ -10,7 +9,7 @@ defmodule TrackdaysWeb.PasswordUpdateLive do
       <.simple_form
         for={@form}
         id="password_update_form"
-        action={~p"/admin/log_in"}
+        action={~p"/admin/login"}
         phx-submit="submit"
       >
         <div class="flex flex-col gap-y-6">

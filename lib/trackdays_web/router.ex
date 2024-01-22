@@ -108,10 +108,10 @@ defmodule TrackdaysWeb.Router do
 
     live_session :unauthorized_admin,
       layout: {TrackdaysWeb.Layouts, :admin} do
-      live "/log_in", Admin.LoginLive
+      live "/login", Admin.LoginLive
     end
 
-    post "/log_in", AdminSessionController, :create
+    post "/login", AdminSessionController, :create
   end
 
   scope "/admin", TrackdaysWeb do
