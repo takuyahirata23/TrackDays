@@ -146,7 +146,7 @@ defmodule Trackdays.Event do
   defp get_leaderboard(track_id) do
     tn_query =
       from tn in TrackdayNote,
-        where: tn.track_id == ^track_id,
+        where: tn.track_id == ^track_id and tn.lap_time > 30000,
         join: u in User,
         on: tn.user_id == u.id and u.is_private == false,
         distinct: tn.user_id,
