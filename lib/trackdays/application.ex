@@ -17,9 +17,11 @@ defmodule Trackdays.Application do
       # Start Finch
       {Finch, name: Trackdays.Finch},
       # Start the Endpoint (http/https)
-      TrackdaysWeb.Endpoint
+      TrackdaysWeb.Endpoint,
       # Start a worker by calling: Trackdays.Worker.start_link(arg)
       # {Trackdays.Worker, arg}
+      # Start Vault for encryption
+      Trackdays.Vault
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
