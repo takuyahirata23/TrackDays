@@ -71,6 +71,14 @@ config :ex_aws,
   host: "trackdays-production.s3.us-east-1.amazonaws.com/",
   region: "us-east-1"
 
+# Cloak Ecto to encrypt some data
+config :trackdays, Trackdays.Vault,
+  ciphers: [
+    default:
+      {Cloak.Ciphers.AES.GCM,
+       tag: "AES.GCM.V1", key: System.get_env("CLOAK_SECRET_KEY") |> Base.decode64!()}
+  ]
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{config_env()}.exs"
