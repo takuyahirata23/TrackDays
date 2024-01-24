@@ -13,7 +13,6 @@ defmodule Trackdays.Event.TrackdayNote do
     field :lap_time, :integer
     field :date, :date
     field :note, :string
-    field :encrypted_note, Trackdays.Encrypted.Binary
 
     belongs_to :user, User
     belongs_to :motorcycle, Motorcycle
@@ -32,11 +31,5 @@ defmodule Trackdays.Event.TrackdayNote do
       name: :trackday_note_constraint,
       message: "Trackday note already exists"
     )
-    |> put_encrypted_fields()
-  end
-
-  defp put_encrypted_fields(changeset) do
-    changeset
-    |> put_change(:encrypted_note, get_field(changeset, :note))
   end
 end
