@@ -35,6 +35,12 @@ defmodule TrackdaysWeb.Router do
     get "/", PageController, :home
   end
 
+  scope "/organizations", TrackdaysWeb do
+    pipe_through :browser
+
+    get "/:id", OrganizationsController, :organization
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", TrackdaysWeb do
   #   pipe_through :api
