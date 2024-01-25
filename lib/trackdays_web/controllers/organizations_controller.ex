@@ -3,8 +3,10 @@ defmodule TrackdaysWeb.OrganizationsController do
 
   alias Trackdays.Business
 
-  def organization(conn, _params) do
+  def organization(conn, %{"id" => id}) do
+    organization = Business.get_organization(id)
+    trackdays = Business.get_future_trackdays(id)
 
-    render(conn, :organization)
+    render(conn, :organization, organization: organization, trackdays: trackdays)
   end
 end
