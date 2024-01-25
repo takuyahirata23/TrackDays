@@ -19,6 +19,14 @@
         <p class="mt-4">Check trackday schedules from our partners.</p>
     </section>
     <section>
+        <h2 class="font-bold text-accent text-xl">Our Partners</h2>
+        <ul class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-4">
+          <li :for={org <- @organizations}>
+          <a href={~p"/organizations/#{org.id}"}><%= org.name %></a>
+          </li>
+        </ul>
+    </section>
+    <section>
         <h2 class="font-bold text-accent text-xl">Hosting Trackdays?</h2>
         <p class="mt-4">We would like to work with you!</p>
         <p class="mt-4">DM to our instagram account to display your trackday schedule.</p>
