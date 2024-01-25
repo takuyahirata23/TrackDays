@@ -3,6 +3,7 @@ defmodule TrackdaysWeb.Admin.OrganizationsLive do
 
   alias Trackdays.Business
   alias Trackdays.Business.Organization
+  alias Trackdays.Event
 
   def render(assigns) do
     ~H"""
@@ -53,6 +54,7 @@ defmodule TrackdaysWeb.Admin.OrganizationsLive do
   def mount(_, _, socket) do
     organization_form = Organization.changeset(%Organization{}) |> to_form()
     organizations = Business.get_organizations()
+    res = Event.get_trackday_notes_by_user_id("d396c22f-988e-43f2-94db-705866d20430") |> IO.inspect
 
     {:ok, assign(socket, organization_form: organization_form, organizations: organizations)}
   end

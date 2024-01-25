@@ -12,7 +12,7 @@ defmodule Trackdays.Event.TrackdayNote do
   schema "trackday_notes" do
     field :lap_time, :integer
     field :date, :date
-    field :note, :string
+    field :note, Trackdays.Encrypted.Binary
 
     belongs_to :user, User
     belongs_to :motorcycle, Motorcycle
