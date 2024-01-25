@@ -1,1 +1,18 @@
-<div>here</div>
+<div class="py-6">
+  <h1 class="font-lg font-bold"><%= @organization.name %></h1>
+  <ul class="grid gap-y-4 mt-6 md:grid-cols-2 md:gap-y-6 md:gap-x-6">
+      <li :for={trackday <- @trackdays}>
+        <.card class="md:space-y-2">
+          <div>Facility: <%= trackday.track.facility.name %></div>
+          <div>Track: <%= trackday.track.name %></div>
+          <div>
+            Date: <%= TrackdaysWeb.Helpers.Datetime.format_date(trackday.start_datetime) %> - <%= TrackdaysWeb.Helpers.Datetime.format_date(
+              trackday.end_datetime
+            ) %>
+          </div>
+          <div>Price: $<%= trackday.price %></div>
+          <div>Description: <%= trackday.description %></div>
+        </.card>
+    </li>
+  </ul>
+</div>

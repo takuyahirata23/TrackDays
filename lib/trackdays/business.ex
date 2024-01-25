@@ -1,9 +1,6 @@
 defmodule Trackdays.Business do
   import Ecto.Query, warn: false
 
-  alias Hex.API.Key.Organization
-  alias Hex.API.Key.Organization
-  alias Hex.API.Key.Organization
   alias Trackdays.Repo
   alias Trackdays.Business.Organization
   alias Trackdays.Event.Trackday
@@ -21,6 +18,17 @@ defmodule Trackdays.Business do
 
   def get_organization(id) when is_binary(id) do
     Repo.one(from o in Organization, where: o.id == ^id)
+  end
+
+  def get_future_trackdays(organization_id) when is_binary(organization_id) do
+    today = NaiveDateTime.local_now()
+
+    query =
+      from td in Trackday,
+        where: td.organization_id == ^organization_id and td.end_datetime >= ^today,
+        preload: [track: :facility]
+
+    Repo.all(query)
   end
 
   def get_organization_options_for_select do
@@ -50,8 +58,8 @@ defmodule Trackdays.Business do
   def get_organization_with_trackdays(id) when is_binary(id) do
     query =
       from o in Organization,
-      where: o.id == ^id,
-      preload: [:trackdays, trackdays: :track, trackdays: [track: :facility]]
+        where: o.id == ^id,
+        preload: [:trackdays, trackdays: :track, trackdays: [track: :facility]]
 
     Repo.one(query)
   end
