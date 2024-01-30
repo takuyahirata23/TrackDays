@@ -31,6 +31,7 @@ defmodule TrackdaysWeb.Admin.RegisterTrackdayLive do
             <.input field={@trackday_form[:start_datetime]} type="datetime-local" label="Start date time" required />
             <.input field={@trackday_form[:end_datetime]} type="datetime-local" label="End date time" required />
             <.input field={@trackday_form[:price]} type="text" label="Price" required />
+            <.input field={@trackday_form[:trackdays_registration_url]} type="text" label="Registration URL" />
             <.input field={@trackday_form[:description]} type="textarea" label="description" />
           </div>
           <:actions>

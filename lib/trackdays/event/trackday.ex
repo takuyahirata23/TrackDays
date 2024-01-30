@@ -31,7 +31,7 @@ defmodule Trackdays.Event.Trackday do
     ])
     |> validate_required([:start_datetime, :end_datetime, :price, :organization_id, :track_id])
     |> validate_number(:price, greater_than: 10)
-    |> validate_length(:trackdays_registration_url, min: 2, max: 50)
+    |> validate_length(:trackdays_registration_url, min: 2, max: 100)
     |> unique_constraint([:organization_id, :start_date, :track_id],
       name: :trackdays_constraint,
       message: "Your trackday on this date already exists"
