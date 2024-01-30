@@ -18,7 +18,7 @@ defmodule Trackdays.Business.Organization do
   def changeset(organization, attrs \\ %{}) do
     organization
     |> cast(attrs, [:name, :trackdays_registration_url, :homepage_url])
-    |> validate_required([:name, :trackdays_registration_url])
+    |> validate_required([:name])
     |> validate_length(:name, min: 2, max: 30)
     |> validate_length(:homepage_url, min: 2, max: 50)
     |> unique_constraint([:name],
