@@ -33,6 +33,9 @@ module.exports = {
       rotate: {
         '35': '35deg'
       },
+      gridTemplateColumns: {
+        'trackday-table': "minmax(30%, 1fr) repeat(2, minmax(25%, 1fr)) minmax(15%, 1fr) minmax(5%, 1fr)"
+      },
       fontFamily: {
         primary: ["Josefin Sans", "sans-serif"],
         paragraph: ['Josefin Slab', 'serif']

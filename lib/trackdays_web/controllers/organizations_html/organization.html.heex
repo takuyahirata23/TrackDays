@@ -1,9 +1,37 @@
 <div class="py-6">
-  <h1 class="text-lg font-bold md:text-2xl"><%= @organization.name %></h1>
+  <a href={@organization.homepage_url} target="_blank">
+    <h1 class="text-lg font-bold md:text-2xl">
+      <%= @organization.name %>
+    </h1>
+  </a>
   <div :if={@organization.default_note} class="mt-6 max-w-prose">
     <p><%= @organization.default_note %></p>
   </div>
-  <ul class="grid gap-y-4 mt-6 md:grid-cols-2 md:gap-y-6 md:gap-x-6">
+  <table class="mt-10 hidden lg:block">
+    <thead>
+      <tr  class="grid grid-cols-trackday-table">
+        <td><strong>Facility</strong></td>
+        <td><strong>Track</strong></td>
+        <td><strong>Date</strong></td>
+        <td><strong>Price</strong></td>
+        <td class="text-center"><strong>Link</strong></td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr :for={trackday <- @trackdays}  class="grid grid-cols-trackday-table">
+        <td class="py-2"><%= trackday.track.facility.name %></td>
+        <td class="py-2"><%= trackday.track.name %></td>
+        <td class="py-2"><%= TrackdaysWeb.Helpers.Datetime.format_date(trackday.start_datetime) %></td>
+        <td class="py-2"><%= Number.Currency.number_to_currency(trackday.price) %></td>
+        <td class="flex flex-col justify-center items-center">
+          <a href={trackday.trackdays_registration_url} target="_blank">
+            <.icon name="hero-arrow-top-right-on-square" class="h-5 w-5" />
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <ul class="grid gap-y-4 mt-6 md:grid-cols-2 md:gap-y-6 md:gap-x-6 lg:hidden">
       <li :for={trackday <- @trackdays} class="flex flex-col">
       <a href={trackday.trackdays_registration_url} target="_blank" class="flex-1">
         <.card class="md:space-y-2 md:h-full">
