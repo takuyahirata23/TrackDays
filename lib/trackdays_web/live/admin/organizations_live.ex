@@ -24,6 +24,7 @@ defmodule TrackdaysWeb.Admin.OrganizationsLive do
                 type="text"
                 label="Default Trackday registration URL"
               />
+              <.input field={@organization_form[:default_note]} type="textarea" label="Default Note" />
             </div>
             <:actions>
               <.button phx-disable-with="Registering..." class="w-full">
