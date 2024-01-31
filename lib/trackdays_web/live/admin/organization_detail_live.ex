@@ -11,6 +11,9 @@ defmodule TrackdaysWeb.Admin.OrganizationDetailLive do
         <h1 class="font-bold text-xl mb-6"><%= @organization.name %></h1>
       </a>
     </div>
+    <div :if={@organization.default_note} class="mt-6 max-w-prose mb-6">
+      <p><%= @organization.default_note %></p>
+    </div>
     <ul class="flex flex-col gap-y-4">
       <li :for={trackday <- @organization.trackdays}>
         <.card class="md:space-y-2">
