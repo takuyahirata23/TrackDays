@@ -60,7 +60,8 @@ defmodule Trackdays.MixProject do
       {:ex_aws_s3, "~> 2.0"},
       {:hackney, "~> 1.9"},
       {:sweet_xml, "~> 0.6"},
-      {:cloak_ecto, "~> 1.2.0"}
+      {:cloak_ecto, "~> 1.2.0"},
+      {:number, "~> 1.0"}
     ]
   end
 
