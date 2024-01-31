@@ -13,7 +13,6 @@ defmodule TrackdaysWeb.ImageController do
       |> ExAws.S3.Upload.stream_file()
       |> ExAws.S3.upload(@bucket_name, filename)
       |> ExAws.request()
-      |> IO.inspect
 
     with {:ok, res} <- image,
          {:ok, _user} <-

@@ -61,7 +61,6 @@ defmodule TrackdaysWeb.Admin.OrganizationsLive do
     case Business.register_organization(attrs) do
       {:error, %Ecto.Changeset{} = changeset} ->
         orgnaization_form = to_form(changeset)
-        IO.inspect(changeset)
 
         {:noreply,
          socket
