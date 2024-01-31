@@ -26,6 +26,7 @@ defmodule Trackdays.Business do
     query =
       from td in Trackday,
         where: td.organization_id == ^organization_id and td.end_datetime >= ^today,
+        order_by: [asc: :start_datetime],
         preload: [track: :facility]
 
     Repo.all(query)
