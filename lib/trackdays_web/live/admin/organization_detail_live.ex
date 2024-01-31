@@ -12,7 +12,7 @@ defmodule TrackdaysWeb.Admin.OrganizationDetailLive do
       </a>
     </div>
     <div :if={@organization.default_note} class="mt-6 max-w-prose mb-6">
-      <p><%= @organization.default_note %></p>
+      <p class="whitespace-pre-line"><%= @organization.default_note %></p>
     </div>
     <ul class="flex flex-col gap-y-4">
       <li :for={trackday <- @organization.trackdays}>
