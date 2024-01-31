@@ -1,5 +1,8 @@
 <div class="py-6">
-  <h1 class="font-lg font-bold"><%= @organization.name %></h1>
+  <h1 class="text-lg font-bold md:text-2xl"><%= @organization.name %></h1>
+  <div :if={@organization.default_note} class="mt-6 max-w-prose">
+    <p><%= @organization.default_note %></p>
+  </div>
   <ul class="grid gap-y-4 mt-6 md:grid-cols-2 md:gap-y-6 md:gap-x-6">
       <li :for={trackday <- @trackdays} class="flex flex-col">
       <a href={trackday.trackdays_registration_url} target="_blank" class="flex-1">
