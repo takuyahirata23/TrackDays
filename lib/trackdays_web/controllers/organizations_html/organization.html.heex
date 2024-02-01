@@ -38,9 +38,7 @@
           <div><strong>Facility:</strong> <%= trackday.track.facility.name %></div>
           <div><strong>Track:</strong> <%= trackday.track.name %></div>
           <div>
-            <strong>Date:</strong> <%= TrackdaysWeb.Helpers.Datetime.format_date(trackday.start_datetime) %> - <%= TrackdaysWeb.Helpers.Datetime.format_date(
-              trackday.end_datetime
-            ) %>
+            <strong>Date:</strong> <%= TrackdaysWeb.Helpers.Datetime.format_date(trackday.start_datetime) %>
           </div>
           <div><strong>Price:</strong> <%= Number.Currency.number_to_currency(trackday.price) %></div>
           <div :if={trackday.description}><strong>Description:</strong> <%= trackday.description %></div>

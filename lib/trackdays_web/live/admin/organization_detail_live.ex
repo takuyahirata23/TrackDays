@@ -21,7 +21,7 @@ defmodule TrackdaysWeb.Admin.OrganizationDetailLive do
           <div>Facility: <%= trackday.track.facility.name %></div>
           <div>Track: <%= trackday.track.name %></div>
           <div>
-            Date: <%= Datetime.format_date(trackday.start_datetime) %> - <%= Datetime.format_date(
+            Date: <%= Datetime.format_datetime(trackday.start_datetime) %> - <%= Datetime.format_date(
               trackday.end_datetime
             ) %>
           </div>
