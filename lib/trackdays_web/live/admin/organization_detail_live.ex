@@ -1,4 +1,5 @@
 defmodule TrackdaysWeb.Admin.OrganizationDetailLive do
+  import Number
   use TrackdaysWeb, :live_view
 
   alias Trackdays.Business
@@ -24,8 +25,14 @@ defmodule TrackdaysWeb.Admin.OrganizationDetailLive do
               trackday.end_datetime
             ) %>
           </div>
-          <div>Price: $<%= trackday.price %></div>
-          <div>Description: <%= trackday.description %></div>
+          <div>Price: <%= Number.Currency.number_to_currency(trackday.price) %></div>
+          <div :if={trackday.description}>Description: <%= trackday.description %></div>
+          <.link
+            navigate={~p"/admin/business/organizations/#{@organization.id}/trackdays/#{trackday.id}/edit"}
+            class="px-4 py-1 mt-6 bg-btn-bg-primary text-btn-primary rounded inline-block"
+          >
+            Edit
+          </.link>
         </.card>
       </li>
     </ul>

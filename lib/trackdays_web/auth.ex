@@ -88,7 +88,6 @@ defmodule TrackdaysWeb.Auth do
           Accounts.get_user_by_id(id)
 
         _ ->
-          IO.puts("run")
           nil
       end
     end)
