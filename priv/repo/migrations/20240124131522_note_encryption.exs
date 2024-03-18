@@ -3,7 +3,7 @@ defmodule Trackdays.Repo.Migrations.NoteEncryption do
 
   def change do
     alter table(:trackday_notes) do
-       add :encrypted_note, :binary
+      add :encrypted_note, :binary
     end
   end
 end

@@ -4,8 +4,10 @@ defmodule :"Elixir.Trackdays.Repo.Migrations.Calendar-sync" do
   def change do
     create table(:user_trackday_calendar, primary_key: false) do
       add :id, :binary_id, primary_key: true
+
       add :trackday_id, references(:trackdays, type: :binary_id, on_delete: :delete_all),
         null: false
+
       add :user_id, references(:users, type: :binary_id, on_delete: :delete_all), null: false
       add :calendar_id, :string, null: false
       add :event_id, :string, null: false

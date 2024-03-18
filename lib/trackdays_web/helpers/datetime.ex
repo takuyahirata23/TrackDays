@@ -7,4 +7,3 @@ defmodule TrackdaysWeb.Helpers.Datetime do
     Calendar.strftime(date, "%y-%m-%d")
   end
 end
-

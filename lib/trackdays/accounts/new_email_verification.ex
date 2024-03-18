@@ -1,7 +1,7 @@
 defmodule Trackdays.Accounts.NewEmailVerification do
   use Ecto.Schema
   import Ecto.Changeset
-  
+
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
 
@@ -17,7 +17,6 @@ defmodule Trackdays.Accounts.NewEmailVerification do
     |> cast(attrs, [:email, :user_id])
     |> validate_email()
   end
-
 
   defp validate_email(changeset) do
     changeset

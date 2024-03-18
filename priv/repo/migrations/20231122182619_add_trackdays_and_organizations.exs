@@ -26,6 +26,9 @@ defmodule Trackdays.Repo.Migrations.AddTrackdaysAndOrganizations do
     end
 
     create(index(:trackdays, [:date]))
-    create(unique_index(:trackdays, [:organization_id, :date, :track_id], name: :trackdays_constraint))
+
+    create(
+      unique_index(:trackdays, [:organization_id, :date, :track_id], name: :trackdays_constraint)
+    )
   end
 end
