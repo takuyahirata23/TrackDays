@@ -42,10 +42,10 @@ defmodule TrackdaysWeb.Schema.AccountsTypes do
       resolve(&Resolvers.Accounts.update_group/3)
     end
 
-    @desc "Update account type" 
-      field :update_account_type, non_null(:user) do
-        arg(:is_private, non_null(:boolean))
-        resolve(&Resolvers.Accounts.update_account_type/3)
-      end
+    @desc "Update account type"
+    field :update_account_type, non_null(:user) do
+      arg(:is_private, non_null(:boolean))
+      resolve(&Resolvers.Accounts.update_account_type/3)
     end
+  end
 end

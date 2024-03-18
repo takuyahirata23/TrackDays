@@ -1,47 +1,55 @@
 <div class="flex flex-col gap-y-16">
-    <section class="md:flex md:justify-start md:gap-x-16 items-center">
-        <div class="py-4 mt-6">
-            <h1 class="font-bold text-accent text-2xl md:text-4xl">Improve Trackday Experience</h1>
-            <span class="block font-medium text-lg md:text-2xl md:mt-6">Powered By Trackdays</span>
-            <div class="mt-4 md:mt-8">
-              <a href="https://apps.apple.com/us/app/motorcycle-trackdays/id6475015253" target='_blank' class="bg-btn-bg-primary text-btn-primary py-2 px-4 rounded">
-                iOS
-              </a>
-            </div>
-        </div>
-        <div class="w-1/2 mx-auto mt-4 max-w-xs md:mx-0 md:order-first">
-            <img src={~p"/images/trackdays-index.png"} alt="schedule screenshot" class="align-left"/>
-        </div>
-    </section>
-    <section>
-        <h2 class="font-bold text-accent text-xl">What is Trackdays?</h2>
-        <p class="mt-4">Create your note for each trackday to save your improvements.</p>
-        <p class="mt-4">Check trackday schedules from our partners.</p>
-    </section>
-    <section>
-        <h2 class="font-bold text-accent text-xl">Our Partners</h2>
-        <ul class="grid grid-cols-2 gap-x-4 gap-y-4 md:gap-x-y md:gap-y-6 md:grid-cols-3 lg:grid-cols-4 mt-4">
-          <li :for={org <- @organizations}>
-          <a href={~p"/organizations/#{org.id}"} class="font-medium"><%= org.name %></a>
-          </li>
-        </ul>
-    </section>
-    <section>
-        <h2 class="font-bold text-accent text-xl">Is Android version available?</h2>
-        <p class="mt-4">It's in testing.</p>
-        <p class="mt-4">If you would like to participate in testing, please DM!</p>
-    </section>
-    <section>
-        <h2 class="font-bold text-accent text-xl">Hosting Trackdays?</h2>
-        <p class="mt-4">We would like to work with you!</p>
-        <p class="mt-4">DM to our instagram account to display your trackday schedule.</p>
-    </section>
-    <section>
-        <h2 class="font-bold text-accent text-xl">Questions?</h2>
-        <p class="mt-4">Our DM on Instagram is always open!</p>
-        <p class="mt-4">
-          <a class="border-b border-b-accent" href="mailto: support@motorcycle-trackdays.com">or Email from here!</a>
-        </p>
-    </section>
-    <a href={~p"/accounts/delete"} class="border-b border-b-accent self-start" >Need to delete your account?</a>
+  <section class="md:flex md:justify-start md:gap-x-16 items-center">
+    <div class="py-4 mt-6">
+      <h1 class="font-bold text-accent text-2xl md:text-4xl">Improve Trackday Experience</h1>
+      <span class="block font-medium text-lg md:text-2xl md:mt-6">Powered By Trackdays</span>
+      <div class="mt-4 md:mt-8">
+        <a
+          href="https://apps.apple.com/us/app/motorcycle-trackdays/id6475015253"
+          target="_blank"
+          class="bg-btn-bg-primary text-btn-primary py-2 px-4 rounded"
+        >
+          iOS
+        </a>
+      </div>
+    </div>
+    <div class="w-1/2 mx-auto mt-4 max-w-xs md:mx-0 md:order-first">
+      <img src={~p"/images/trackdays-index.png"} alt="schedule screenshot" class="align-left" />
+    </div>
+  </section>
+  <section>
+    <h2 class="font-bold text-accent text-xl">What is Trackdays?</h2>
+    <p class="mt-4">Create your note for each trackday to save your improvements.</p>
+    <p class="mt-4">Check trackday schedules from our partners.</p>
+  </section>
+  <section>
+    <h2 class="font-bold text-accent text-xl">Our Partners</h2>
+    <ul class="grid grid-cols-2 gap-x-4 gap-y-4 md:gap-x-y md:gap-y-6 md:grid-cols-3 lg:grid-cols-4 mt-4">
+      <li :for={org <- @organizations}>
+        <a href={~p"/organizations/#{org.id}"} class="font-medium"><%= org.name %></a>
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2 class="font-bold text-accent text-xl">Is Android version available?</h2>
+    <p class="mt-4">It's in testing.</p>
+    <p class="mt-4">If you would like to participate in testing, please DM!</p>
+  </section>
+  <section>
+    <h2 class="font-bold text-accent text-xl">Hosting Trackdays?</h2>
+    <p class="mt-4">We would like to work with you!</p>
+    <p class="mt-4">DM to our instagram account to display your trackday schedule.</p>
+  </section>
+  <section>
+    <h2 class="font-bold text-accent text-xl">Questions?</h2>
+    <p class="mt-4">Our DM on Instagram is always open!</p>
+    <p class="mt-4">
+      <a class="border-b border-b-accent" href="mailto: support@motorcycle-trackdays.com">
+        or Email from here!
+      </a>
+    </p>
+  </section>
+  <a href={~p"/accounts/delete"} class="border-b border-b-accent self-start">
+    Need to delete your account?
+  </a>
 </div>

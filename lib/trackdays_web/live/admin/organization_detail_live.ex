@@ -28,7 +28,9 @@ defmodule TrackdaysWeb.Admin.OrganizationDetailLive do
           <div>Price: <%= Number.Currency.number_to_currency(trackday.price) %></div>
           <div :if={trackday.description}>Description: <%= trackday.description %></div>
           <.link
-            navigate={~p"/admin/business/organizations/#{@organization.id}/trackdays/#{trackday.id}/edit"}
+            navigate={
+              ~p"/admin/business/organizations/#{@organization.id}/trackdays/#{trackday.id}/edit"
+            }
             class="px-4 py-1 mt-6 bg-btn-bg-primary text-btn-primary rounded inline-block"
           >
             Edit

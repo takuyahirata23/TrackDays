@@ -16,6 +16,7 @@ module.exports = {
         accent: '#279B47',
         error: '#f06543',
         card: '#ffffff',
+        'card-secondary': '#edebeb',
         bg: {
           primary: '#f9f9fb',
           secondary: '#383F51',

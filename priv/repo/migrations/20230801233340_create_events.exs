@@ -20,7 +20,9 @@ defmodule Trackdays.Repo.Migrations.CreateEvents do
     create(index(:trackday_notes, [:user_id]))
 
     create(
-      unique_index(:trackday_notes, [:user_id, :motorcycle_id, :date], name: :trackday_note_constraint)
+      unique_index(:trackday_notes, [:user_id, :motorcycle_id, :date],
+        name: :trackday_note_constraint
+      )
     )
   end
 end

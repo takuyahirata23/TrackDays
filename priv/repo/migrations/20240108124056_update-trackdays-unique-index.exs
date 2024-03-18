@@ -7,6 +7,7 @@ defmodule :"Elixir.Trackdays.Repo.Migrations.Update-trackdays-unique-index" do
         name: :trackdays_constraint
       )
     )
+
     create(index(:trackdays, [:start_datetime, :end_datetime]))
   end
 end

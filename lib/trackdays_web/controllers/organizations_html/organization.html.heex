@@ -9,7 +9,7 @@
   </div>
   <table class="mt-10 hidden lg:block">
     <thead>
-      <tr  class="grid grid-cols-trackday-table">
+      <tr class="grid grid-cols-trackday-table">
         <td><strong>Facility</strong></td>
         <td><strong>Track</strong></td>
         <td><strong>Date</strong></td>
@@ -18,32 +18,44 @@
       </tr>
     </thead>
     <tbody>
-      <tr :for={trackday <- @trackdays}  class="grid grid-cols-trackday-table">
-        <td class="py-2"><%= trackday.track.facility.name %></td>
-        <td class="py-2"><%= trackday.track.name %></td>
-        <td class="py-2"><%= TrackdaysWeb.Helpers.Datetime.format_date(trackday.start_datetime) %></td>
-        <td class="py-2"><%= Number.Currency.number_to_currency(trackday.price) %></td>
-        <td class="flex flex-col justify-center items-center">
-          <a href={trackday.trackdays_registration_url} target="_blank">
-            <.icon name="hero-arrow-top-right-on-square" class="h-5 w-5" />
-          </a>
-        </td>
-      </tr>
+      <%= for {trackday, index } <- Enum.with_index(@trackdays) do %>
+        <tr class={"grid grid-cols-trackday-table bg-card #{if Integer.is_even(index), do: "bg-card-secondary"}"}>
+          <td class="py-2"><%= trackday.track.facility.name %></td>
+          <td class="py-2"><%= trackday.track.name %></td>
+          <td class="py-2">
+            <%= TrackdaysWeb.Helpers.Datetime.format_date(trackday.start_datetime) %>
+          </td>
+          <td class="py-2"><%= Number.Currency.number_to_currency(trackday.price) %></td>
+          <td class="flex flex-col justify-center items-center">
+            <a href={trackday.trackdays_registration_url} target="_blank">
+              <.icon name="hero-arrow-top-right-on-square" class="h-5 w-5" />
+            </a>
+          </td>
+        </tr>
+      <% end %>
     </tbody>
   </table>
   <ul class="grid gap-y-4 mt-6 md:grid-cols-2 md:gap-y-6 md:gap-x-6 lg:hidden">
-      <li :for={trackday <- @trackdays} class="flex flex-col">
-      <a href={trackday.trackdays_registration_url} target="_blank" class="flex-1">
-        <.card class="md:space-y-2 md:h-full">
-          <div><strong>Facility:</strong> <%= trackday.track.facility.name %></div>
-          <div><strong>Track:</strong> <%= trackday.track.name %></div>
-          <div>
-            <strong>Date:</strong> <%= TrackdaysWeb.Helpers.Datetime.format_date(trackday.start_datetime) %>
-          </div>
-          <div><strong>Price:</strong> <%= Number.Currency.number_to_currency(trackday.price) %></div>
-          <div :if={trackday.description}><strong>Description:</strong> <%= trackday.description %></div>
-        </.card>
-      </a>
-    </li>
+    <%= for {trackday, index } <- Enum.with_index(@trackdays) do %>
+      <li class="flex flex-col">
+        <a href={trackday.trackdays_registration_url} target="_blank" class="flex-1">
+          <.card class={"md:space-y-2 md:h-full #{if Integer.is_even(index), do: "bg-card-secondary"}"}>
+            <div><strong>Facility:</strong> <%= trackday.track.facility.name %></div>
+            <div><strong>Track:</strong> <%= trackday.track.name %></div>
+            <div>
+              <strong>Date:</strong> <%= TrackdaysWeb.Helpers.Datetime.format_date(
+                trackday.start_datetime
+              ) %>
+            </div>
+            <div>
+              <strong>Price:</strong> <%= Number.Currency.number_to_currency(trackday.price) %>
+            </div>
+            <div :if={trackday.description}>
+              <strong>Description:</strong> <%= trackday.description %>
+            </div>
+          </.card>
+        </a>
+      </li>
+    <% end %>
   </ul>
 </div>
