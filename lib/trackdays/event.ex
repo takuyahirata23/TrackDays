@@ -4,11 +4,13 @@ defmodule Trackdays.Event do
   alias Trackdays.Repo
   alias Trackdays.Event.{TrackdayNote, Trackday, UserTrackdayCalendar}
   alias Trackdays.Park.{Facility, Track}
-  alias Trackdays.Accounts.{User}
+  alias Trackdays.Accounts.{User, Group}
 
   use Timex
 
   def save_trackday_note(attrs, user) do
+    attrs = Map.put(attrs, :group_id, user.group_id)
+
     %TrackdayNote{}
     |> TrackdayNote.changeset(attrs)
     |> Ecto.Changeset.put_assoc(:user, user)
@@ -135,7 +137,7 @@ defmodule Trackdays.Event do
     Repo.all(query)
   end
 
-  def get_facility_leaderboard(facility_id) do
+  def get_leaderboard_and_average_lap_times(facility_id) do
     ids =
       Repo.all(
         from f in Facility,
@@ -151,9 +153,47 @@ defmodule Trackdays.Event do
 
     Repo.all(track_query)
     |> Enum.map(fn track ->
-      res = get_leaderboard(track.id)
-      Map.put(track, :trackday_notes, res)
+      trackday_notes = get_leaderboard(track.id)
+      Map.put(track, :trackday_notes, trackday_notes)
     end)
+    |> Enum.map(fn track ->
+      average_lap_times = get_average_lap_time(track.id)
+      Map.put(track, :average_lap_times, average_lap_times)
+    end)
+  end
+
+  # Can combine with leaderboard if this feature is still used
+  def get_average_lap_times_for_each_track_of_facility(facility_id) do
+    ids =
+      Repo.all(
+        from f in Facility,
+          where: f.id == ^facility_id,
+          join: t in Track,
+          on: t.facility_id == f.id,
+          select: t.id
+      )
+
+    track_query =
+      from t in Track,
+        where: t.id in ^ids
+
+    Repo.all(track_query)
+    |> Enum.map(fn track ->
+      res = get_average_lap_time(track.id)
+      Map.put(track, :average_lap_times, res)
+    end)
+  end
+
+  defp get_average_lap_time(track_id) do
+    query =
+      from tn in TrackdayNote,
+        where: tn.track_id == ^track_id and tn.lap_time > 30000 and not is_nil(tn.group_id),
+        join: g in Group,
+        on: tn.group_id == g.id,
+        group_by: g.id,
+        select: %{average_lap_time: type(avg(tn.lap_time), :integer), group: g}
+
+    Repo.all(query)
   end
 
   defp get_leaderboard(track_id) do
