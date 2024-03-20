@@ -103,4 +103,8 @@ defmodule TrackdaysWeb.Resolvers.Event do
   def get_facility_leaderboard(_, %{facility_id: facility_id}, _) do
     {:ok, Event.get_facility_leaderboard(facility_id)}
   end
+
+  def get_leaderboard_and_average_lap_times(_, %{facility_id: facility_id}, _) do
+    {:ok, Event.get_leaderboard_and_average_lap_times(facility_id)}
+  end
 end

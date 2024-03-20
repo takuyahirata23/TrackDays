@@ -41,6 +41,26 @@ defmodule TrackdaysWeb.Schema.EventTypes do
     field :trackday_notes, non_null(list_of(:trackday_note))
   end
 
+  object :average_lap_time do
+    field :group, non_null(:group)
+    field :average_lap_time, :integer
+  end
+
+  object :tracks_with_average_lap_times do
+    field :id, non_null(:id)
+    field :name, non_null(:id)
+    field :length, non_null(:float)
+    field :average_lap_times, non_null(list_of(:average_lap_time))
+  end
+
+  object :tracks_with_leaderboard_and_average_lap_times do
+    field :id, non_null(:id)
+    field :name, non_null(:id)
+    field :length, non_null(:float)
+    field :trackday_notes, non_null(list_of(:trackday_note))
+    field :average_lap_times, non_null(list_of(:average_lap_time))
+  end
+
   input_object :get_events_by_month_input do
     field :month, non_null(:integer)
     field :year, non_null(:integer)
@@ -118,6 +138,19 @@ defmodule TrackdaysWeb.Schema.EventTypes do
     field :tracks_with_leaderboard, list_of(:tracks_with_leaderboard) do
       arg(:facility_id, non_null(:id))
       resolve(&Resolvers.Event.get_facility_leaderboard/3)
+    end
+
+    @desc "Get average lap times for each track of the facility"
+    field :tracks_with_average_lap_times, list_of(:tracks_with_average_lap_times) do
+      arg(:facility_id, non_null(:id))
+      resolve(&Resolvers.Event.get_average_lap_times_for_each_track_of_facility/3)
+    end
+
+    @desc "Get average lap times for each track of the facility"
+    field :tracks_with_leaderboard_and_average_lap_times,
+          list_of(:tracks_with_leaderboard_and_average_lap_times) do
+      arg(:facility_id, non_null(:id))
+      resolve(&Resolvers.Event.get_leaderboard_and_average_lap_times/3)
     end
   end
 
