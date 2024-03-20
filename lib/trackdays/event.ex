@@ -137,6 +137,27 @@ defmodule Trackdays.Event do
     Repo.all(query)
   end
 
+  def get_facility_leaderboard(facility_id) do
+    ids =
+      Repo.all(
+        from f in Facility,
+          where: f.id == ^facility_id,
+          join: t in Track,
+          on: t.facility_id == f.id,
+          select: t.id
+      )
+
+    track_query =
+      from t in Track,
+        where: t.id in ^ids
+
+    Repo.all(track_query)
+    |> Enum.map(fn track ->
+      trackday_notes = get_leaderboard(track.id)
+      Map.put(track, :trackday_notes, trackday_notes)
+    end)
+  end
+
   def get_leaderboard_and_average_lap_times(facility_id) do
     ids =
       Repo.all(
