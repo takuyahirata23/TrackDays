@@ -212,6 +212,7 @@ defmodule Trackdays.Event do
         join: g in Group,
         on: tn.group_id == g.id,
         group_by: g.id,
+        order_by: g.name,
         select: %{average_lap_time: type(avg(tn.lap_time), :integer), group: g}
 
     Repo.all(query)
