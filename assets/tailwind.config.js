@@ -11,23 +11,40 @@ module.exports = {
     extend: {
       colors: {
         brand: '#279B47',
-        primary: '#6d6e71',
-        secondary: '#ff8c42',
+        primary: '#000000',
+        secondary: '#ffffff',
+        tertiary: '#2aabe2',
         accent: '#279B47',
-        error: '#f06543',
-        card: '#ffffff',
-        'card-secondary': '#edebeb',
+        error: '#e50312',
+        card: {
+          dark: {
+            primary: '#fbd614',
+            secondary: '#ffffff',
+            bg: {
+              primary: '#0d213f',
+              secondary: '#3c4960'
+            }
+          },
+          light: {
+            primary: '#000000',
+            secondary: '#ffffff',
+            bg: {
+              primary: '#faa014',
+              secondary: '#fdd089'
+            }
+          }
+        },
         bg: {
-          primary: '#f9f9fb',
-          secondary: '#383F51',
-          tertiary: '#ff8c42',
+          primary: '#fbf2cf',
+          secondary: '#ffffff',
+          tertiary: '#333333',
         },
         btn: {
           primary: '#ffffff',
-          secondary: '#279B47',
+          secondary: '#ffffff',
           bg: {
-            primary: '#279B47',
-            secondary: '#fce762',
+            primary: '#ff6b00',
+            secondary: '#777777',
           }
         }
       },
