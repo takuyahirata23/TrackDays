@@ -1,16 +1,19 @@
 <section class="bg-bg-tertiary py-8">
-  <.page class="grid gap-y-8">
-    <h1 class="font-bold text-secondary font-heading text-3xl md:text-4xl text-center">
+  <.page class="grid gap-y-8 md:grid-cols-2 md:items-center">
+    <h1 class="font-bold text-secondary font-heading text-3xl md:text-4xl text-center md:hidden">
       Motorcycle Trackdays
     </h1>
-    <div class="w-1/2 mx-auto">
+    <div class="w-1/2 mx-auto md:order-last">
       <img src={~p"/images/trackdays-index.png"} alt="schedule screenshot" class="align-left" />
     </div>
-    <div>
-      <h2 class="font-bold text-secondary font-heading text-2xl md:text-4xl text-center">
+    <div class="grid gap-y-8">
+      <h1 class="hidden md:block font-bold text-secondary font-heading text-4xl">
+        Motorcycle Trackdays
+      </h1>
+      <h2 class="font-bold text-secondary font-heading text-2xl text-center md:text-left md:text-2xl md:text-primary">
         Improve Trackday Experience
       </h2>
-      <div class="flex gap-x-4 mt-4 justify-evenly w-2/3 mx-auto">
+      <div class="flex gap-x-4 justify-evenly w-2/3 mx-auto md:mx-0 md:justify-start md:w-1/2 md:mt-4">
         <a
           href="https://apps.apple.com/us/app/motorcycle-trackdays/id6475015253"
           target="_blank"
@@ -22,10 +25,10 @@
     </div>
   </.page>
 </section>
-<.page class="grid gap-y-8 mt-8">
+<.page class="grid gap-y-8 mt-8 md:mt-12 md:gap-y-12 lg:gap-y-16 lg:mt-16">
   <.card class="grid justify-items-center gap-y-4">
     <h3 class="font-bold font-heading text-3xl text-center">What is Trackdays?</h3>
-    <.card theme="dark" variant="secondary">
+    <.card theme="dark" variant="secondary" class="w-full">
       <p class="text-card-dark-secondary leading-relaxed text-center">
         Create your note for each trackday to save your data.
       </p>
