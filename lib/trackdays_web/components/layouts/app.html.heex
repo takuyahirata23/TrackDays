@@ -1,13 +1,15 @@
 <div class="flex flex-col min-h-screen">
-  <header class="max-w-6xl w-11/12 mx-auto z-50 sticky bg-bg-primary">
-    <a href="/">
-      <div class="w-40 -ml-4 md:w-52">
-        <img src={~p"/images/logo.svg"} />
-      </div>
-    </a>
+  <header class="bg-bg-secondary">
+    <div class="max-w-6xl w-11/12 mx-auto z-50 sticky" type="button">
+      <a href="/">
+        <div class="w-40 -ml-4 md:w-52">
+          <img src={~p"/images/logo.svg"} />
+        </div>
+      </a>
+    </div>
   </header>
-  <main class="border-t border-t-tertiary mb-12 flex-1">
-    <div class="max-w-6xl w-11/12 mx-auto">
+  <main class="pb-12 flex-1">
+    <div>
       <.flash_group flash={@flash} />
       <%= @inner_content %>
     </div>
