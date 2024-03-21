@@ -13,7 +13,7 @@ defmodule Trackdays.Business do
   end
 
   def get_organizations do
-    Repo.all(Organization)
+    Repo.all(from o in Organization, order_by: o.name)
   end
 
   def get_organization(id) when is_binary(id) do

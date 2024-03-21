@@ -13,7 +13,6 @@ module.exports = {
         brand: '#279B47',
         primary: '#000000',
         secondary: '#ffffff',
-        tertiary: '#2aabe2',
         accent: '#279B47',
         error: '#e50312',
         card: {
@@ -26,8 +25,8 @@ module.exports = {
             }
           },
           light: {
-            primary: '#000000',
-            secondary: '#ffffff',
+            primary: '#ffffff',
+            secondary: '#000000',
             bg: {
               primary: '#faa014',
               secondary: '#fdd089'
@@ -37,7 +36,7 @@ module.exports = {
         bg: {
           primary: '#fbf2cf',
           secondary: '#ffffff',
-          tertiary: '#333333',
+          tertiary: '#2aabe2',
         },
         btn: {
           primary: '#ffffff',
@@ -55,8 +54,8 @@ module.exports = {
         'trackday-table': "minmax(30%, 1fr) repeat(2, minmax(25%, 1fr)) minmax(15%, 1fr) minmax(5%, 1fr)"
       },
       fontFamily: {
-        primary: ["Josefin Sans", "sans-serif"],
-        paragraph: ['Josefin Slab', 'serif']
+        heading: ["Roboto", "sans-serif"],
+        paragraph: ['Open Sans', 'sans-serif']
       },
     },
   },

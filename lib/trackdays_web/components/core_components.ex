@@ -214,19 +214,24 @@ defmodule TrackdaysWeb.CoreComponents do
       <.button>Send!</.button>
       <.button phx-click="go" class="ml-2">Send!</.button>
   """
+
   attr :type, :string, default: nil
   attr :class, :string, default: nil
+  attr :variant, :string, default: "primary"
   attr :rest, :global, include: ~w(disabled form name value)
 
   slot :inner_block, required: true
 
   def button(assigns) do
+    assigns = assign(assigns, :variant_class, get_btn_variant_class(assigns.variant))
+
     ~H"""
     <button
       type={@type}
       class={[
-        "phx-submit-loading:opacity-75 rounded-lg bg-zinc-900 hover:bg-zinc-700 py-2 px-3",
-        "text-sm font-semibold leading-6 text-white active:text-white/80 bg-accent",
+        "phx-submit-loading:opacity-75 rounded-lg  py-2 px-3",
+        "text-sm font-semibold",
+        @variant_class,
         @class
       ]}
       {@rest}
@@ -234,6 +239,13 @@ defmodule TrackdaysWeb.CoreComponents do
       <%= render_slot(@inner_block) %>
     </button>
     """
+  end
+
+  def get_btn_variant_class(variant) do
+    case variant do
+      "primary" -> "bg-btn-bg-primary btn-primary"
+      "secondary" -> "bg-btn-bg-secondary btn-secondary"
+    end
   end
 
   @doc """
@@ -639,17 +651,48 @@ defmodule TrackdaysWeb.CoreComponents do
   attr :class, :string, default: nil
   attr :margin_bottom, :boolean, default: true
   slot :inner_block
-  slot :action
+  attr :theme, :string, default: "dark"
+  attr :variant, :string, default: "primary"
 
   def card(assigns) do
+    assigns = assign(assigns, :card_variant, get_card_class(assigns.theme, assigns.variant))
+
     ~H"""
     <div class={[
-      "bg-card rounded p-4 drop-shadow-md",
+      @card_variant,
       @class
     ]}>
-      <%= if @inner_block do %>
-        <%= render_slot(@inner_block) %>
-      <% end %>
+      <%= render_slot(@inner_block) %>
+    </div>
+    """
+  end
+
+  def get_card_class(theme, variant) do
+    case theme do
+      "dark" ->
+        case variant do
+          "primary" -> "bg-card-dark-bg-primary text-card-dark-primary px-4 py-6"
+          "secondary" -> "bg-card-dark-bg-secondary text-card-dark-secondary px-3 py-4 rounded-md"
+        end
+
+      "light" ->
+        case variant do
+          "primary" ->
+            "bg-card-light-bg-primary text-card-light-primary px-4 py-6"
+
+          "secondary" ->
+            "bg-card-light-bg-secondary text-card-light-secondary px-3 py-4 rounded-md"
+        end
+    end
+  end
+
+  slot :inner_block, required: true
+  attr :class, :string, default: nil
+
+  def page(assigns) do
+    ~H"""
+    <div class={["max-w-6xl w-11/12 mx-auto", @class]}>
+      <%= render_slot(@inner_block) %>
     </div>
     """
   end
