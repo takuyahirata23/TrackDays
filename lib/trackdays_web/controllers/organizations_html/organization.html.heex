@@ -1,11 +1,10 @@
-<.page>
-<div class="py-6">
+<.page class="py-6">
   <a href={@organization.homepage_url} target="_blank">
-    <h1 class="text-lg font-bold md:text-2xl">
+    <h1 class="text-2xl font-bold font-heading">
       <%= @organization.name %>
     </h1>
   </a>
-  <div :if={@organization.default_note} class="mt-6 max-w-prose">
+  <div :if={@organization.default_note} class="mt-6 max-w-prose leading-relaxed">
     <p class="whitespace-pre-line"><%= @organization.default_note %></p>
   </div>
   <table class="mt-10 hidden lg:block">
@@ -20,7 +19,7 @@
     </thead>
     <tbody>
       <%= for {trackday, index } <- Enum.with_index(@trackdays) do %>
-        <tr class={"grid grid-cols-trackday-table bg-card #{if Integer.is_even(index), do: "bg-card-secondary"}"}>
+        <tr class={"grid grid-cols-trackday-table py-4 px-6 #{pick_table_class(index)}"}>
           <td class="py-2"><%= trackday.track.facility.name %></td>
           <td class="py-2"><%= trackday.track.name %></td>
           <td class="py-2">
@@ -76,5 +75,4 @@
       </li>
     <% end %>
   </ul>
-</div>
 </.page>

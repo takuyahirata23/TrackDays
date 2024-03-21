@@ -671,14 +671,17 @@ defmodule TrackdaysWeb.CoreComponents do
     case theme do
       "dark" ->
         case variant do
-          "primary" -> "bg-card-dark-bg-primary text-card-dark-primary px-4 py-6"
-          "secondary" -> "bg-card-dark-bg-secondary text-card-dark-secondary px-3 py-4 rounded-md"
+          "primary" ->
+            "bg-card-dark-bg-primary text-card-dark-primary px-4 py-6 md:px-6 md:py-8 lg:px-8 lg:py-12"
+
+          "secondary" ->
+            "bg-card-dark-bg-secondary text-card-dark-secondary px-3 py-4 rounded-md"
         end
 
       "light" ->
         case variant do
           "primary" ->
-            "bg-card-light-bg-primary text-card-light-primary px-4 py-6"
+            "bg-card-light-bg-primary text-card-light-primary px-4 py-6 md:px-6 md:py-8 lg:px-8 lg:py-12"
 
           "secondary" ->
             "bg-card-light-bg-secondary text-card-light-secondary px-3 py-4 rounded-md"
