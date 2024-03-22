@@ -8,7 +8,6 @@ defmodule TrackdaysWeb.OrganizationsHTML do
     if specific, do: specific, else: default
   end
 
-
   def pick_table_class(index) do
     dark = "bg-card-dark-bg-primary text-card-dark-primary"
     light = "bg-card-dark-bg-secondary text-card-dark-secondary"

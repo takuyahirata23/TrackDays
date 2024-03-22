@@ -27,7 +27,7 @@
 </section>
 <.page class="grid gap-y-8 mt-8 md:mt-12 md:gap-y-12 lg:gap-y-16 lg:mt-16">
   <.card class="grid justify-items-center gap-y-4">
-    <h3 class="font-bold font-heading text-3xl text-center">What is Trackdays?</h3>
+    <h3 class="font-bold font-heading text-3xl text-center">What is Motorcycle Trackdays?</h3>
     <.card theme="dark" variant="secondary" class="w-full">
       <p class="text-card-dark-secondary leading-relaxed text-center">
         Create your note for each trackday to save your data.
@@ -44,7 +44,9 @@
     <.card theme="light" variant="secondary" class="w-full">
       <ul class="grid grid-cols-1 gap-x-4 gap-y-4 md:gap-x-y md:gap-y-6 md:grid-cols-3 lg:grid-cols-4">
         <li :for={org <- @organizations}>
-          <a href={~p"/organizations/#{org.id}"} class="font-medium text-center block"><%= org.name %></a>
+          <a href={~p"/organizations/#{org.id}"} class="font-medium text-center block">
+            <%= org.name %>
+          </a>
         </li>
       </ul>
     </.card>
@@ -55,7 +57,9 @@
     <section>
       <h2 class="font-bold text-accent text-xl">Is Android version available?</h2>
       <p class="mt-4">It's in testing but you can download it!</p>
-      <p class="mt-4">Please reach us out via Instagram to download the android version.</p>
+      <p class="mt-4">
+        Please reach us out via Instagram or email to download the android version.
+      </p>
     </section>
     <section>
       <h2 class="font-bold text-accent text-xl">Hosting Trackdays?</h2>

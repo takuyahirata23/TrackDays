@@ -56,19 +56,39 @@
           target="_blank"
           class="flex-1"
         >
-          <.card class={"md:space-y-2 md:h-full #{if Integer.is_even(index), do: "bg-card-secondary"}"}>
-            <div><strong>Facility:</strong> <%= trackday.track.facility.name %></div>
-            <div><strong>Track:</strong> <%= trackday.track.name %></div>
-            <div>
-              <strong>Date:</strong> <%= TrackdaysWeb.Helpers.Datetime.format_date(
-                trackday.start_datetime
-              ) %>
+          <.card class={"space-y-3 md:space-y-4 md:h-full #{if Integer.is_even(index), do: "bg-card-secondary"}"}>
+            <div class="flex gap-x-2 items-center">
+              <.icon name="hero-map-pin" class="w-6 h-6" />
+              <span class="text-card-dark-secondary">
+                <%= trackday.track.facility.name %>
+              </span>
             </div>
-            <div>
-              <strong>Price:</strong> <%= Number.Currency.number_to_currency(trackday.price) %>
+
+            <div class="flex gap-x-2 items-center">
+              <.icon name="hero-flag" class="w-6 h-6" />
+              <span class="text-card-dark-secondary">
+                <%= trackday.track.name %>
+              </span>
             </div>
-            <div :if={trackday.description}>
-              <strong>Description:</strong> <%= trackday.description %>
+            <div class="flex gap-x-2 items-center">
+              <.icon name="hero-calendar-days" class="w-6 h-6" />
+              <span class="text-card-dark-secondary">
+                <%= TrackdaysWeb.Helpers.Datetime.format_date(trackday.start_datetime) %>
+              </span>
+            </div>
+            <div class="flex gap-x-2 items-center">
+              <.icon name="hero-currency-dollar" class="w-6 h-6" />
+              <span class="text-card-dark-secondary">
+                <%= Number.Currency.number_to_currency(trackday.price) %>
+              </span>
+            </div>
+            <div :if={trackday.description} class="flex gap-x-2">
+              <div>
+                <.icon name="hero-information-circle" class="w-6 h-6" />
+              </div>
+              <span class="text-card-dark-secondary">
+                <%= trackday.description %>
+              </span>
             </div>
           </.card>
         </a>
