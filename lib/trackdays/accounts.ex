@@ -161,4 +161,9 @@ defmodule Trackdays.Accounts do
     |> Ecto.Changeset.change(is_private: is_private)
     |> Repo.update()
   end
+
+  def count_users do
+    query = from u in User, select: count(u.id)
+    Repo.one(query) 
+  end
 end
