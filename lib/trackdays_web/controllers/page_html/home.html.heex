@@ -41,6 +41,7 @@
   </.card>
   <.card theme="light" class="grid gap-y-4 justify-items-center">
     <h3 class="font-bold text-3xl font-heading text-center">Our Partners</h3>
+    <p class="text-lg lg:text-2xl">We are listing <%= @total_trackdays_this_year %> trackdays this year!</p>
     <.card theme="light" variant="secondary" class="w-full">
       <ul class="grid grid-cols-1 gap-x-4 gap-y-4 md:gap-x-y md:gap-y-6 md:grid-cols-3 lg:grid-cols-4">
         <li :for={org <- @organizations}>
@@ -52,6 +53,18 @@
     </.card>
     <.icon name="hero-chevron-double-up" class="h-10 w-10 font-bold" />
     <p class="font-bold text-2xl text-center">Click to see their trackdays</p>
+  </.card>
+  <.card class="grid justify-items-center gap-y-4">
+    <h3 class="font-bold font-heading text-3xl text-center">Find our app valuable?</h3>
+    <.card theme="dark" variant="secondary" class="w-full">
+      <p class="text-card-dark-secondary leading-loose text-center">
+      Your support keeps our free app running and improving. If you find it valuable, please consider donating. Every contribution helps us sustain and enhance our service. Thank you for being part of our community!
+      </p>
+    </.card>
+    <.icon name="hero-chevron-double-down" class="h-10 w-10 font-bold" />
+    <div class="font-bold text-2xl">
+      <a href="https://buy.stripe.com/28o5kY1tKaL29bO9AA" target="_blank">Support us here</a>
+    </div>
   </.card>
   <div class="flex flex-col gap-y-16">
     <section>
@@ -75,7 +88,7 @@
         </a>
       </p>
     </section>
-    <a href={~p"/accounts/delete"} class="border-b border-b-accent self-start">
+    <a href="/accounts/delete" class="border-b border-b-accent self-start">
       Need to delete your account?
     </a>
   </div>

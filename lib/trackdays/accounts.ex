@@ -164,6 +164,6 @@ defmodule Trackdays.Accounts do
 
   def count_users do
     query = from u in User, select: count(u.id)
-    Repo.one(query) 
+    Repo.one(query)
   end
 end
