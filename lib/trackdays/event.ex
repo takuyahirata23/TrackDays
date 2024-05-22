@@ -107,6 +107,19 @@ defmodule Trackdays.Event do
     Repo.one(query)
   end
 
+  def count_trackday_notes_this_year do
+    {:ok, year} = Date.utc_today() |> Map.fetch(:year)
+    start = Timex.beginning_of_year(year) |> Timex.to_naive_datetime()
+    last = Timex.end_of_year(year) |> Timex.to_naive_datetime()
+
+    query =
+      from tn in TrackdayNote,
+        where: tn.date > ^start and tn.date < ^last,
+        select: count(tn.id)
+
+    Repo.one(query)
+  end
+
   def save_user_trackday_calendar(attrs) do
     %UserTrackdayCalendar{}
     |> UserTrackdayCalendar.changeset(attrs)
